@@ -1,0 +1,76 @@
+{
+  "name": "hanzi-electron",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "ELECTRON=true vite dev",
+    "build": "vite build",
+    "build:electron": "ELECTRON=true vite build && electron-builder",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.vipzhicheng.ixiezi",
+    "productName": "爱写字",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "public/icon.icns"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "public/icon.png",
+      "category": "Education"
+    }
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@tailwindcss/vite": "^4.0.9",
+    "hanzi-writer": "^3.7.2",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@electron/remote": "^2.1.2",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.20",
+    "electron": "^34.3.0",
+    "electron-builder": "^25.1.8",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.9",
+    "vite": "^6.2.0",
+    "vite-plugin-electron": "^0.29.0"
+  }
+}

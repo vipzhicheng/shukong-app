@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "version": "standard",
+    "publisher": "人民教育出版社",
+    "name": "义务教育教科书语文",
+    "type": "六年制",
+    "year": 2022,
+    "description": "人教版小学语文教材课后练习内容"
+  },
+  "grades": [
+    {
+      "grade": 1,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "一年级上册",
+          "lessons": {
+            "识字1": "天地人",
+            "识字2": "金木水火土",
+            "识字3": "口耳目",
+            "识字4": "日月水火",
+            "识字5": "对韵歌",
+            "语文园地一": "语文园地一"
+          },
+          "recognition": [
+            {
+              "lesson": "识字1",
+              "short": "1",
+              "characters": [
+                {
+                  "character": "天",
+                  "pinyin": "tiān"
+                },
+                {
+                  "character": "地",
+                  "pinyin": "dì"
+                },
+                {
+                  "character": "人",
+                  "pinyin": "rén"
+                },
+                {
+                  "character": "你",
+                  "pinyin": "nǐ"
+                },
+                {
+                  "character": "我",
+                  "pinyin": "wǒ"
+                },
+                {
+                  "character": "他",
+                  "pinyin": "tā"
+                }
+              ]
+            },
+            {
+              "lesson": "识字2",
+              "short": "2",
+              "characters": [
+                {
+                  "character": "一",
+                  "pinyin": "yī"
+                },
+                {
+                  "character": "二",
+                  "pinyin": "èr"
+                },
+                {
+                  "character": "三",
+                  "pinyin": "sān"
+                },
+                {
+                  "character": "四",
+                  "pinyin": "sì"
+                },
+                {
+                  "character": "五",
+                  "pinyin": "wǔ"
+                },
+                {
+                  "character": "上",
+                  "pinyin": "shàng"
+                },
+                {
+                  "character": "下",
+                  "pinyin": "xià"
+                }
+              ]
+            },
+            {
+              "lesson": "识字3",
+              "short": "3",
+              "characters": [
+                {
+                  "character": "口",
+                  "pinyin": "kǒu"
+                },
+                {
+                  "character": "耳",
+                  "pinyin": "ěr"
+                },
+                {
+                  "character": "目",
+                  "pinyin": "mù"
+                },
+                {
+                  "character": "手",
+                  "pinyin": "shǒu"
+                },
+                {
+                  "character": "足",
+                  "pinyin": "zú"
+                },
+                {
+                  "character": "站",
+                  "pinyin": "zhàn"
+                },
+                {
+                  "character": "坐",
+                  "pinyin": "zuò"
+                }
+              ]
+            },
+            {
+              "lesson": "识字4",
+              "short": "4",
+              "characters": [
+                {
+                  "character": "日",
+                  "pinyin": "rì"
+                },
+                {
+                  "character": "月",
+                  "pinyin": "yuè"
+                },
+                {
+                  "character": "水",
+                  "pinyin": "shuǐ"
+                },
+                {
+                  "character": "火",
+                  "pinyin": "huǒ"
+                },
+                {
+                  "character": "山",
+                  "pinyin": "shān"
+                },
+                {
+                  "character": "石",
+                  "pinyin": "shí"
+                },
+                {
+                  "character": "田",
+                  "pinyin": "tián"
+                },
+                {
+                  "character": "禾",
+                  "pinyin": "hé"
+                }
+              ]
+            },
+            {
+              "lesson": "识字5",
+              "short": "5",
+              "characters": [
+                {
+                  "character": "对",
+                  "pinyin": "duì"
+                },
+                {
+                  "character": "云",
+                  "pinyin": "yún"
+                },
+                {
+                  "character": "雨",
+                  "pinyin": "yǔ"
+                },
+                {
+                  "character": "风",
+                  "pinyin": "fēng"
+                },
+                {
+                  "character": "花",
+                  "pinyin": "huā"
+                },
+                {
+                  "character": "鸟",
+                  "pinyin": "niǎo"
+                },
+                {
+                  "character": "虫",
+                  "pinyin": "chóng"
+                }
+              ]
+            },
+            {
+              "lesson": "语文园地一",
+              "characters": [
+                {
+                  "character": "六",
+                  "pinyin": "liù"
+                },
+                {
+                  "character": "七",
+                  "pinyin": "qī"
+                },
+                {
+                  "character": "八",
+                  "pinyin": "bā"
+                },
+                {
+                  "character": "九",
+                  "pinyin": "jiǔ"
+                },
+                {
+                  "character": "十",
+                  "pinyin": "shí"
+                }
+              ]
+            }
+          ],
+          "writing": [
+            {
+              "lesson": "识字1",
+              "title": "天地人",
+              "characters": [
+                {
+                  "character": "人",
+                  "pinyin": "rén"
+                }
+              ]
+            },
+            {
+              "lesson": "识字2",
+              "title": "金木水火土",
+              "characters": [
+                {
+                  "character": "水",
+                  "pinyin": "shuǐ"
+                },
+                {
+                  "character": "土",
+                  "pinyin": "tǔ"
+                }
+              ]
+            },
+            {
+              "lesson": "识字3",
+              "characters": [
+                {
+                  "character": "耳",
+                  "pinyin": "ěr"
+                }
+              ]
+            }
+          ],
+          "words": [
+            {
+              "lesson": "课文1",
+              "title": "秋天",
+              "words": [
+                {
+                  "word": "秋天",
+                  "pinyin": "qiū tiān"
+                },
+                {
+                  "word": "秋风",
+                  "pinyin": "qiū fēng"
+                }
+              ]
+            },
+            {
+              "lesson": "语文园地一",
+              "title": "复习与巩固",
+              "words": [
+                {
+                  "word": "日月",
+                  "pinyin": "rì yuè"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "volume": 2,
+          "term": "一年级下册",
+          "recognition": [],
+          "writing": [],
+          "words": []
+        }
+      ]
+    },
+    {
+      "grade": 2,
+      "volumes": [
+        {
+          "volume": 3,
+          "term": "二年级上册",
+          "recognition": [],
+          "writing": [],
+          "words": []
+        },
+        {
+          "volume": 4,
+          "term": "二年级下册",
+          "recognition": [],
+          "writing": [],
+          "words": []
+        }
+      ]
+    }
+  ]
+}
