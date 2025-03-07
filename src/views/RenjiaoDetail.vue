@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { isSpeechSupported } from '../store/speech'
 import { createHanziWriter } from '../utils/hanziWriter'
@@ -8,6 +8,7 @@ import RightNav from '../components/RightNav.vue'
 import { loadResource } from '../utils/resourceLoader'
 
 const route = useRoute()
+const router = useRouter()
 const writer = ref(null)
 const isPlaying = ref(true)
 const isFinished = ref(false)
@@ -160,13 +161,26 @@ const navigateToCharacter = (char) => {
 onMounted(() => {
   loadBookData()
 })
+
+const startQuiz = (lesson) => {
+  // 将汉字按照每行一个的格式组织
+  const characters = lesson.characters.map(item => item.character)
+  const text = characters.join('\n')
+
+  // 使用 base64 编码处理文本内容
+  const encodedText = btoa(encodeURIComponent(text))
+  const quizUrl = `/quiz/${encodedText}/?autostart=1`
+
+  // 跳转到书空页面
+  router.push(quizUrl)
+}
 </script>
 
 <template>
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }} 字词表</a>
+        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
       </div>
     </div>
   </RightNav>
@@ -195,6 +209,13 @@ onMounted(() => {
         <h3 class="lesson-title">
           <span v-if="lesson.number" class="lesson-number">{{ lesson.number }}</span>
           {{ lesson.title }}
+          <button
+            @click="startQuiz(lesson)"
+            class="quiz-button"
+            title="开始书空练习"
+          >
+            <i class="fas fa-pencil-alt"></i>
+          </button>
         </h3>
         <div class="characters-grid">
           <div
@@ -294,6 +315,28 @@ onMounted(() => {
 }
 
 .lesson-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.quiz-button {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.quiz-button:hover {
+  color: var(--primary-color);
+}
+
+.lesson-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-color);
@@ -304,10 +347,10 @@ onMounted(() => {
 }
 
 .lesson-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
   color: #4CAF50;
-  font-size: 1.25rem;
-  margin-right: 0.75rem;
-  font-weight: 500;
 }
 
 .characters-grid {

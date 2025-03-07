@@ -39,7 +39,7 @@ const router = createRouter({
       component: View,
     },
     {
-      path: "/quiz",
+      path: "/quiz/:content?",
       name: "quiz",
       component: Quiz,
     },

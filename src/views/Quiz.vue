@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, nextTick, computed, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { createHanziWriter } from '../utils/hanziWriter'
 import RightNav from '../components/RightNav.vue'
 import { loadResource } from '../utils/resourceLoader'
+import QRCode from 'qrcode.vue'
 
 const router = useRouter()
 const inputText = ref('')
@@ -17,6 +18,7 @@ const progress = ref({ current: 0, total: 0 })
 const allChars = ref([])
 const currentCharIndex = ref(0)
 const quizData = ref([])
+const quizHistory = ref([])
 
 const loadQuizData = async () => {
   try {
@@ -27,33 +29,105 @@ const loadQuizData = async () => {
   }
 }
 
+const quizSettings = ref({
+  containerSize: 500,
+  maxLines: 20,
+  maxCharsPerLine: 5
+})
+
+const loadQuizSettings = () => {
+  const savedSettings = localStorage.getItem('quizSettings')
+  if (savedSettings) {
+    const settings = JSON.parse(savedSettings)
+    containerSize.value = settings.containerSize
+    quizSettings.value = settings
+  }
+}
+
+const loadQuizHistory = () => {
+  const savedHistory = localStorage.getItem('quizHistory')
+  if (savedHistory) {
+    quizHistory.value = JSON.parse(savedHistory)
+  }
+}
+
+const saveQuizHistory = (content) => {
+  // 获取当前历史记录
+  const currentHistory = quizHistory.value || []
+
+  // 创建新的历史记录项
+  const newHistoryItem = {
+    startTime: new Date().toISOString(),
+    content: content,
+    totalChars: content.reduce((acc, line) => acc + line.length, 0)
+  }
+
+  // 将新记录添加到数组开头
+  currentHistory.unshift(newHistoryItem)
+
+  // 只保留最新的10条记录
+  quizHistory.value = currentHistory.slice(0, 10)
+  localStorage.setItem('quizHistory', JSON.stringify(quizHistory.value))
+}
+
 const handleSubmit = () => {
   // 将输入文本按行分割，过滤空行
   const lines = inputText.value.split('\n').filter(line => line.trim())
-  progress.value.total = lines.length
+  // 过滤非汉字字符并限制每行字数和总行数
+  const filteredLines = lines
+    .map(line => Array.from(line)
+      .filter(char => /[\u4e00-\u9fa5]/.test(char))
+      .slice(0, quizSettings.value.maxCharsPerLine)
+      .join('')
+    )
+    .filter(line => line.length > 0)
+    .slice(0, quizSettings.value.maxLines)
+
+  progress.value.total = filteredLines.length
   progress.value.current = 0
 
   // 将每行文字转换为字符数组
-  allChars.value = lines.map(line => Array.from(line))
+  allChars.value = filteredLines.map(line => Array.from(line))
 
   if (allChars.value.length > 0 && allChars.value[0].length > 0) {
     currentCharIndex.value = 0
     showQuiz.value = true
+    saveQuizHistory(filteredLines)
     showNextChar()
   }
 }
 
 const startQuizFromContent = (content) => {
-  progress.value.total = content.length
+  // 过滤非汉字字符并限制每行字数和总行数
+  const filteredContent = content
+    .map(line => Array.from(line.toString())
+      .filter(char => /[\u4e00-\u9fa5]/.test(char))
+      .slice(0, quizSettings.value.maxCharsPerLine)
+      .join('')
+    )
+    .filter(line => line.length > 0)
+    .slice(0, quizSettings.value.maxLines)
+
+  progress.value.total = filteredContent.length
   progress.value.current = 0
-  allChars.value = content.map(word => Array.from(word))
+  allChars.value = filteredContent.map(word => Array.from(word))
 
   if (allChars.value.length > 0 && allChars.value[0].length > 0) {
     currentCharIndex.value = 0
     showQuiz.value = true
+    saveQuizHistory(filteredContent)
     showNextChar()
   }
 }
+
+onMounted(() => {
+  window.addEventListener('resize', updateContainerSize)
+  loadQuizSettings()
+  updateContainerSize()
+  loadQuizData()
+  loadQuizHistory()
+  handleRouteChange()
+})
 
 const createConfetti = () => {
   const confettiContainer = document.createElement('div')
@@ -134,13 +208,6 @@ const minSize = 300
 const maxSize = 800
 const sizeStep = 50
 
-const loadQuizSettings = () => {
-  const savedSettings = localStorage.getItem('quizSettings')
-  if (savedSettings) {
-    const settings = JSON.parse(savedSettings)
-    containerSize.value = settings.containerSize
-  }
-}
 
 const updateContainerSize = () => {
   const screenWidth = window.innerWidth
@@ -158,11 +225,48 @@ const updateContainerSize = () => {
   }
 }
 
+const route = useRoute()
+
+// 监听输入文本变化，同步到 URL
+watch(inputText, (newValue) => {
+  if (newValue) {
+    const encodedContent = btoa(encodeURIComponent(newValue))
+    router.replace(`/quiz/${encodedContent}`)
+  }
+})
+
+// 监听路由参数变化
+const handleRouteChange = () => {
+  if (route.params.content) {
+    try {
+      const decodedContent = decodeURIComponent(atob(route.params.content))
+      inputText.value = decodedContent
+    } catch (error) {
+      console.error('解析 URL 参数失败:', error)
+    }
+  }
+}
+
+// 只在组件首次加载时处理自动开始参数
+const handleAutoStart = () => {
+  if (route.query.autostart === '1' && route.params.content) {
+    handleSubmit()
+  }
+}
+
 onMounted(() => {
   window.addEventListener('resize', updateContainerSize)
   loadQuizSettings()
   updateContainerSize()
   loadQuizData()
+  loadQuizHistory()
+  handleRouteChange()
+  handleAutoStart()
+})
+
+// 监听路由变化
+watch(() => route.params.content, () => {
+  handleRouteChange()
 })
 const zoomIn = () => {
   if (containerSize.value < maxSize) {
@@ -221,6 +325,78 @@ const zoomOut = () => {
     updateContainerSize()
     loadQuizData()
   })
+const handleFileUpload = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      inputText.value = e.target.result
+      handleSubmit()
+    }
+    reader.readAsText(file)
+  }
+}
+const visibleChars = computed(() => {
+  if (!allChars.value[progress.value.current]) return []
+  const currentLineChars = allChars.value[progress.value.current]
+  return currentLineChars.slice(currentCharIndex.value, currentCharIndex.value + 6)
+})
+const showQRCode = ref(false)
+const qrCodeUrl = ref('')
+
+const generateQRCode = () => {
+  const url = new URL(window.location.href)
+  qrCodeUrl.value = url.toString() + '?autostart=1'
+  showQRCode.value = true
+}
+
+const copyCurrentUrl = async () => {
+  try {
+    const url = window.location.href
+    if (window.navigator.clipboard) {
+      // 使用现代 Clipboard API
+      await window.navigator.clipboard.writeText(url)
+    } else {
+      // 兼容性处理
+      const textArea = document.createElement('textarea')
+      textArea.value = url
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+    }
+    alert('链接已复制到剪贴板')
+  } catch (error) {
+    console.error('复制链接失败:', error)
+    alert('复制链接失败，请手动复制')
+  }
+}
+const formatRelativeTime = (timestamp) => {
+  const now = new Date().getTime();
+  const date = new Date(timestamp);
+  const diff = now - date.getTime();
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 0) {
+    return date.toLocaleString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  } else if (hours > 0) {
+    return `${hours}小时前`;
+  } else if (minutes > 0) {
+    return `${minutes}分钟前`;
+  } else {
+    return `${Math.max(seconds, 0)}秒前`;
+  }
+};
 </script>
 
 <template>
@@ -233,14 +409,34 @@ const zoomOut = () => {
   </RightNav>
   <div class="container">
     <div v-if="!showQuiz" class="input-section">
-      <p class="description">书空的目的是为了让学生记住笔顺。</p>
+      <p class="description">书空是为了学习笔顺。</p>
       <textarea
         v-model="inputText"
         placeholder="请输入汉字，每行一个词"
         class="input-field"
         rows="5"
       ></textarea>
-      <button @click="handleSubmit" class="submit-button">开始书空</button>
+      <div class="button-group">
+        <button @click="handleSubmit" class="submit-button">开始书空</button>
+        <div class="file-upload">
+          <input
+            type="file"
+            accept=".txt"
+            @change="handleFileUpload"
+            class="file-input"
+            id="file-upload"
+          />
+          <label for="file-upload" class="file-label">
+            <i class="fas fa-upload"></i>
+          </label>
+        </div>
+        <button @click="copyCurrentUrl" class="copy-button">
+          <i class="fas fa-link"></i>
+        </button>
+        <button @click="generateQRCode" class="qr-button">
+          <i class="fas fa-qrcode"></i>
+        </button>
+      </div>
 
       <div class="homework-section">
         <h3 class="homework-title">书空作业</h3>
@@ -255,11 +451,40 @@ const zoomOut = () => {
           </li>
         </ul>
       </div>
+
+      <div class="history-section">
+        <h3 class="history-title">练习历史</h3>
+        <ul class="history-list">
+          <li
+            v-for="(item, index) in [...quizHistory].sort((a, b) => new Date(b.startTime) - new Date(a.startTime))"
+            :key="index"
+            class="history-item"
+            @click="startQuizFromContent(item.content)"
+          >
+            <div class="history-info">
+              <span class="history-time">{{ formatRelativeTime(item.startTime) }}</span>
+              <span class="history-chars">字数：{{ item.totalChars }}</span>
+            </div>
+            <div class="history-content">
+              {{ item.content.join('，').slice(0, 10) + (item.content.join('，').length > 10 ? '...' : '') }}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div v-else class="quiz-section">
       <div class="progress-bar">
         进度: {{ progress.current + 1 }}/{{ progress.total }}
+      </div>
+      <div class="preview-chars">
+        <div
+          v-for="(char, index) in visibleChars"
+          :key="index"
+          :class="[`preview-char`, { active: index === 0 }]"
+        >
+          {{ char }}
+        </div>
       </div>
       <div class="zoom-controls">
         <button @click="zoomIn" class="zoom-button" :disabled="containerSize >= maxSize">
@@ -277,6 +502,20 @@ const zoomOut = () => {
       <div v-else class="completion-message">
         <h2>恭喜完成所有书空练习！</h2>
         <button @click="resetQuiz" class="reset-button">重新开始</button>
+      </div>
+    </div>
+  </div>
+  <!-- QR Code Modal -->
+  <div v-if="showQRCode" class="qr-modal-overlay" @click="showQRCode = false">
+    <div class="qr-modal" @click.stop>
+      <div class="qr-modal-header">
+        <button class="close-button" @click="showQRCode = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="qr-modal-content">
+        <QRCode :value="qrCodeUrl" :size="200" level="H" />
+        <h3 class="qr-modal-title">手机扫码书空练习</h3>
       </div>
     </div>
   </div>
@@ -342,7 +581,52 @@ const zoomOut = () => {
   resize: vertical;
 }
 
-.submit-button,
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #4CAF50;
+}
+
+.file-label {
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: white;
+  color: var(--text-color);
+  border: 1px solid #ddd;
+}
+
+
+
+.file-upload {
+  position: relative;
+  display: flex;
+}
+
+.file-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
 .reset-button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -363,12 +647,12 @@ const zoomOut = () => {
 .quiz-section {
   text-align: center;
   position: fixed;
-  top: calc(50% + 40px);
+  top: calc(50% + 60px);
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   min-width: 480px;
-  height: calc(100% - 80px);
+  height: calc(100% - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -380,7 +664,7 @@ const zoomOut = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: v-bind(containerSize + 'px');
   height: v-bind(containerSize + 'px');
   background-color: var(--bg-color);
@@ -403,44 +687,62 @@ const zoomOut = () => {
     height: calc(100vw - 32px);
   }
 }
-.homework-section {
-  margin-top: 40px;
+.homework-section,
+.history-section {
+  margin-top: 2rem;
   width: 100%;
   max-width: 600px;
 }
 
-.homework-title {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 20px;
+.homework-title,
+.history-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
   text-align: center;
 }
 
-.homework-list {
+.homework-list,
+.history-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
-.homework-item {
-  padding: 16px 20px;
+.homework-item,
+.history-item {
+  padding: 1rem;
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
+  transition: all 0.2s;
+  font-size: 1rem;
   color: var(--text-color);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.homework-item:hover {
-  background-color: var(--hover-color);
+.homework-item:hover,
+.history-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.history-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+.history-content {
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
 .confetti {
@@ -510,14 +812,56 @@ const zoomOut = () => {
 
 .progress-bar {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 16px;
-  z-index: 1000;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--background-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  z-index: 10;
+}
+
+.zoom-controls {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem;
+}
+
+.zoom-button {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.zoom-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.zoom-button:hover:not(:disabled) {
+  background-color: var(--hover-color);
+}
+
+.progress-bar {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--background-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  z-index: 10;
 }
 
 .zoom-controls {
@@ -530,6 +874,12 @@ const zoomOut = () => {
   gap: 10px;
   z-index: 1000;
   visibility: v-bind(isFinished ? 'hidden' : 'visible');
+}
+
+@media (max-width: 768px) {
+  .zoom-controls {
+    right: 40px;
+  }
 }
 
 .zoom-button {
@@ -594,5 +944,134 @@ const zoomOut = () => {
   animation-delay: 0.8s;
   width: 14px;
   height: 14px;
+}
+</style>
+
+<style scoped>
+.preview-chars {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.preview-char {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--bg-color);
+}
+
+.preview-char.active {
+  border-color: #4CAF50;
+  background-color: rgba(76, 175, 80, 0.1);
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+.copy-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid #ddd;
+  color: var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.qr-modal-title {
+  margin-top: 20px;
+}
+
+.qr-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  color: var(--text-color);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+
+}
+
+.qr-label:hover {
+  background-color: #f5f5f5;
+}
+
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.qr-modal {
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  padding: 10px;
+  width: 90%;
+  max-width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-modal-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-bottom: -10px;
+}
+
+.qr-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.close-button:hover {
+  color: #666;
+}
+
+.qr-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  color: var(--text-color);
 }
 </style>

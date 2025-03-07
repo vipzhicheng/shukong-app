@@ -149,33 +149,32 @@ onMounted(() => {
 
 .book-icon {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: 3rem;
   color: rgba(255, 255, 255, 0.9);
   z-index: 1;
 }
 
 .book-title {
   position: absolute;
-  bottom: 0;
+  bottom: 2rem;
   left: 0;
   right: 0;
-  padding: 0.75rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 0.5rem;
   color: white;
   text-align: center;
 }
 
 .book-title h2 {
-  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
 }
 
 .book-title p {
-  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-size: 0.875rem;
   opacity: 0.9;
 }
 
@@ -213,10 +212,13 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .book-grid {
     grid-template-columns: repeat(2, 1fr);
     padding: 0 0.5rem;
+  }
+  .book-icon {
+    font-size: 6rem;
   }
 }
 

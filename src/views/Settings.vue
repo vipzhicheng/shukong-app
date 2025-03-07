@@ -23,7 +23,9 @@ const voiceSettings = ref({
 })
 
 const quizSettings = ref({
-  containerSize: 500
+  containerSize: 500,
+  maxLines: 20,
+  maxCharsPerLine: 5
 })
 
 const autoPlaySettings = ref({
@@ -35,16 +37,16 @@ const testText = ref('你好，欢迎使用爱写字')
 const loadSettings = () => {
   const savedAutoPlaySettings = localStorage.getItem('autoPlaySettings')
   if (savedAutoPlaySettings) {
-    autoPlaySettings.value = JSON.parse(savedAutoPlaySettings)
+    autoPlaySettings.value = Object.assign(autoPlaySettings.value, JSON.parse(savedAutoPlaySettings))
   }
   const savedVoiceSettings = localStorage.getItem('voiceSettings')
   if (savedVoiceSettings) {
-    voiceSettings.value = JSON.parse(savedVoiceSettings)
+    voiceSettings.value = Object.assign(voiceSettings.value, JSON.parse(savedVoiceSettings))
   }
 
   const savedQuizSettings = localStorage.getItem('quizSettings')
   if (savedQuizSettings) {
-    quizSettings.value = JSON.parse(savedQuizSettings)
+    quizSettings.value = Object.assign(quizSettings.value, JSON.parse(savedQuizSettings))
   }
 }
 
@@ -249,6 +251,40 @@ onMounted(() => {
             <span class="settings-value">{{ quizSettings.containerSize }}像素</span>
           </div>
           <p class="settings-hint">可设置范围：300-800像素</p>
+        </div>
+
+        <div class="settings-item">
+          <label>最大行数限制：</label>
+          <div class="settings-slider-container">
+            <input
+              type="range"
+              v-model.number="quizSettings.maxLines"
+              min="1"
+              max="100"
+              step="1"
+              @change="saveQuizSettings"
+              class="settings-slider"
+            />
+            <span class="settings-value">{{ quizSettings.maxLines }}行</span>
+          </div>
+          <p class="settings-hint">可设置范围：1-100行</p>
+        </div>
+
+        <div class="settings-item">
+          <label>每行最大字数限制：</label>
+          <div class="settings-slider-container">
+            <input
+              type="range"
+              v-model.number="quizSettings.maxCharsPerLine"
+              min="1"
+              max="100"
+              step="1"
+              @change="saveQuizSettings"
+              class="settings-slider"
+            />
+            <span class="settings-value">{{ quizSettings.maxCharsPerLine }}字</span>
+          </div>
+          <p class="settings-hint">可设置范围：1-100字</p>
         </div>
       </div>
     </div>

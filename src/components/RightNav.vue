@@ -90,42 +90,13 @@ const handleSearch = () => {
   background-color: #45a049;
 }
 
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  padding: 0 1rem;
-}
-
-@media (max-width: 768px) {
-  .nav-content {
-    gap: 1rem;
-    padding: 0 0.5rem;
-  }
-  
-  .nav-menu {
-    gap: 1rem;
-    padding: 0 0.5rem;
-  }
-}
 @media (max-width: 768px) {
   .right-nav-container {
     grid-template-columns: 1fr;
-    padding: 1rem 0.5rem;
   }
 
   .right-content {
     min-width: 100%;
-    margin-right: 0;
   }
 }
 </style>

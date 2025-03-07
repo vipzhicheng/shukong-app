@@ -24,6 +24,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: var(--bg-color);
 }
 
 :root {
@@ -47,7 +48,6 @@ html, body {
 }
 
 body {
-  background-color: var(--bg-color);
   color: var(--text-color);
 }
 </style>
@@ -63,6 +63,12 @@ body {
   flex: 1;
   margin-left: 80px;
   min-height: 100vh;
+  background-color: var(--bg-color);
+}
 
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
 }
 </style>

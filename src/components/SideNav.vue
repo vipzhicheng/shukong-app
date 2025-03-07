@@ -2,26 +2,30 @@
 import { useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { useThemeStore } from '../store/theme'
+import { ref } from 'vue'
 
 const router = useRouter()
 const themeStore = useThemeStore()
+const isMenuOpen = ref(false)
 
 const navigateTo = (path) => {
   router.push(path)
+  isMenuOpen.value = false
 }
 
 const toggleTheme = () => {
   themeStore.toggleTheme()
 }
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
 </script>
 
 <template>
-  <nav class="sidenav">
-    <div class="logo" @click="navigateTo('/')">
-      <div class="avatar">
-        <i class="fas fa-user"></i>
-      </div>
-    </div>
+  <nav :class="['sidenav', { 'mobile-menu': isMenuOpen }]">
+
+
     <div class="nav-links">
       <a @click="navigateTo('/')" :class="{ active: $route.path === '/' }" title="首页">
         <i class="fas fa-home"></i>
@@ -43,8 +47,12 @@ const toggleTheme = () => {
       <a @click="navigateTo('/settings')" :class="{ active: $route.path === '/settings' }" title="设置" class="icon-only">
         <i class="fas fa-cog"></i>
       </a>
+      <div title="切换侧边栏" @click="toggleMenu" class="menu-toggle">
+        <i :class="['fas', isMenuOpen ? 'fa-times' : 'fa-bars']"></i>
+      </div>
     </div>
   </nav>
+  <div v-if="isMenuOpen" class="overlay" @click="toggleMenu"></div>
 </template>
 
 <style scoped>
@@ -59,11 +67,86 @@ const toggleTheme = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 0;
   border-right: 1px solid var(--border-color);
-  z-index: 1000;
+  z-index: 1002;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 1rem;
+  position: fixed;
+  z-index: 1001;
+  bottom: 0rem;
+  left: 1rem;
+}
+
+.mobile-menu .menu-toggle {
+  position:inherit;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    width: 83px;
+    left: -83px;
+    background-color: var(--bg-color);
+  }
+
+  .sidenav.mobile-menu {
+    left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+
+  }
+
+  .nav-links {
+    width: 100%;
+    align-items: center;
+  }
+
+  .nav-links a, .settings-link a {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .nav-text {
+    font-size: 1.1rem;
+  }
+
+  .settings-link {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
 }
 
 .logo {
@@ -147,17 +230,5 @@ const toggleTheme = () => {
 .settings-link {
   width: 100%;
   padding-bottom: 1rem;
-}
-
-:root {
-  --bg-color: #f5f5f5;
-  --text-color: #666;
-  --border-color: #e0e0e0;
-}
-
-:root.dark {
-  --bg-color: #1a1a1a;
-  --text-color: #e0e0e0;
-  --border-color: #333;
 }
 </style>
