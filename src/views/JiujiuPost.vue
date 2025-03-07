@@ -378,11 +378,35 @@ const openBaiduHanyu = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 4px;
-  padding: 4px;
+  margin: 0 2px;
+  padding: 2px;
   box-sizing: border-box;
 }
 
+@media (max-width: 768px) {
+  .character-container {
+    margin: 0 1px;
+    padding: 1px;
+  }
+  .character-container.text-4xl {
+    font-size: 1.75rem;
+  }
+  .character-container.text-3xl {
+    font-size: 1.5rem;
+  }
+  .character-container.text-2xl {
+    font-size: 1.25rem;
+  }
+  .character-container .pinyin {
+    font-size: 0.75rem;
+  }
+  .article-paragraph {
+    margin: 2rem 0;
+  }
+  .article-section {
+    padding: 1rem;
+  }
+}
 .character-container.with-pinyin {
   border: none;
   box-sizing: border-box;

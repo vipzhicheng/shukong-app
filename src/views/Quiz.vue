@@ -19,6 +19,10 @@ const allChars = ref([])
 const currentCharIndex = ref(0)
 const quizData = ref([])
 const quizHistory = ref([])
+const activeTab = ref('自由')
+
+// 检测是否在 Electron 环境中运行
+const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1;
 
 const loadQuizData = async () => {
   try {
@@ -48,6 +52,13 @@ const loadQuizHistory = () => {
   const savedHistory = localStorage.getItem('quizHistory')
   if (savedHistory) {
     quizHistory.value = JSON.parse(savedHistory)
+  }
+}
+
+const clearHistory = () => {
+  if (confirm('确定要清空所有历史记录吗？')) {
+    quizHistory.value = []
+    localStorage.removeItem('quizHistory')
   }
 }
 
@@ -339,7 +350,13 @@ const handleFileUpload = (event) => {
 const visibleChars = computed(() => {
   if (!allChars.value[progress.value.current]) return []
   const currentLineChars = allChars.value[progress.value.current]
-  return currentLineChars.slice(currentCharIndex.value, currentCharIndex.value + 6)
+  const remainingChars = currentLineChars.slice(currentCharIndex.value)
+  // 如果剩余字符小于等于6个，显示所有剩余字符
+  if (remainingChars.length <= 6) {
+    return currentLineChars.slice(-6)
+  }
+  // 否则只显示前6个字符
+  return remainingChars.slice(0, 6)
 })
 const showQRCode = ref(false)
 const qrCodeUrl = ref('')
@@ -407,8 +424,21 @@ const formatRelativeTime = (timestamp) => {
       </div>
     </div>
   </RightNav>
+  <div class="tabs-container" v-if="!showQuiz">
+    <div class="tabs">
+      <button
+        v-for="tab in ['自由', '练习', '历史']"
+        :key="tab"
+        :class="['tab-button', { active: activeTab === tab }]"
+        @click="activeTab = tab"
+      >
+        {{ tab }}
+      </button>
+    </div>
+  </div>
   <div class="container">
-    <div v-if="!showQuiz" class="input-section">
+    <div v-if="!showQuiz" class="content-section">
+      <div v-show="activeTab === '自由'" class="input-section">
       <p class="description">书空是为了学习笔顺。</p>
       <textarea
         v-model="inputText"
@@ -430,16 +460,23 @@ const formatRelativeTime = (timestamp) => {
             <i class="fas fa-upload"></i>
           </label>
         </div>
-        <button @click="copyCurrentUrl" class="copy-button">
+        <button v-if="!isElectron" @click="copyCurrentUrl" class="copy-button">
           <i class="fas fa-link"></i>
         </button>
-        <button @click="generateQRCode" class="qr-button">
+        <button v-if="!isElectron" @click="generateQRCode" class="qr-button">
           <i class="fas fa-qrcode"></i>
         </button>
       </div>
 
-      <div class="homework-section">
-        <h3 class="homework-title">书空作业</h3>
+      <div class="note-box">
+        <ul class="note-list">
+          <li>一行一个词，设置中可以修改支持的行数和每行的字数，超出部分会被忽略。</li>
+          <li>上传按钮支持读取文本文件，格式相同。</li>
+          <li v-if="!isElectron">复制链接和生成二维码用于分享书空链接或二维码给其他人书空。</li>
+        </ul>
+      </div>
+      </div>
+      <div v-show="activeTab === '练习'" class="homework-section">
         <ul class="homework-list">
           <li
             v-for="(item, index) in quizData"
@@ -452,9 +489,19 @@ const formatRelativeTime = (timestamp) => {
         </ul>
       </div>
 
-      <div class="history-section">
-        <h3 class="history-title">练习历史</h3>
-        <ul class="history-list">
+      <div v-show="activeTab === '历史'" class="history-section">
+        <div class="history-header">
+          <button @click="clearHistory" class="clear-history-button" v-if="quizHistory.length > 0">
+            <i class="fas fa-trash"></i> 清空历史
+          </button>
+        </div>
+        <div v-if="quizHistory.length === 0" class="empty-history">
+          <p class="empty-history-text">还没有任何书空练习记录</p>
+          <button @click="activeTab = '自由'" class="create-quiz-button mt-4">
+            <i class="fas fa-plus"></i> 创建书空练习
+          </button>
+        </div>
+        <ul v-else class="history-list">
           <li
             v-for="(item, index) in [...quizHistory].sort((a, b) => new Date(b.startTime) - new Date(a.startTime))"
             :key="index"
@@ -477,15 +524,15 @@ const formatRelativeTime = (timestamp) => {
       <div class="progress-bar">
         进度: {{ progress.current + 1 }}/{{ progress.total }}
       </div>
-      <div class="preview-chars">
+      <div v-if="!isFinished" class="preview-chars">
         <div
           v-for="(char, index) in visibleChars"
           :key="index"
-          :class="[`preview-char`, { active: index === 0 }]"
+          :class="[`preview-char`, { active: allChars[progress.current][currentCharIndex] === char }]"
         >
           {{ char }}
         </div>
-      </div>
+</div>
       <div class="zoom-controls">
         <button @click="zoomIn" class="zoom-button" :disabled="containerSize >= maxSize">
           <i class="fas fa-search-plus"></i>
@@ -673,12 +720,17 @@ const formatRelativeTime = (timestamp) => {
 .completion-message {
   text-align: center;
   position: relative;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .completion-message h2 {
   color: #4CAF50;
   margin-bottom: 20px;
-  font-size: 48px;
+  font-size: clamp(24px, 6vw, 48px);
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 @media screen and (max-width: 768px) {
@@ -687,11 +739,76 @@ const formatRelativeTime = (timestamp) => {
     height: calc(100vw - 32px);
   }
 }
+.tabs-container {
+  width: 100%;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab-button {
+  padding: 1rem 2rem;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1rem;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.content-section {
+  width: 100%;
+}
+
 .homework-section,
 .history-section {
   margin-top: 2rem;
   width: 100%;
   max-width: 600px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.clear-history-button {
+  background-color: var(--danger-color, #dc3545);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.clear-history-button:hover {
+  background-color: var(--danger-hover-color, #c82333);
 }
 
 .homework-title,
@@ -1073,5 +1190,32 @@ const formatRelativeTime = (timestamp) => {
   background-color: var(--bg-color);
   border-radius: 4px;
   color: var(--text-color);
+}
+
+.note-box {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 0.75rem;
+  border: 1px solid #4CAF50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.note-list {
+  list-style-type: decimal;
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.note-list li {
+  margin-bottom: 0.625rem;
+  color: var(--text-color-secondary);
+  line-height: 1.6;
+}
+
+.note-list li:last-child {
+  margin-bottom: 0;
 }
 </style>

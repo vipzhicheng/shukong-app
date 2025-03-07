@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { createHanziWriter } from '../utils/hanziWriter'
 import { isSpeechSupported } from '../store/speech'
+import RightNav from '../components/RightNav.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -137,6 +138,13 @@ onMounted(async () => {
 </script>
 
 <template>
+  <RightNav>
+    <div class="nav-content">
+      <div class="nav-menu">
+        <a style="font-size: 1.5rem; font-weight: bold;">笔顺查询</a>
+      </div>
+    </div>
+  </RightNav>
   <div class="container">
     <div v-if="!route.params.chars" class="input-section">
       <input
@@ -179,6 +187,28 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--primary-color);
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -190,31 +220,45 @@ onMounted(async () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 800px;
+  width: calc(100% - 40px);
+  max-width: 500px;
   padding: 20px;
   display: flex;
+  flex-direction: row;
   gap: 15px;
   z-index: 10;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 .input-field {
   flex: 1;
   padding: 12px 18px;
   font-size: 24px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .query-button {
   padding: 12px 24px;
   font-size: 24px;
-  background-color: #4CAF50;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .input-section {
+    flex-direction: column;
+  }
+  
+  .query-button {
+    width: 100%;
+  }
 }
 
 .query-button:hover {
@@ -255,9 +299,9 @@ onMounted(async () => {
 .character-display {
   width: 300px;
   height: 300px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 .control-buttons {

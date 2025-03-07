@@ -27,13 +27,13 @@ const toggleMenu = () => {
 
 
     <div class="nav-links">
-      <a @click="navigateTo('/')" :class="{ active: $route.path === '/' }" title="首页">
-        <i class="fas fa-home"></i>
-        <span class="nav-text">首页</span>
-      </a>
       <a @click="navigateTo('/quiz')" :class="{ active: $route.path === '/quiz' }" title="书空">
         <i class="fas fa-pencil-alt"></i>
         <span class="nav-text">书空</span>
+      </a>
+      <a @click="navigateTo('/query')" :class="{ active: $route.path === '/query' }" title="查询笔顺">
+        <i class="fas fa-search"></i>
+        <span class="nav-text">查询</span>
       </a>
       <a @click="navigateTo('/book')" :class="{ active: $route.path.startsWith('/book') }" title="教材">
         <i class="fas fa-book"></i>
@@ -178,7 +178,7 @@ const toggleMenu = () => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   width: 100%;
   flex: 1;
 }
@@ -202,7 +202,6 @@ const toggleMenu = () => {
 
 .nav-links a.active, .settings-link a.active {
   color: #4CAF50;
-  background-color: rgba(76, 175, 80, 0.15);
 }
 
 .settings-link a.icon-only {
