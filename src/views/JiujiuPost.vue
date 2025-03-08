@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import RightNav from '../components/RightNav.vue'
 import { isSpeechSupported } from '../store/speech'
@@ -8,6 +8,7 @@ import { createHanziWriter } from '../utils/hanziWriter'
 import { loadResource } from '../utils/resourceLoader'
 
 const route = useRoute()
+const router = useRouter()
 const postData = ref(null)
 const bookData = ref(null)
 const currentVolumeId = ref(null)
@@ -30,6 +31,14 @@ const voiceSettings = ref({
   speakRate: 0.1,
   autoPlay: false
 })
+
+const goBackPage = () => {
+  // 从 URL 中获取文章类型
+  const type = route.params.type
+  // 根据文章类型构建返回链接
+  const tab = type === 'exam' ? '考级篇目' : '必背篇目'
+  router.push(`/jiujiu/${route.params.id}?tab=${encodeURIComponent(tab)}`)
+}
 
 // 从 localStorage 加载设置
 const loadSettings = () => {
@@ -173,9 +182,52 @@ const loadPostData = async () => {
   }
 }
 
+// 触摸事件相关变量
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const minSwipeDistance = 50 // 最小滑动距离
+
+// 处理触摸开始事件
+const handleTouchStart = (event) => {
+  touchStartX.value = event.touches[0].clientX
+}
+
+// 处理触摸结束事件
+const handleTouchEnd = (event) => {
+  touchEndX.value = event.changedTouches[0].clientX
+  const swipeDistance = touchEndX.value - touchStartX.value
+
+  if (Math.abs(swipeDistance) >= minSwipeDistance) {
+    if (swipeDistance > 0 && route.params.cid > 1) {
+      // 向右滑动，显示上一篇
+      router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
+    } else if (swipeDistance < 0 && bookData.value?.content[route.params.type === 'required' ? '必背篇目' : '考级篇目']?.length > parseInt(route.params.cid)) {
+      // 向左滑动，显示下一篇
+      router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
+    }
+  }
+}
+
+// 处理键盘事件
+const handleKeyDown = (event) => {
+  if (event.key === 'ArrowLeft' && route.params.cid > 1) {
+    // 左箭头，显示上一篇
+    router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
+  } else if (event.key === 'ArrowRight' && bookData.value?.content[route.params.type === 'required' ? '必背篇目' : '考级篇目']?.length > parseInt(route.params.cid)) {
+    router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
+  }
+}
+
 onMounted(() => {
   loadPostData()
   loadSettings()
+  // 添加键盘事件监听
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  // 移除键盘事件监听
+  window.removeEventListener('keydown', handleKeyDown)
 })
 
 // 监听路由参数变化，重新加载文章数据
@@ -200,13 +252,13 @@ const openBaiduHanyu = () => {
       </div>
     </div>
   </RightNav>
-  <div class="container px-4 py-8">
+  <div class="container px-4 py-8" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
     <!-- 导航区域 -->
     <div class="mb-4 nav-controller">
-      <router-link :to="`/jiujiu/${currentVolumeId}`" class="back-link">
+      <a href="#" @click.prevent="goBackPage" class="back-link">
         <i class="fas fa-arrow-left"></i>
         <span>返回目录</span>
-      </router-link>
+      </a>
 
       <!-- 上一篇 -->
       <router-link

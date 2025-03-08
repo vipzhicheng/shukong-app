@@ -57,7 +57,7 @@ const toggleMenu = () => {
 
 <style scoped>
 .sidenav {
-  width: 83px;
+  width: 64px;
   height: 100%;
   min-height: -webkit-fill-available;
   background-color: var(--bg-secondary-color);
@@ -78,7 +78,7 @@ const toggleMenu = () => {
   display: none;
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
   position: fixed;
   z-index: 1001;
   bottom: 0rem;
@@ -112,8 +112,8 @@ const toggleMenu = () => {
 
 @media (max-width: 768px) {
   .sidenav {
-    width: 83px;
-    left: -83px;
+    width: 64px;
+    left: -64px;
     background-color: var(--bg-color);
   }
 
@@ -228,6 +228,5 @@ const toggleMenu = () => {
 
 .settings-link {
   width: 100%;
-  padding-bottom: 1rem;
 }
 </style>

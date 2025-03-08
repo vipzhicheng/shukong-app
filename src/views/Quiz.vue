@@ -743,7 +743,6 @@ const formatRelativeTime = (timestamp) => {
   width: 100%;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: 2rem;
 }
 
 .tabs {
@@ -782,7 +781,6 @@ const formatRelativeTime = (timestamp) => {
 
 .homework-section,
 .history-section {
-  margin-top: 2rem;
   width: 100%;
   max-width: 600px;
 }
@@ -929,7 +927,7 @@ const formatRelativeTime = (timestamp) => {
 
 .progress-bar {
   position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--background-color);
@@ -971,7 +969,7 @@ const formatRelativeTime = (timestamp) => {
 
 .progress-bar {
   position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--background-color);

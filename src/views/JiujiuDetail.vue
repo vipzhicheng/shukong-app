@@ -19,7 +19,7 @@ const navigateTo = (path) => {
 const bookData = ref(null)
 const currentVolumeId = ref(null)
 const metadata = ref(null)
-const activeTab = ref('必背篇目')
+const activeTab = ref(route.query.tab || '必背篇目')
 const tabs = ['必背篇目', '考级篇目']
 
 const writer = ref(null)
@@ -179,6 +179,13 @@ const closeModal = () => {
 const openBaiduHanyu = () => {
   window.open(`https://hanyu.baidu.com/hanyu-page/zici/s?wd=${encodeURIComponent(currentChar.value)}&ptype=zici`, '_blank', 'noopener,noreferrer')
 }
+
+const switchTab = (tab) => {
+  activeTab.value = tab
+  router.push({
+    query: { ...route.query, tab }
+  })
+}
 </script>
 
 <template>
@@ -197,7 +204,7 @@ const openBaiduHanyu = () => {
           v-for="tab in tabs"
           :key="tab"
           :class="['tab-button', { active: activeTab === tab }]"
-          @click="activeTab = tab"
+          @click="switchTab(tab)"
         >
           {{ tab }}
         </button>
