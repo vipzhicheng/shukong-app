@@ -61,7 +61,7 @@ body {
 
 .main-content {
   flex: 1;
-  margin-left: 84px;
+  margin-left: 64px;
   min-height: 100vh;
   background-color: var(--bg-color);
 }

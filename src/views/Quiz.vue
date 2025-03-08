@@ -8,6 +8,7 @@ import { loadResource } from '../utils/resourceLoader'
 import QRCode from 'qrcode.vue'
 
 const router = useRouter()
+const route = useRoute()
 const inputText = ref('')
 const currentChar = ref('')
 const writer = ref(null)
@@ -19,7 +20,7 @@ const allChars = ref([])
 const currentCharIndex = ref(0)
 const quizData = ref([])
 const quizHistory = ref([])
-const activeTab = ref('自由')
+const activeTab = ref(route.query.tab || '自由')
 
 // 检测是否在 Electron 环境中运行
 const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1;
@@ -46,6 +47,13 @@ const loadQuizSettings = () => {
     containerSize.value = settings.containerSize
     quizSettings.value = settings
   }
+}
+
+const switchTab = (tab) => {
+  activeTab.value = tab
+  router.push({
+    query: { ...route.query, tab }
+  })
 }
 
 const loadQuizHistory = () => {
@@ -169,13 +177,13 @@ const createConfetti = () => {
 const showNextChar = async () => {
   if (currentCharIndex.value >= allChars.value[progress.value.current].length) {
     // 当前行的所有字符都完成了
-    if (progress.value.current + 1 >= progress.value.total) {
+    progress.value.current++ // 提前更新进度
+    if (progress.value.current >= progress.value.total) {
       // 所有行都完成了
       isFinished.value = true
       createConfetti()
       return
     }
-    progress.value.current++
     currentCharIndex.value = 0
   }
 
@@ -236,7 +244,6 @@ const updateContainerSize = () => {
   }
 }
 
-const route = useRoute()
 
 // 监听输入文本变化，同步到 URL
 watch(inputText, (newValue) => {
@@ -388,6 +395,11 @@ const copyCurrentUrl = async () => {
     alert('复制链接失败，请手动复制')
   }
 }
+const progressPercentage = computed(() => {
+  if (progress.value.total === 0) return 0;
+  return Math.round((progress.value.current / progress.value.total) * 100);
+});
+
 const formatRelativeTime = (timestamp) => {
   const now = new Date().getTime();
   const date = new Date(timestamp);
@@ -420,7 +432,7 @@ const formatRelativeTime = (timestamp) => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">书空</a>
+        <a @click="() => { router.push('/quiz'); activeTab = '自由'; showQuiz = false; isFinished = false; isPlaying = false; inputText = ''; currentChar = ''; currentCharIndex = 0; allChars = []; progress = { current: 0, total: 0 }; if (writer) { writer.target.innerHTML = ''; writer = null; } }" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; cursor: pointer;">书空</a>
       </div>
     </div>
   </RightNav>
@@ -430,11 +442,14 @@ const formatRelativeTime = (timestamp) => {
         v-for="tab in ['自由', '练习', '历史']"
         :key="tab"
         :class="['tab-button', { active: activeTab === tab }]"
-        @click="activeTab = tab"
+        @click="switchTab(tab)"
       >
         {{ tab }}
       </button>
     </div>
+  </div>
+  <div v-if="showQuiz && (progress.current > 0 || currentCharIndex > 0)" class="progress-bar">
+    <div class="progress-bar-fill" :style="{ width: progressPercentage + '%' }"></div>
   </div>
   <div class="container">
     <div v-if="!showQuiz" class="content-section">
@@ -521,9 +536,6 @@ const formatRelativeTime = (timestamp) => {
     </div>
 
     <div v-else class="quiz-section">
-      <div class="progress-bar">
-        进度: {{ progress.current + 1 }}/{{ progress.total }}
-      </div>
       <div v-if="!isFinished" class="preview-chars">
         <div
           v-for="(char, index) in visibleChars"
@@ -532,7 +544,7 @@ const formatRelativeTime = (timestamp) => {
         >
           {{ char }}
         </div>
-</div>
+      </div>
       <div class="zoom-controls">
         <button @click="zoomIn" class="zoom-button" :disabled="containerSize >= maxSize">
           <i class="fas fa-search-plus"></i>
@@ -595,6 +607,15 @@ const formatRelativeTime = (timestamp) => {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+}
+
+
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
 }
 
 .title {
@@ -739,6 +760,20 @@ const formatRelativeTime = (timestamp) => {
     height: calc(100vw - 32px);
   }
 }
+.progress-bar {
+  width: 100%;
+  height: 1px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
+}
+
 .tabs-container {
   width: 100%;
   background-color: var(--bg-color);
@@ -925,17 +960,7 @@ const formatRelativeTime = (timestamp) => {
   }
 }
 
-.progress-bar {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--background-color);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
-  z-index: 10;
-}
+
 
 .zoom-controls {
   position: fixed;
@@ -967,17 +992,7 @@ const formatRelativeTime = (timestamp) => {
   background-color: var(--hover-color);
 }
 
-.progress-bar {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--background-color);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
-  z-index: 10;
-}
+
 
 .zoom-controls {
   position: fixed;
@@ -1141,7 +1156,7 @@ const formatRelativeTime = (timestamp) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .qr-modal {

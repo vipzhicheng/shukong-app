@@ -115,9 +115,15 @@ const openBaiduHanyu = () => {
 
 const bookData = ref(null)
 const metadata = ref(null)
-const activeTab = ref('识字表')
+const activeTab = ref(route.query.tab || '识字表')
 const tabs = ['识字表', '写字表', '词语表']
 
+const switchTab = (tab) => {
+  activeTab.value = tab
+  router.push({
+    query: { ...route.query, tab }
+  })
+}
 const loadBookData = async () => {
   try {
     const data = await loadResource('books/renjiao.json')
@@ -134,6 +140,16 @@ const loadBookData = async () => {
       // 处理识字内容
       if (grade.volumes?.[0]?.recognition) {
         content['识字表'] = grade.volumes[0].recognition.map(lesson => ({
+          title: grade.volumes[0].lessons?.[lesson.lesson] || lesson.lesson,
+          number: lesson.short || '',
+          characters: lesson.characters.map(char => ({
+            character: char.character,
+            pinyin: char.pinyin
+          }))
+        }))
+      }
+      if (grade.volumes?.[0]?.writing) {
+        content['写字表'] = grade.volumes[0].writing.map(lesson => ({
           title: grade.volumes[0].lessons?.[lesson.lesson] || lesson.lesson,
           number: lesson.short || '',
           characters: lesson.characters.map(char => ({
@@ -188,14 +204,15 @@ const startQuiz = (lesson) => {
     <!-- 二级导航栏 -->
     <div class="tabs-container mb-8">
       <div class="tabs">
-        <button
-          v-for="tab in tabs"
-          :key="tab"
+        <template v-for="tab in tabs" :key="tab">
+          <button
+          v-if="bookData && bookData.content?.[tab].length > 0"
           :class="['tab-button', { active: activeTab === tab }]"
-          @click="activeTab = tab"
+          @click="switchTab(tab)"
         >
           {{ tab }}
         </button>
+        </template>
       </div>
     </div>
 
@@ -264,6 +281,9 @@ const startQuiz = (lesson) => {
 </template>
 
 <style scoped>
+.container {
+  margin-bottom: 1rem;
+}
 .tabs-container {
   border-bottom: 2px solid var(--border-color);
 }
