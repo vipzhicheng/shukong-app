@@ -1,38 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
+import { loadResource } from '../utils/resourceLoader'
 import '@fortawesome/fontawesome-free/css/all.css'
 import RightNav from '../components/RightNav.vue'
-import { loadResource } from '../utils/resourceLoader'
-const books = ref([])
-const jiujiuBooks = ref([])
 
-const loadBooks = async () => {
+const books = ref([]);
+const metadata = ref(null)
+
+onMounted(async () => {
   try {
-    const data = await loadResource('books/renjiao.json')
+    const data = await loadResource('books/jiujiu.json')
+    metadata.value = data.metadata
     const formattedBooks = []
 
     data.grades.forEach(grade => {
       grade.volumes.forEach(volume => {
-        formattedBooks.push({
-          grade: grade.grade,
-          term: volume.term
-        })
-      })
-    })
-
-    books.value = formattedBooks
-  } catch (error) {
-    console.error('Error loading books:', error)
-  }
-}
-
-const loadJiujiuBooks = async () => {
-  try {
-    const data = await loadResource('books/jiujiu.json')
-    const formattedBooks = []
-
-    data.grades.forEach(grade => {
-      grade.volumes.forEach((volume, index) => {
         formattedBooks.push({
           grade: grade.grade,
           term: volume.term,
@@ -41,48 +23,30 @@ const loadJiujiuBooks = async () => {
       })
     })
 
-    jiujiuBooks.value = formattedBooks
+    books.value = formattedBooks
   } catch (error) {
     console.error('Error loading jiujiu books:', error)
   }
-}
-
-onMounted(() => {
-  loadBooks()
-  loadJiujiuBooks()
 })
-// 静态展示，不需要动态数据
 </script>
 
 <template>
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">字书</a>
+        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name || '久久积累' }}</a>
       </div>
     </div>
   </RightNav>
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">选择字书</h1>
     <div class="book-grid">
-      <div class="book-card">
-        <router-link to="/book/renjiao" class="book-link">
-          <div class="book" style="background-color: #4CAF50;">
+      <div v-for="volume in books" :key="volume.grade + '-' + volume.term" class="book-card">
+        <router-link :to="`/book/jiujiu/${volume.grade}${volume.volume}`" class="book-link">
+          <div class="book">
             <i class="fas fa-book book-icon"></i>
             <div class="book-title">
-              <h2>人教版语文</h2>
-              <p>小学语文教材</p>
-            </div>
-          </div>
-        </router-link>
-      </div>
-      <div class="book-card">
-        <router-link to="/book/jiujiu" class="book-link">
-          <div class="book" style="background-color: #2196F3;">
-            <i class="fas fa-book book-icon"></i>
-            <div class="book-title">
-              <h2>久久积累</h2>
-              <p>小学诗词启蒙</p>
+              <h2>{{ volume.term }}</h2>
+              <p>{{ metadata?.publisher || '久久积累' }}</p>
             </div>
           </div>
         </router-link>
@@ -153,6 +117,7 @@ onMounted(() => {
 
 .book {
   height: 100%;
+  background-color: #2196F3;
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
@@ -178,7 +143,7 @@ onMounted(() => {
 }
 
 .book-title h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
@@ -188,4 +153,3 @@ onMounted(() => {
   opacity: 0.9;
 }
 </style>
-

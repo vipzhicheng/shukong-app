@@ -454,7 +454,6 @@ const formatRelativeTime = (timestamp) => {
   <div class="container">
     <div v-if="!showQuiz" class="content-section">
       <div v-show="activeTab === '自由'" class="input-section">
-      <p class="description">书空是为了学习笔顺。</p>
       <textarea
         v-model="inputText"
         placeholder="请输入汉字，每行一个词"
@@ -485,6 +484,7 @@ const formatRelativeTime = (timestamp) => {
 
       <div class="note-box">
         <ul class="note-list">
+          <li>书空是跟随笔画在空中练习汉字书写的方法，本工具可以模拟书空，帮助孩子学习汉字笔顺，提高书写规范性。</li>
           <li>一行一个词，设置中可以修改支持的行数和每行的字数，超出部分会被忽略。</li>
           <li>上传按钮支持读取文本文件，格式相同。</li>
           <li v-if="!isElectron">复制链接和生成二维码用于分享书空链接或二维码给其他人书空。</li>

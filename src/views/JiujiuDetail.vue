@@ -214,7 +214,7 @@ const switchTab = (tab) => {
     <!-- 内容区域 -->
     <div v-if="bookData" class="articles-container">
       <div v-for="(article, index) in bookData.content[activeTab]" :key="index" class="article-item">
-        <div @click="navigateTo(`/jiujiu/${currentVolumeId}/${activeTab === '必背篇目' ? 'required' : 'exam'}/${index + 1}`)" class="article-link">
+        <div @click="navigateTo(`/book/jiujiu/${currentVolumeId}/${activeTab === '必背篇目' ? 'required' : 'exam'}/${index + 1}`)" class="article-link">
           <span class="article-index">{{ index + 1 }}.</span>
           <span class="article-title">{{ article.title }}</span>
         </div>

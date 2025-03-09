@@ -1,53 +1,38 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import packageJson from '../../package.json'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 const router = useRouter()
-const starCount = ref(null)
 const version = ref(packageJson.version)
 
-const formatNumber = (num) => {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + 'm'
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(1) + 'k'
-  }
-  return num ? num.toString() : ''
+const navigateToHome = () => {
+  router.push('/')
 }
-
-const fetchStarCount = async () => {
-  try {
-    const response = await fetch('https://api.github.com/repos/logseq/logseq')
-    const data = await response.json()
-    starCount.value = data.stargazers_count
-  } catch (error) {
-    // 静默处理错误
-    starCount.value = null
-  }
-}
-
-onMounted(() => {
-  fetchStarCount()
-})
 </script>
 
 <template>
   <div class="right-nav-container">
+    <div class="home-icon">
+      <a @click="navigateToHome" class="home-link" title="首页">
+        <i class="fas fa-home"></i>
+      </a>
+    </div>
     <div class="left-content">
       <slot></slot>
     </div>
-    <div class="github-container">
-      <a href="https://github.com/logseq/logseq" target="_blank" class="github-link">
-        <i class="fab fa-github"></i>
-        <span v-if="starCount !== null" class="star-count">{{ formatNumber(starCount) }}</span>
-      </a>
-    </div>
+
   </div>
   <div class="footer">
     <div class="slogan"></div>
     <div class="ai-driven">Proudly driven by AI</div>
-    <div class="version">v{{ version }}</div>
+    <div class="footer-right">
+      <a href="https://github.com" target="_blank" class="github-link" title="访问 Github">
+        <i class="fab fa-github"></i>
+      </a>
+      <div class="version">v{{ version }}</div>
+    </div>
   </div>
 </template>
 
@@ -69,30 +54,33 @@ onMounted(() => {
   -webkit-backdrop-filter: blur(8px);
 }
 
-.github-container {
-  margin-left: auto;
+.home-icon {
+  display: none;
 }
 
-.github-link {
+.home-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   color: var(--text-color);
   text-decoration: none;
   font-size: 1.5rem;
   transition: color 0.3s ease;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
-.github-link:hover {
+.home-link:hover {
   color: var(--primary-color);
 }
 
-.star-count {
-  font-size: 1rem;
-  background-color: var(--secondary-bg-color);
-  padding: 0.2rem 0.5rem;
-  border-radius: 1rem;
+@media (max-width: 768px) {
+  .home-icon {
+    display: block;
+    margin-right: 1rem;
+  }
 }
+
+
 
 .footer {
   position: fixed;
@@ -124,6 +112,22 @@ onMounted(() => {
   font-size: 0.8rem;
 }
 
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.github-link {
+  color: var(--secondary-text-color);
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.github-link:hover {
+  color: var(--primary-color);
+}
+
 @media (max-width: 768px) {
   .right-nav-container {
     padding: 1rem;
@@ -136,5 +140,11 @@ onMounted(() => {
   .slogan {
     margin-left: 64px;
   }
+}
+.left-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 </style>

@@ -5,6 +5,8 @@ import Query from "../views/Query.vue";
 import View from "../views/View.vue";
 import Quiz from "../views/Quiz.vue";
 import Book from "../views/Book.vue";
+import RenjiaoBooks from "../views/RenjiaoBooks.vue";
+import JiujiuBooks from "../views/JiujiuBooks.vue";
 import RenjiaoDetail from "../views/RenjiaoDetail.vue";
 import JiujiuDetail from "../views/JiujiuDetail.vue";
 import JiujiuPost from "../views/JiujiuPost.vue";
@@ -15,7 +17,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      redirect: "/quiz"
+      redirect: "/quiz",
     },
     {
       path: "/zi/:char",
@@ -48,7 +50,17 @@ const router = createRouter({
       component: Book,
     },
     {
-      path: "/renjiao/:id",
+      path: "/book/renjiao",
+      name: "renjiaoBooks",
+      component: RenjiaoBooks,
+    },
+    {
+      path: "/book/jiujiu",
+      name: "jiujiuBooks",
+      component: JiujiuBooks,
+    },
+    {
+      path: "/book/renjiao/:id",
       name: "renjiaoDetail",
       component: RenjiaoDetail,
     },
@@ -58,12 +70,12 @@ const router = createRouter({
       component: Settings,
     },
     {
-      path: "/jiujiu/:id",
+      path: "/book/jiujiu/:id",
       name: "jiujiuDetail",
       component: JiujiuDetail,
     },
     {
-      path: "/jiujiu/:id/:type/:cid",
+      path: "/book/jiujiu/:id/:type/:cid",
       name: "jiujiuPost",
       component: JiujiuPost,
     },

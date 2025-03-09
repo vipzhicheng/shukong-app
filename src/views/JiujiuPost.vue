@@ -37,7 +37,7 @@ const goBackPage = () => {
   const type = route.params.type
   // 根据文章类型构建返回链接
   const tab = type === 'exam' ? '考级篇目' : '必背篇目'
-  router.push(`/jiujiu/${route.params.id}?tab=${encodeURIComponent(tab)}`)
+  router.push(`/book/jiujiu/${route.params.id}?tab=${encodeURIComponent(tab)}`)
 }
 
 // 从 localStorage 加载设置
@@ -200,10 +200,10 @@ const handleTouchEnd = (event) => {
   if (Math.abs(swipeDistance) >= minSwipeDistance) {
     if (swipeDistance > 0 && route.params.cid > 1) {
       // 向右滑动，显示上一篇
-      router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
+      router.push(`/book/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
     } else if (swipeDistance < 0 && bookData.value?.content[route.params.type === 'required' ? '必背篇目' : '考级篇目']?.length > parseInt(route.params.cid)) {
       // 向左滑动，显示下一篇
-      router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
+      router.push(`/book/iujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
     }
   }
 }
@@ -212,9 +212,9 @@ const handleTouchEnd = (event) => {
 const handleKeyDown = (event) => {
   if (event.key === 'ArrowLeft' && route.params.cid > 1) {
     // 左箭头，显示上一篇
-    router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
+    router.push(`/book/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) - 1}`)
   } else if (event.key === 'ArrowRight' && bookData.value?.content[route.params.type === 'required' ? '必背篇目' : '考级篇目']?.length > parseInt(route.params.cid)) {
-    router.push(`/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
+    router.push(`/book/jiujiu/${currentVolumeId.value}/${route.params.type}/${parseInt(route.params.cid) + 1}`)
   }
 }
 
@@ -262,7 +262,7 @@ const openBaiduHanyu = () => {
 
       <!-- 上一篇 -->
       <router-link
-        :to="postData && route.params.cid > 1 ? `/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) - 1}` : '#'"
+        :to="postData && route.params.cid > 1 ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) - 1}` : '#'"
         class="back-link ml-4"
         :class="{ 'disabled': !postData || route.params.cid <= 1 }"
         @click.prevent="postData && route.params.cid > 1 ? null : false"
@@ -273,7 +273,7 @@ const openBaiduHanyu = () => {
 
       <!-- 下一篇 -->
       <router-link
-        :to="postData && bookData?.content[route.params.type === 'required' ?'必背篇目' : '考级篇目']?.length > parseInt(route.params.cid) ? `/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) + 1}` : '#'"
+        :to="postData && bookData?.content[route.params.type === 'required' ?'必背篇目' : '考级篇目']?.length > parseInt(route.params.cid) ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) + 1}` : '#'"
         class="back-link ml-4"
         :class="{ 'disabled': !postData || !bookData?.content[route.params.type === 'required' ?'必背篇目' : '考级篇目']?.length || bookData?.content[route.params.type === 'required' ?'必背篇目' : '考级篇目']?.length <= parseInt(route.params.cid) }"
         @click.prevent="postData && bookData?.content[route.params.type === 'required' ?'必背篇目' : '考级篇目']?.length > parseInt(route.params.cid) ? null : false"
