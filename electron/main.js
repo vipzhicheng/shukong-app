@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.name = "爱写字";
+app.name = "书空";
 
 function createWindow() {
   ipcMain.handle("load-resource", async (_, filePath) => {
@@ -46,7 +46,7 @@ function createWindow() {
 const createMenu = (win) => {
   const template = [
     {
-      label: "爱写字",
+      label: "书空",
       submenu: [
         {
           label: "关于",
@@ -54,7 +54,7 @@ const createMenu = (win) => {
             const options = {
               type: "info",
               title: "关于",
-              message: "爱写字",
+              message: "书空",
               detail: "v0.0.1",
             };
             dialog.showMessageBox(win, options);

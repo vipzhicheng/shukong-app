@@ -32,7 +32,7 @@ const autoPlaySettings = ref({
   autoPlay: false
 })
 
-const testText = ref('你好，欢迎使用爱写字')
+const testText = ref('你好，欢迎使用书空')
 
 const loadSettings = () => {
   const savedAutoPlaySettings = localStorage.getItem('autoPlaySettings')

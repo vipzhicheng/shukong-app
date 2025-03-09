@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import packageJson from '../../package.json'
 
 const router = useRouter()
 const starCount = ref(null)
+const version = ref(packageJson.version)
 
 const formatNumber = (num) => {
   if (num >= 1000000) {
@@ -45,7 +47,7 @@ onMounted(() => {
   <div class="footer">
     <div class="slogan"></div>
     <div class="ai-driven">Proudly driven by AI</div>
-    <div class="version">v0.0.1</div>
+    <div class="version">v{{ version }}</div>
   </div>
 </template>
 

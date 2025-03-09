@@ -27,9 +27,9 @@ const toggleMenu = () => {
 
 
     <div class="nav-links">
-      <a @click="navigateTo('/quiz')" :class="{ active: $route.path === '/quiz' }" title="书空">
-        <i class="fas fa-pencil-alt"></i>
-        <span class="nav-text">书空</span>
+      <a @click="navigateTo('/quiz')" :class="{ active: $route.path === '/quiz' }" title="首页">
+        <i class="fas fa-home"></i>
+        <span class="nav-text">首页</span>
       </a>
       <a @click="navigateTo('/query')" :class="{ active: $route.path === '/query' }" title="查询笔顺">
         <i class="fas fa-search"></i>

@@ -19,7 +19,7 @@ const toggleMenu = () => {
   <nav class="navbar">
     <div class="navbar-container">
       <div class="logo" @click="navigateTo('/')">
-        爱写字
+        书空
       </div>
       <div class="spacer"></div>
       <div class="menu-icon" @click="toggleMenu">
