@@ -15,6 +15,7 @@ const writer = ref(null)
 const isPlaying = ref(false)
 const isFinished = ref(false)
 const showQuiz = ref(false)
+const errorCount = ref(0)
 const progress = ref({ current: 0, total: 0 })
 const allChars = ref([])
 const currentCharIndex = ref(0)
@@ -70,21 +71,15 @@ const clearHistory = () => {
   }
 }
 
-const saveQuizHistory = (content) => {
-  // 获取当前历史记录
+const saveQuizHistory = (content, errors = 0) => {
   const currentHistory = quizHistory.value || []
-
-  // 创建新的历史记录项
   const newHistoryItem = {
     startTime: new Date().toISOString(),
     content: content,
-    totalChars: content.reduce((acc, line) => acc + line.length, 0)
+    totalChars: content.reduce((acc, line) => acc + line.length, 0),
+    errorCount: errors
   }
-
-  // 将新记录添加到数组开头
   currentHistory.unshift(newHistoryItem)
-
-  // 只保留最新的10条记录
   quizHistory.value = currentHistory.slice(0, 10)
   localStorage.setItem('quizHistory', JSON.stringify(quizHistory.value))
 }
@@ -174,6 +169,9 @@ const createConfetti = () => {
   document.body.appendChild(confettiContainer)
 }
 
+const handleStrokeError = () => {
+  errorCount.value++
+}
 const showNextChar = async () => {
   if (currentCharIndex.value >= allChars.value[progress.value.current].length) {
     // 当前行的所有字符都完成了
@@ -182,6 +180,8 @@ const showNextChar = async () => {
       // 所有行都完成了
       isFinished.value = true
       createConfetti()
+      // 保存练习记录时包含错误次数
+      saveQuizHistory(allChars.value.map(line => line.join('')), errorCount.value)
       return
     }
     currentCharIndex.value = 0
@@ -204,7 +204,8 @@ const showNextChar = async () => {
         isPlaying.value = false
         currentCharIndex.value++
         showNextChar()
-      }
+      },
+      onMistake: handleStrokeError
     })
 
     writer.value.quiz()
@@ -426,6 +427,9 @@ const formatRelativeTime = (timestamp) => {
     return `${Math.max(seconds, 0)}秒前`;
   }
 };
+const totalCharsCount = computed(() => {
+  return allChars.value.reduce((total, line) => total + line.length, 0)
+})
 </script>
 
 <template>
@@ -524,8 +528,10 @@ const formatRelativeTime = (timestamp) => {
             @click="startQuizFromContent(item.content)"
           >
             <div class="history-info">
-              <span class="history-time">{{ formatRelativeTime(item.startTime) }}</span>
-              <span class="history-chars">字数：{{ item.totalChars }}</span>
+              <div><span class="history-time">{{ formatRelativeTime(item.startTime) }}</span></div>
+<div>
+              <span class="history-chars" style="margin-right: 8px;">字数：{{ item.totalChars }}</span>
+              <span class="history-errors" v-if="item.errorCount && item.errorCount > 0">错误：{{ item.errorCount }}</span></div>
             </div>
             <div class="history-content">
               {{ item.content.join('，').slice(0, 10) + (item.content.join('，').length > 10 ? '...' : '') }}
@@ -560,6 +566,7 @@ const formatRelativeTime = (timestamp) => {
 
       <div v-else class="completion-message">
         <h2>恭喜完成所有书空练习！</h2>
+<p>本次共书空 {{totalCharsCount}} 字，错误 {{ errorCount }} 次。</p>
         <button @click="resetQuiz" class="reset-button">重新开始</button>
       </div>
     </div>
@@ -759,8 +766,7 @@ const formatRelativeTime = (timestamp) => {
     width: calc(100vw - 32px);
     height: calc(100vw - 32px);
   }
-}
-.progress-bar {
+}.progress-bar {
   width: 100%;
   height: 2px;
   background-color: #e0e0e0;
@@ -888,6 +894,16 @@ const formatRelativeTime = (timestamp) => {
   margin-bottom: 0.5rem;
   color: var(--text-color-secondary);
   font-size: 0.875rem;
+}
+
+.history-time,
+.history-chars,
+.history-errors {
+  margin-right: 10px;
+}
+
+.history-errors {
+  color: #ff4d4f;
 }
 
 .history-content {

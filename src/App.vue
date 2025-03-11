@@ -64,6 +64,7 @@ body {
   margin-left: 64px;
   min-height: 100vh;
   background-color: var(--bg-color);
+  padding-bottom: 4rem;
 }
 
 @media (max-width: 768px) {
