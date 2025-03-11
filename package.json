@@ -18,7 +18,7 @@
     "preview": "vite preview"
   },
   "build": {
-    "appId": "com.vipzhicheng.ixiezi",
+    "appId": "com.vipzhicheng.shukong",
     "productName": "书空",
     "directories": {
       "output": "dist_electron"
