@@ -762,7 +762,7 @@ const formatRelativeTime = (timestamp) => {
 }
 .progress-bar {
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #e0e0e0;
   border-radius: 2px;
   overflow: hidden;

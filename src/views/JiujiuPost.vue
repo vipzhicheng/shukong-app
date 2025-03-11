@@ -32,6 +32,12 @@ const voiceSettings = ref({
   autoPlay: false
 })
 
+// 字体设置
+const fontSettings = ref({
+  fontCDN: '',
+  fontName: ''
+})
+
 const goBackPage = () => {
   // 从 URL 中获取文章类型
   const type = route.params.type
@@ -45,6 +51,18 @@ const loadSettings = () => {
   const savedSettings = localStorage.getItem('voiceSettings')
   if (savedSettings) {
     voiceSettings.value = JSON.parse(savedSettings)
+  }
+
+  // 加载字体设置
+  const savedFontSettings = localStorage.getItem('fontSettings')
+  if (savedFontSettings) {
+    fontSettings.value = Object.assign(fontSettings.value, JSON.parse(savedFontSettings))
+    if (fontSettings.value.fontCDN) {
+      const link = document.createElement('link')
+      link.href = fontSettings.value.fontCDN
+      link.rel = 'stylesheet'
+      document.head.appendChild(link)
+    }
   }
 }
 
@@ -285,7 +303,7 @@ const openBaiduHanyu = () => {
 
 
     <!-- 内容区域 -->
-    <div v-if="postData" class="articles-container">
+    <div v-if="postData" class="articles-container" :style="fontSettings.fontName ? { fontFamily: fontSettings.fontName } : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }">
       <div
         class="article-section"
       >
@@ -294,7 +312,7 @@ const openBaiduHanyu = () => {
             <!-- 标题渲染 -->
             <div v-if="section.type === 'title'" class="mb-6 text-center">
               <div v-for="(line, lineIndex) in section.lines" :key="lineIndex" class="flex flex-wrap justify-center">
-                <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex" class="character-container text-4xl font-bold cursor-pointer" @click="handleTokenClick(token)">
+                <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex" class="character-container text-4xl xl:text-6xl font-bold cursor-pointer" @click="handleTokenClick(token)">
                   <div class="pinyin text-base">{{ token.pinyin || '　' }}</div>
                   <div class="character">{{ token.char }}</div>
                 </div>
@@ -303,7 +321,7 @@ const openBaiduHanyu = () => {
             <!-- 副标题渲染 -->
             <div v-else-if="section.type === 'subtitle'" class="mb-4 text-center">
               <div v-for="(line, lineIndex) in section.lines" :key="lineIndex" class="flex flex-wrap justify-center">
-                <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex" class="character-container text-3xl cursor-pointer" @click="handleTokenClick(token)">
+                <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex" class="character-container text-3xl xl:text-4xl cursor-pointer" @click="handleTokenClick(token)">
                   <div class="pinyin text-base">{{ token.pinyin || '　' }}</div>
                   <div class="character">{{ token.char }}</div>
                 </div>
@@ -314,11 +332,11 @@ const openBaiduHanyu = () => {
               <div v-for="(line, lineIndex) in section.lines" :key="lineIndex"
                    class="flex flex-wrap" :class="{'mb-6': section.break}">
                 <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex"
-                     class="character-container cursor-pointer text-2xl ml-8" :class="{
+                     class="character-container cursor-pointer text-2xl xl:text-5xl ml-8" :class="{
 
                        'with-pinyin': token.pinyin && token.pinyin.trim() !== ''
                      }" @click="handleTokenClick(token)">
-                  <div class="pinyin text-xs">{{ token.pinyin || '　' }}</div>
+                  <div class="pinyin text-xs  xl:text-base">{{ token.pinyin || '　' }}</div>
                   <div class="character">{{ token.char }}</div>
                 </div>
               </div>
@@ -552,33 +570,6 @@ const openBaiduHanyu = () => {
   line-height: 1.8;
   color: var(--text-color);
   white-space: pre-wrap;
-  font-family: "Kaiti SC", "楷体", KaiTi, STKaiti, "华文楷体", sans-serif;
-}
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-menu a {
-  color: var(--text-color);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.nav-menu a:hover {
-  color: var(--primary-color);
-}
-.nav-controller {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .back-link {
@@ -596,5 +587,10 @@ const openBaiduHanyu = () => {
   color: var(--text-color-light);
   cursor: not-allowed;
   opacity: 0.5;
+}
+.nav-controller {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 </style>

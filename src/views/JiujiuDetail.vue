@@ -167,6 +167,28 @@ const loadBookData = async () => {
   }
 }
 
+// 加载字体设置
+const fontSettings = ref({
+  fontName: '楷体',
+  fontSize: 24,
+  fontCDN: ''
+})
+
+onMounted(() => {
+  const savedFontSettings = localStorage.getItem('fontSettings')
+  if (savedFontSettings) {
+    try {
+      const settings = JSON.parse(savedFontSettings)
+      fontSettings.value = {
+        ...fontSettings.value,
+        ...settings
+      }
+    } catch (e) {
+      console.error('字体设置解析失败:', e)
+    }
+  }
+})
+
 onMounted(() => {
   loadBookData()
   loadSettings()
@@ -212,7 +234,7 @@ const switchTab = (tab) => {
     </div>
 
     <!-- 内容区域 -->
-    <div v-if="bookData" class="articles-container">
+    <div v-if="bookData" class="articles-container" :style="fontSettings.fontName ? { fontFamily: fontSettings.fontName } : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }">
       <div v-for="(article, index) in bookData.content[activeTab]" :key="index" class="article-item">
         <div @click="navigateTo(`/book/jiujiu/${currentVolumeId}/${activeTab === '必背篇目' ? 'required' : 'exam'}/${index + 1}`)" class="article-link">
           <span class="article-index">{{ index + 1 }}.</span>
@@ -339,7 +361,6 @@ const switchTab = (tab) => {
   font-weight: bold;
   text-align: center;
   color: var(--text-color);
-  font-family: "Kaiti SC", "楷体", KaiTi, STKaiti, "华文楷体", sans-serif;
 }
 .article-subtitle {
   font-size: 20px;
@@ -446,25 +467,5 @@ const switchTab = (tab) => {
   white-space: pre-wrap;
   font-family: "Kaiti SC", "楷体", KaiTi, STKaiti, "华文楷体", sans-serif;
 }
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
 
-.nav-menu {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-menu a {
-  color: var(--text-color);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.nav-menu a:hover {
-  color: var(--primary-color);
-}
 </style>

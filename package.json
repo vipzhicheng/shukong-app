@@ -7,8 +7,14 @@
   "scripts": {
     "dev": "vite",
     "dev:electron": "ELECTRON=true vite dev",
+    "dev:tauri": "tauri dev",
+    "dev:android": "cap sync android && cap open android",
+    "dev:ios": "cap sync ios && cap open ios",
     "build": "vite build",
     "build:electron": "ELECTRON=true vite build && electron-builder",
+    "build:tauri": "tauri build",
+    "build:android": "vite build && cap sync android && cd android && ./gradlew assembleRelease",
+    "build:ios": "vite build && cap sync ios && cd ios && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive",
     "preview": "vite preview"
   },
   "build": {
@@ -65,10 +71,13 @@
   },
   "devDependencies": {
     "@capacitor/android": "^7.0.1",
+    "@capacitor/ios": "^7.0.1",
+    "@capacitor/cli": "^7.0.1",
     "@capacitor/cli": "^7.0.1",
     "@capacitor/core": "^7.0.1",
     "@capacitor/ios": "^7.0.1",
     "@electron/remote": "^2.1.2",
+    "@tauri-apps/cli": "^1.5.11",
     "@vitejs/plugin-vue": "^5.2.1",
     "autoprefixer": "^10.4.20",
     "electron": "^34.3.0",

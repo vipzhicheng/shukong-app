@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { isSpeechSupported } from '../store/speech'
 import { useThemeStore } from '../store/theme'
 import RightNav from '../components/RightNav.vue'
@@ -8,6 +8,15 @@ const themeStore = useThemeStore()
 const themeSettings = ref({
   mode: themeStore.mode
 })
+
+const fontSettings = ref({
+  fontCDN: '',
+  fontName: ''
+})
+
+const fontLoaded = ref(false)
+const fontLoading = ref(false)
+const fontError = ref(false)
 
 const saveThemeSettings = () => {
   themeStore.mode = themeSettings.value.mode
@@ -47,6 +56,14 @@ const loadSettings = () => {
   const savedQuizSettings = localStorage.getItem('quizSettings')
   if (savedQuizSettings) {
     quizSettings.value = Object.assign(quizSettings.value, JSON.parse(savedQuizSettings))
+  }
+
+  const savedFontSettings = localStorage.getItem('fontSettings')
+  if (savedFontSettings) {
+    fontSettings.value = Object.assign(fontSettings.value, JSON.parse(savedFontSettings))
+    if (fontSettings.value.fontCDN && fontSettings.value.fontName) {
+      loadFontFromCDN()
+    }
   }
 }
 
@@ -104,6 +121,52 @@ const scrollToSection = (sectionId) => {
   }
 }
 
+const saveFontSettings = () => {
+  localStorage.setItem('fontSettings', JSON.stringify(fontSettings.value))
+  if (fontSettings.value.fontCDN && fontSettings.value.fontName) {
+    loadFontFromCDN()
+  }
+}
+
+const loadFontFromCDN = () => {
+  // 重置状态
+  fontLoaded.value = false
+  fontLoading.value = true
+  fontError.value = false
+
+  // 检查是否已经加载过该字体
+  const existingLink = document.getElementById('custom-font-link')
+  if (existingLink) {
+    document.head.removeChild(existingLink)
+  }
+
+  // 创建新的link元素加载字体
+  const link = document.createElement('link')
+  link.id = 'custom-font-link'
+  link.rel = 'stylesheet'
+  link.href = fontSettings.value.fontCDN
+
+  // 监听加载事件
+  link.onload = () => {
+    fontLoading.value = false
+    fontLoaded.value = true
+    fontError.value = false
+  }
+
+  link.onerror = () => {
+    fontLoading.value = false
+    fontLoaded.value = false
+    fontError.value = true
+  }
+
+  document.head.appendChild(link)
+}
+
+// 监听字体设置变化
+watch([() => fontSettings.value.fontCDN, () => fontSettings.value.fontName], () => {
+  fontLoaded.value = false
+}, { immediate: true })
+
 onMounted(() => {
   loadSettings()
   if (isSpeechSupported.value) {
@@ -124,6 +187,7 @@ onMounted(() => {
   <div class="settings-container">
     <div class="floating-menu">
       <a @click="scrollToSection('general-settings')" class="menu-item">通用配置</a>
+      <a @click="scrollToSection('font-settings')" class="menu-item">字体设置</a>
       <a @click="scrollToSection('voice-settings')" class="menu-item">朗读设置</a>
       <a @click="scrollToSection('quiz-settings')" class="menu-item">书空设置</a>
     </div>
@@ -164,6 +228,53 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
+    <div class="settings-card" id="font-settings">
+      <h2 class="settings-subtitle">字体设置</h2>
+      <div class="settings-content">
+        <div class="settings-item">
+          <label>字体CDN链接：</label>
+          <input
+            type="text"
+            v-model="fontSettings.fontCDN"
+            @change="saveFontSettings"
+            placeholder="请输入字体CDN链接，例如：https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap"
+            class="settings-input font-input"
+          />
+          <p class="settings-hint">输入包含字体的CSS链接，通常是字体服务提供的CDN链接，<a href="https://chinese-font.netlify.app/" target="_blank">例如</a></p>
+        </div>
+
+        <div class="settings-item">
+          <label>字体名称：</label>
+          <input
+            type="text"
+            v-model="fontSettings.fontName"
+            @change="saveFontSettings"
+            placeholder="请输入字体名称，例如：'Noto Serif SC', serif"
+            class="settings-input font-input"
+          />
+          <p class="settings-hint">输入CSS中定义的字体名称，如有多个备选字体请用逗号分隔</p>
+
+          <div class="font-preview-container">
+            <div class="font-preview-header">字体预览：</div>
+            <div
+              class="font-preview"
+              :style="{ fontFamily: fontSettings.fontName || 'inherit' }"
+            >
+              <p>你好，欢迎使用书空应用！</p>
+              <p>这是自定义字体的预览效果。</p>
+              <p>汉字：永字八法 - 永恒的艺术</p>
+              <p>英文：The quick brown fox jumps over the lazy dog.</p>
+              <p>数字：0123456789</p>
+            </div>
+            <div v-if="fontLoading" class="font-status loading">字体加载中...</div>
+            <div v-if="fontError" class="font-status error">字体加载失败，请检查CDN链接和字体名称是否正确</div>
+            <div v-if="fontLoaded" class="font-status success">字体加载成功</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="settings-card" v-if="isSpeechSupported" id="voice-settings">
       <h2 class="settings-subtitle">朗读设置</h2>
       <div class="settings-content">
@@ -523,6 +634,62 @@ onMounted(() => {
 
 .test-voice-button:hover {
   background-color: #45a049;
+}
+
+.font-input {
+  width: 100%;
+}
+
+.font-preview-container {
+  margin-top: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--bg-color-secondary, #f5f5f5);
+}
+
+.font-preview-header {
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-color);
+}
+
+.font-preview {
+  padding: 16px;
+  border-radius: 6px;
+  background-color: var(--bg-color);
+  border: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+.font-preview p {
+  margin: 8px 0;
+}
+
+.font-status {
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.font-status.loading {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  border: 1px solid #91d5ff;
+}
+
+.font-status.error {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+  border: 1px solid #ffccc7;
+}
+
+.font-status.success {
+  background-color: #f6ffed;
+  color: #52c41a;
+  border: 1px solid #b7eb8f;
 }
 
 .floating-menu {

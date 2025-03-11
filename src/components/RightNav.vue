@@ -43,7 +43,7 @@ const navigateToHome = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 1.5rem;
+  padding: 0.4rem;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
@@ -146,5 +146,40 @@ const navigateToHome = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+
+</style>
+
+<style>
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.nav-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.nav-menu a:hover {
+  color: var(--primary-color);
+  background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+:deep(.nav-menu) a.active {
+  color: var(--primary-color);
+  font-weight: 500;
 }
 </style>

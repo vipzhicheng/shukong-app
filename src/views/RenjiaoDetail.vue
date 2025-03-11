@@ -15,6 +15,29 @@ const isFinished = ref(false)
 const showModal = ref(false)
 const currentChar = ref('')
 
+// 字体设置
+const fontSettings = ref({
+  fontName: '楷体',
+  fontSize: 24,
+  fontCDN: ''
+})
+
+// 加载字体设置
+onMounted(() => {
+  const savedFontSettings = localStorage.getItem('fontSettings')
+  if (savedFontSettings) {
+    try {
+      const settings = JSON.parse(savedFontSettings)
+      fontSettings.value = {
+        ...fontSettings.value,
+        ...settings
+      }
+    } catch (e) {
+      console.error('字体设置解析失败:', e)
+    }
+  }
+})
+
 // 创建语音合成对象
 const synth = window.speechSynthesis
 
@@ -217,7 +240,7 @@ const startQuiz = (lesson) => {
     </div>
 
     <!-- 内容区域 -->
-    <div v-if="bookData" class="lessons-container">
+    <div v-if="bookData" class="lessons-container" :style="fontSettings.fontName ? { fontFamily: fontSettings.fontName } : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }">
       <div
         v-for="(lesson, lessonIndex) in bookData.content?.[activeTab] || []"
         :key="lessonIndex"
@@ -318,6 +341,12 @@ const startQuiz = (lesson) => {
 }
 
 .lessons-container {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+.lessons-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -363,7 +392,6 @@ const startQuiz = (lesson) => {
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
-  font-family: "Kaiti SC", "楷体", KaiTi, STKaiti, "华文楷体", sans-serif;
 }
 
 .lesson-number {
@@ -404,7 +432,6 @@ const startQuiz = (lesson) => {
 .character-card .character {
   font-size: 2rem;
   color: var(--text-color);
-  font-family: "Kaiti SC", "楷体", KaiTi, STKaiti, "华文楷体", sans-serif;
 }
 
 .character-card:hover {
@@ -490,26 +517,5 @@ const startQuiz = (lesson) => {
 
 .control-button:hover {
   background-color: #45a049;
-}
-.nav-content {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-menu a {
-  color: var(--text-color);
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.nav-menu a:hover {
-  color: var(--primary-color);
 }
 </style>
