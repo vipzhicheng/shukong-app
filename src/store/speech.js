@@ -11,18 +11,20 @@ export function checkSpeechSupport() {
       // 尝试创建一个语音合成实例
       const utterance = new SpeechSynthesisUtterance("test");
 
-      // 检查是否有可用的中文语音
-      const voices = window.speechSynthesis.getVoices();
-      const hasChineseVoice = voices.some((voice) => {
-        return voice.lang.startsWith("zh-CN") || voice.lang.startsWith("zh-TW");
-      });
-
-      if (hasChineseVoice) {
-        isSpeechSupported.value = true;
-      } else {
-        console.warn("没有可用的中文语音");
-        isSpeechSupported.value = false;
-      }
+      window.speechSynthesis.onvoiceschanged = () => {
+        const voices = window.speechSynthesis.getVoices();
+        const hasChineseVoice = voices.some((voice) => {
+          return (
+            voice.lang.startsWith("zh-CN") || voice.lang.startsWith("zh-TW")
+          );
+        });
+        if (hasChineseVoice) {
+          isSpeechSupported.value = true;
+        } else {
+          console.warn("没有可用的中文语音");
+          isSpeechSupported.value = false;
+        }
+      };
     } catch (error) {
       console.warn("语音合成不受支持:", error);
       isSpeechSupported.value = false;
