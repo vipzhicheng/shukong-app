@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useThemeStore } from './store/theme'
 import SideNav from './components/SideNav.vue'
+import CartButton from './components/CartButton.vue'
 
 const themeStore = useThemeStore()
 
@@ -16,6 +17,7 @@ onMounted(() => {
     <main class="main-content">
       <router-view></router-view>
     </main>
+    <CartButton />
   </div>
 </template>
 

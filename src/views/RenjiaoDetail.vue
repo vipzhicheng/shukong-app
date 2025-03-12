@@ -1,17 +1,14 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
-import { isSpeechSupported } from '../store/speech'
-import { createHanziWriter } from '../utils/hanziWriter'
 import RightNav from '../components/RightNav.vue'
 import { loadResource } from '../utils/resourceLoader'
+import StrokeOrderModal from '../components/StrokeOrderModal.vue'
+import { addToCart } from '../store/cart'
 
 const route = useRoute()
 const router = useRouter()
-const writer = ref(null)
-const isPlaying = ref(true)
-const isFinished = ref(false)
 const showModal = ref(false)
 const currentChar = ref('')
 
@@ -38,102 +35,9 @@ onMounted(() => {
   }
 })
 
-// 创建语音合成对象
-const synth = window.speechSynthesis
-
-// 语音设置
-const voiceSettings = ref({
-  defaultVoice: '',
-  speakRate: 0.1,
-  autoPlay: false
-})
-
-// 从 localStorage 加载设置
-const loadSettings = () => {
-  const savedSettings = localStorage.getItem('voiceSettings')
-  if (savedSettings) {
-    voiceSettings.value = JSON.parse(savedSettings)
-  }
-}
-
-// 播放汉字读音
-const playCharacterSound = (char) => {
-  if (!isSpeechSupported.value) return
-  // 创建语音合成话语对象
-  const utterance = new SpeechSynthesisUtterance(char)
-  // 获取选中的语音
-  const selectedVoice = synth.getVoices().find(voice => voice.name === voiceSettings.value.defaultVoice)
-  if (selectedVoice) {
-    utterance.voice = selectedVoice
-  }
-  utterance.rate = voiceSettings.value.speakRate || 0.1
-  utterance.lang = 'zh-CN'
-  // 播放语音
-  synth.speak(utterance)
-}
-
-onMounted(() => {
-  loadSettings()
-})
-const onAnimationComplete = () => {
-  isPlaying.value = false
-  isFinished.value = true
-}
-
-const handleCharacterClick = async (char) => {
+const handleCharacterClick = (char) => {
   currentChar.value = char
   showModal.value = true
-  // 根据自动播放设置决定是否播放语音
-  if (voiceSettings.value.autoPlay) {
-    playCharacterSound(char)
-  }
-  await nextTick()
-  const target = document.getElementById('character-target-modal')
-  if (target) {
-    target.innerHTML = ''
-    writer.value = createHanziWriter('character-target-modal', char, {
-      onLoadCharDataSuccess: () => {
-        writer.value.animateCharacter({ onComplete: onAnimationComplete })
-        isPlaying.value = true
-      }
-    })
-  }
-}
-
-const togglePlay = () => {
-  if (!writer.value) return
-
-  if (isPlaying.value) {
-    writer.value.pauseAnimation()
-    isPlaying.value = false
-  } else {
-    if (!isFinished.value) {
-      writer.value.resumeAnimation()
-    } else {
-      writer.value.animateCharacter({ onComplete: onAnimationComplete })
-      isFinished.value = false
-    }
-    isPlaying.value = true
-  }
-}
-
-const resetAnimation = () => {
-  if (writer.value) {
-    writer.value.animateCharacter({ onComplete: onAnimationComplete })
-
-    setTimeout(() => {
-      isFinished.value = false
-      isPlaying.value = true
-    }, 300)
-  }
-}
-
-const closeModal = () => {
-  showModal.value = false
-}
-
-const openBaiduHanyu = () => {
-  window.open(`https://hanyu.baidu.com/hanyu-page/zici/s?wd=${encodeURIComponent(currentChar.value)}&ptype=zici`, '_blank', 'noopener,noreferrer')
 }
 
 const bookData = ref(null)
@@ -147,6 +51,7 @@ const switchTab = (tab) => {
     query: { ...route.query, tab }
   })
 }
+
 const loadBookData = async () => {
   try {
     const data = await loadResource('books/renjiao.json')
@@ -201,18 +106,16 @@ onMounted(() => {
   loadBookData()
 })
 
-const startQuiz = (lesson) => {
-  // 将汉字按照每行一个的格式组织
-  const characters = lesson.characters.map(item => item.character)
-  const text = characters.join('\n')
+const handlePencilClick = (lesson) => {
+  // 将汉字添加到购物车
+  lesson.characters.forEach(item => {
+    addToCart(item.character)
+  })
 
-  // 使用 base64 编码处理文本内容
-  const encodedText = btoa(encodeURIComponent(text))
-  const quizUrl = `/quiz/${encodedText}/?autostart=1`
-
-  // 跳转到书空页面
-  router.push(quizUrl)
+  // 显示添加成功的提示
+  alert(`已将${lesson.characters.length}个汉字添加到练习列表`)
 }
+
 </script>
 
 <template>
@@ -250,7 +153,7 @@ const startQuiz = (lesson) => {
           <span v-if="lesson.number" class="lesson-number">{{ lesson.number }}</span>
           {{ lesson.title }}
           <button
-            @click="startQuiz(lesson)"
+            @click="handlePencilClick(lesson)"
             class="quiz-button"
             title="开始书空练习"
           >
@@ -274,32 +177,10 @@ const startQuiz = (lesson) => {
       加载中...
     </div>
 
-    <!-- Modal -->
-    <div v-if="showModal" class="modal" @click.self="closeModal">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <div id="character-target-modal" class="character-display"></div>
-        <div class="control-buttons">
-          <button @click="togglePlay" class="control-button">
-            <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
-          </button>
-          <button @click="resetAnimation" class="control-button">
-            <i class="fas fa-redo"></i>
-          </button>
-          <button @click="openBaiduHanyu" class="control-button">
-            <i class="fas fa-search"></i>
-          </button>
-          <button
-            v-if="isSpeechSupported"
-            class="control-button"
-            @click="playCharacterSound(currentChar)"
-            title="播放读音"
-          >
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+    <StrokeOrderModal
+      v-model:show="showModal"
+      :character="currentChar"
+    />
   </div>
 </template>
 
@@ -445,77 +326,5 @@ const startQuiz = (lesson) => {
   color: var(--text-color-secondary);
   font-size: 1.2rem;
   padding: 2rem;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: var(--bg-color);
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 24px;
-  cursor: pointer;
-  color: var(--text-color);
-  background: var(--bg-color-secondary);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.character-display {
-  width: 300px;
-  height: 300px;
-  background-color: var(--bg-color);
-}
-
-.control-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.control-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.control-button:hover {
-  background-color: #45a049;
 }
 </style>

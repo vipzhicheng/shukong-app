@@ -10,8 +10,19 @@ export function checkSpeechSupport() {
     try {
       // 尝试创建一个语音合成实例
       const utterance = new SpeechSynthesisUtterance('test')
-      // 如果没有抛出错误，说明支持语音合成
-      isSpeechSupported.value = true
+      
+      // 检查是否有可用的中文语音
+      const voices = window.speechSynthesis.getVoices()
+      const hasChineseVoice = voices.some(voice => 
+        voice.lang.startsWith('zh-CN') || voice.lang.startsWith('zh-TW')
+      )
+
+      if (hasChineseVoice) {
+        isSpeechSupported.value = true
+      } else {
+        console.warn('没有可用的中文语音')
+        isSpeechSupported.value = false
+      }
     } catch (error) {
       console.warn('语音合成不受支持:', error)
       isSpeechSupported.value = false

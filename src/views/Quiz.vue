@@ -6,6 +6,8 @@ import { createHanziWriter } from '../utils/hanziWriter'
 import RightNav from '../components/RightNav.vue'
 import { loadResource } from '../utils/resourceLoader'
 import QRCode from 'qrcode.vue'
+import StrokeOrderModal from '../components/StrokeOrderModal.vue'
+import { addToCart } from '../store/cart'
 
 const router = useRouter()
 const route = useRoute()
@@ -16,12 +18,16 @@ const isPlaying = ref(false)
 const isFinished = ref(false)
 const showQuiz = ref(false)
 const errorCount = ref(0)
+const errorChars = ref(new Map()) // 记录错误字及其次数
+const showModal = ref(false) // 控制笔顺组件的显示
 const progress = ref({ current: 0, total: 0 })
 const allChars = ref([])
 const currentCharIndex = ref(0)
 const quizData = ref([])
 const quizHistory = ref([])
 const activeTab = ref(route.query.tab || '自由')
+
+
 
 // 检测是否在 Electron 环境中运行
 const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1;
@@ -111,6 +117,17 @@ const handleSubmit = () => {
   }
 }
 
+
+const handleAddErrorCharsToCart = () => {
+  // 遍历错误字Map，将每个字符添加到购物车
+  errorChars.value.forEach((count, char) => {
+    addToCart(char)
+  })
+  // 显示添加成功的提示
+  alert(`已将${errorChars.value.size}个错误汉字添加到练习列表`)
+}
+
+
 const startQuizFromContent = (content) => {
   // 过滤非汉字字符并限制每行字数和总行数
   const filteredContent = content
@@ -171,6 +188,9 @@ const createConfetti = () => {
 
 const handleStrokeError = () => {
   errorCount.value++
+  // 记录当前错误字的次数
+  const currentErrorCount = errorChars.value.get(currentChar.value) || 0
+  errorChars.value.set(currentChar.value, currentErrorCount + 1)
 }
 const showNextChar = async () => {
   if (currentCharIndex.value >= allChars.value[progress.value.current].length) {
@@ -221,6 +241,8 @@ const resetQuiz = () => {
   progress.value = { current: 0, total: 0 }
   allChars.value = []
   currentCharIndex.value = 0
+  errorCount.value = 0
+  errorChars.value.clear()
 }
 
 const containerSize = ref(500)
@@ -246,14 +268,6 @@ const updateContainerSize = () => {
 }
 
 
-// 监听输入文本变化，同步到 URL
-watch(inputText, (newValue) => {
-  if (newValue) {
-    const encodedContent = btoa(encodeURIComponent(newValue))
-    router.replace(`/quiz/${encodedContent}`)
-  }
-})
-
 // 监听路由参数变化
 const handleRouteChange = () => {
   if (route.params.content) {
@@ -265,6 +279,32 @@ const handleRouteChange = () => {
     }
   }
 }
+
+
+
+// 监听输入文本变化，同步到 URL
+watch(inputText, (newValue) => {
+  if (newValue) {
+    const encodedContent = btoa(encodeURIComponent(newValue))
+    router.replace(`/quiz/${encodedContent}`)
+  }
+})
+
+// 监听路由参数变化
+watch(
+  () => [route.params.content, route.query.reload],
+  ([newContent, reload] = [], [oldContent] = []) => {
+    if (newContent && (newContent !== oldContent || reload)) {
+      resetQuiz();
+      handleRouteChange();
+      if (newContent) {
+        router.replace(`/quiz/${newContent}`)
+      }
+
+    }
+  },
+  { immediate: true }
+)
 
 // 只在组件首次加载时处理自动开始参数
 const handleAutoStart = () => {
@@ -566,9 +606,38 @@ const totalCharsCount = computed(() => {
 
       <div v-else class="completion-message">
         <h2>恭喜完成所有书空练习！</h2>
-<p>本次共书空 {{totalCharsCount}} 字，错误 {{ errorCount }} 次。</p>
-        <button @click="resetQuiz" class="reset-button">重新开始</button>
+        <p>本次共书空 <span class="text-green-500 font-bold">{{totalCharsCount}}</span> 字，错误 <span class="text-red-500 font-bold">{{ errorCount }}</span> 次。</p>
+        <div v-if="errorChars.size > 0" class="error-chars-grid">
+          <h3 class="font-bold">错误字统计</h3>
+          <div class="error-char-items">
+            <div
+              v-for="[char, count] in errorChars"
+              :key="char"
+              class="error-char-item"
+              @click="() => {
+                currentChar = char
+                showModal = true
+              }"
+            >
+              <div class="char">{{ char }}</div>
+              <div class="count text-red-500 font-bold">{{ count }}</div>
+            </div>
+          </div>
+        </div>
+        <button title="重新开始" @click="resetQuiz" class="reset-button">重新开始</button>
+        <button
+          title="练习错字"
+          v-if="errorChars.size > 0"
+          @click="handleAddErrorCharsToCart"
+          class="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+        >
+          <i class="fas fa-pencil-alt"></i>
+        </button>
       </div>
+      <StrokeOrderModal
+        v-model:show="showModal"
+        :character="currentChar"
+      />
     </div>
   </div>
   <!-- QR Code Modal -->
@@ -759,6 +828,58 @@ const totalCharsCount = computed(() => {
   font-size: clamp(24px, 6vw, 48px);
   word-wrap: break-word;
   line-height: 1.2;
+}
+
+.error-chars-grid {
+  margin: 2rem 0;
+}
+
+.error-chars-grid h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.error-char-items {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  gap: 1rem;
+  margin: 1rem auto;
+  padding: 0 2rem;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .error-char-items {
+    width: 100%;
+    padding: 0 2rem;
+  }
+}
+
+.error-char-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-char-item:hover {
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.error-char-item .char {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.error-char-item .count {
 }
 
 @media screen and (max-width: 768px) {
