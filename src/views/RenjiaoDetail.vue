@@ -5,7 +5,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import RightNav from '../components/RightNav.vue'
 import { loadResource } from '../utils/resourceLoader'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
-import { addToCart } from '../store/cart'
+import { addToCart, countTotalCharacters } from '../store/cart'
+import { message } from '../utils/message'
+import { countChineseCharacters } from '../utils/common'
 
 const route = useRoute()
 const router = useRouter()
@@ -108,12 +110,25 @@ onMounted(() => {
 
 const handlePencilClick = (lesson) => {
   // 将汉字添加到购物车
-  lesson.characters.forEach(item => {
-    addToCart(item.character)
-  })
+  let count = 0;
+  for (let item of lesson.characters) {
+    if (countTotalCharacters() >= 1000) {
+      message.error(`已添加 ${count} 字到书空笔顺练习，书空笔顺练习最多只能添加 1000 个字。`)
+      return;
+    }
+    if (addToCart(item.character)) {
+      count += countChineseCharacters(item.character);
+    } else {
+      continue;
+    }
+  }
 
   // 显示添加成功的提示
-  alert(`已将${lesson.characters.length}个汉字添加到练习列表`)
+  if (count > 0) {
+    message.success(`已添加 ${count} 字到书空笔顺练习`)
+  } else {
+    message.error(`本次没有添加任何字，可能是之前已经添加过了。`)
+  }
 }
 
 </script>

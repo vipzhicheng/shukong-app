@@ -2,7 +2,7 @@
   <div class="cart-button" @click="toggleCart">
     <div class="cart-icon" title="开始笔顺练习">
       <i class="fas fa-pencil-alt"></i>
-      <span v-if="cartItems.length > 0" class="cart-count">{{ countTotalCharacters() }}</span>
+      <span class="cart-count">{{ countTotalCharacters() }}</span>
     </div>
   </div>
 </template>

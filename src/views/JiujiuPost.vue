@@ -6,7 +6,9 @@ import RightNav from '../components/RightNav.vue'
 import { isSpeechSupported } from '../store/speech'
 import { loadResource } from '../utils/resourceLoader'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
-import { addToCart } from '../store/cart'
+import { addToCart, countTotalCharacters } from '../store/cart'
+import { message } from '../utils/message'
+import { countChineseCharacters } from '../utils/common'
 
 const route = useRoute()
 const router = useRouter()
@@ -185,18 +187,42 @@ const openBaiduHanyu = () => {
   window.open(`https://hanyu.baidu.com/hanyu-page/zici/s?wd=${encodeURIComponent(currentChar.value)}&ptype=zici`, '_blank', 'noopener,noreferrer')
 }
 
+
+
 const addToCartHandler = () => {
   if (!postData.value) return
 
-  postData.value.forEach(section => {
-      const text = section.lines
-        .map(line => line.tokens.filter(token => /[\u4e00-\u9fa5]/.test(token.char)).map(token => token.char).join(''))
-        .join('\n')
-
-      if (text) {
-        addToCart(text)
+  let count = 0
+  for (let section of postData.value) {
+    let text = '';
+    for (let line of section.lines) {
+      let lineText = '';
+      for (let token of line.tokens) {
+        if (/[\u4e00-\u9fa5]/.test(token.char)) {
+          lineText += token.char;
+        }
       }
-  })
+      text += lineText + '\n';
+    }
+
+    if (text) {
+      if (countTotalCharacters() >= 1000) {
+        message.error(`已添加 ${count} 字到书空笔顺练习，书空笔顺练习最多只能添加 1000 个字。`)
+        return;
+      }
+      if (addToCart(text)) {
+        count += countChineseCharacters(text.replace("\n", ''));
+      } else {
+        continue;
+      }
+    }
+  }
+
+  if (count > 0) {
+    message.success(`已添加 ${count} 字到书空笔顺练习`)
+  } else {
+    message.error(`本次没有添加任何字，可能是之前已经添加过了。`)
+  }
 }
 </script>
 
@@ -259,7 +285,7 @@ const addToCartHandler = () => {
                   v-if="postData"
                   @click="addToCartHandler"
                   class="add-to-cart-btn"
-                  title="添加到笔顺练习"
+                  title="添加到书空笔顺练习"
                 >
                   <i class="fas fa-pencil-alt"></i>
                 </button></div>

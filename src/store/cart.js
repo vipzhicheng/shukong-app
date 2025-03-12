@@ -20,9 +20,17 @@ export function saveCartItems() {
 export function addToCart(character) {
   // 检查是否已存在
   if (!cartItems.value.includes(character)) {
+    if (countTotalCharacters() >= 1000) {
+      return false;
+    }
+
     cartItems.value.push(character);
     saveCartItems();
+  } else {
+    return false;
   }
+
+  return true;
 }
 
 // 从购物车移除汉字

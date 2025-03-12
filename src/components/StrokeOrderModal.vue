@@ -38,6 +38,7 @@ import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { createHanziWriter } from '../utils/hanziWriter'
 import { isSpeechSupported } from '../store/speech'
 import { addToCart } from '../store/cart'
+import { message } from '../utils/message'
 
 const props = defineProps({
   show: {
@@ -95,7 +96,12 @@ const openBaiduHanyu = () => {
 }
 
 const addToCartHandler = () => {
-  addToCart(props.character)
+
+  if (addToCart(props.character)) {
+    message.success(`已添加到书空笔顺练习`)
+  } else {
+    message.error(`本次没有添加任何字，可能是之前已经添加过了。`)
+  }
 }
 
 const playCharacterSound = () => {

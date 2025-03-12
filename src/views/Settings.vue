@@ -188,7 +188,7 @@ onMounted(() => {
     <div class="floating-menu">
       <a @click="scrollToSection('general-settings')" class="menu-item">基本设置</a>
       <a @click="scrollToSection('font-settings')" class="menu-item">字体设置</a>
-      <a @click="scrollToSection('voice-settings')" class="menu-item">朗读设置</a>
+      <a v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="menu-item">朗读设置</a>
       <a @click="scrollToSection('quiz-settings')" class="menu-item">书空设置</a>
     </div>
     <div class="settings-card" id="general-settings">
