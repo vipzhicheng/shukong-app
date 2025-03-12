@@ -4,13 +4,13 @@
       <span class="close" @click="handleClose">&times;</span>
       <div id="character-target-modal" class="character-display"></div>
       <div class="control-buttons">
-        <button @click="togglePlay" class="control-button">
+        <button @click="togglePlay" class="control-button" title="播放/暂停">
           <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
-        <button @click="resetAnimation" class="control-button">
+        <button @click="resetAnimation" class="control-button" title="重新播放">
           <i class="fas fa-redo"></i>
         </button>
-        <button @click="openBaiduHanyu" class="control-button">
+        <button @click="openBaiduHanyu" class="control-button" title="查询汉子">
           <i class="fas fa-search"></i>
         </button>
         <button
@@ -24,7 +24,7 @@
         <button
           class="control-button"
           @click="addToCartHandler"
-          title="添加到购物车"
+          title="添加到笔顺练习"
         >
           <i class="fas fa-pencil-alt"></i>
         </button>

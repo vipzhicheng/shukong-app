@@ -6,6 +6,7 @@ import RightNav from '../components/RightNav.vue'
 import { isSpeechSupported } from '../store/speech'
 import { loadResource } from '../utils/resourceLoader'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
+import { addToCart } from '../store/cart'
 
 const route = useRoute()
 const router = useRouter()
@@ -183,6 +184,20 @@ const closeModal = () => {
 const openBaiduHanyu = () => {
   window.open(`https://hanyu.baidu.com/hanyu-page/zici/s?wd=${encodeURIComponent(currentChar.value)}&ptype=zici`, '_blank', 'noopener,noreferrer')
 }
+
+const addToCartHandler = () => {
+  if (!postData.value) return
+
+  postData.value.forEach(section => {
+      const text = section.lines
+        .map(line => line.tokens.filter(token => /[\u4e00-\u9fa5]/.test(token.char)).map(token => token.char).join(''))
+        .join('\n')
+
+      if (text) {
+        addToCart(text)
+      }
+  })
+}
 </script>
 
 <template>
@@ -190,6 +205,7 @@ const openBaiduHanyu = () => {
     <div class="nav-content">
       <div class="nav-menu">
         <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
+
       </div>
     </div>
   </RightNav>
@@ -239,6 +255,14 @@ const openBaiduHanyu = () => {
                   <div class="pinyin text-base">{{ token.pinyin || '　' }}</div>
                   <div class="character">{{ token.char }}</div>
                 </div>
+                <div class=" flex items-center justify-center"><button
+                  v-if="postData"
+                  @click="addToCartHandler"
+                  class="add-to-cart-btn"
+                  title="添加到笔顺练习"
+                >
+                  <i class="fas fa-pencil-alt"></i>
+                </button></div>
               </div>
             </div>
             <!-- 副标题渲染 -->
@@ -424,5 +448,19 @@ const openBaiduHanyu = () => {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.add-to-cart-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  color: var(--primary-color);
 }
 </style>
