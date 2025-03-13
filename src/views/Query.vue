@@ -147,12 +147,14 @@ onMounted(async () => {
   </RightNav>
   <div class="container">
     <div v-if="!route.params.chars" class="input-section">
+      <div class="rainbow-border-container">
       <input
         v-model="inputText"
         placeholder="请输入汉字"
         class="input-field"
         @keyup.enter="handleQuery"
       />
+    </div>
       <button @click="handleQuery" class="query-button">查询笔顺</button>
     </div>
     <div v-else class="result-section">
@@ -233,11 +235,14 @@ onMounted(async () => {
 .input-field {
   flex: 1;
   padding: 12px 18px;
+  width: 80%;
   font-size: 24px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border: none;
+  border-radius: 5px;
   background-color: var(--bg-color);
   color: var(--text-color);
+  margin: 2px;
+  outline: none;
 }
 
 .query-button {
@@ -255,7 +260,7 @@ onMounted(async () => {
   .input-section {
     flex-direction: column;
   }
-  
+
   .query-button {
     width: 100%;
   }

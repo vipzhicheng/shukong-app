@@ -498,12 +498,15 @@ const totalCharsCount = computed(() => {
   <div class="container">
     <div v-if="!showQuiz" class="content-section">
       <div v-show="activeTab === '自由'" class="input-section">
-      <textarea
-        v-model="inputText"
-        placeholder="请输入汉字，每行一个词"
-        class="input-field"
-        rows="5"
-      ></textarea>
+        <div class="rainbow-border-container">
+          <textarea
+            v-model="inputText"
+            placeholder="请输入汉字，每行一个词"
+            class="input-field"
+            rows="5"
+          ></textarea>
+        </div>
+
       <div class="button-group">
         <button @click="handleSubmit" class="submit-button">开始书空</button>
         <div class="file-upload">
@@ -716,14 +719,17 @@ const totalCharsCount = computed(() => {
 }
 
 .input-field {
+  margin:2px;
   width: 100%;
-  max-width: 600px;
   padding: 12px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 4px;
   resize: vertical;
+  position: relative;
+  border: 4px solid transparent;
 }
+
 
 .button-group {
   display: flex;

@@ -1,0 +1,55 @@
+.rainbow-border-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rainbow-border-container::before {
+  content: "";
+  position: absolute;
+  top: -250%;
+  left: -50%;
+  right: -50%;
+  bottom: -250%;
+  background: conic-gradient(
+    from 0deg,
+    #ff0000,
+    #ff8800,
+    #ffff00,
+    #00ff00,
+    #0088ff,
+    #ff0000
+  );
+  border-radius: inherit;
+  animation: rainbow-border 2s linear infinite;
+  z-index: 0;
+}
+
+textarea,
+input {
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-color);
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.rainbow-border-container textarea:focus,
+.rainbow-border-container input:focus {
+}
+
+@keyframes rainbow-border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
