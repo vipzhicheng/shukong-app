@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import '@fortawesome/fontawesome-free/css/all.css'
 import { createHanziWriter } from '../utils/hanziWriter'
 import { isSpeechSupported } from '../store/speech'
+import { addToCart, countTotalCharacters } from '../store/cart'
+import { message } from '../utils/message'
 import RightNav from '../components/RightNav.vue'
 
 const route = useRoute()
@@ -112,6 +114,17 @@ const resetAnimation = () => {
   }
 }
 
+const handleAddToCart = () => {
+  if (countTotalCharacters() >= 1000) {
+    message.error('书空笔顺练习最多只能添加 1000 个字')
+    return
+  }
+  if (addToCart(currentChar.value)) {
+    message.success(`已添加到笔顺练习`)
+  } else {
+    message.error(`本次没有添加任何字，可能是之前已经添加过了。`)
+  }
+}
 
 const updateCharList = async (chars) => {
   charList.value = Array.from(decodeURIComponent(chars || '')).filter(char => {
@@ -182,6 +195,9 @@ onMounted(async () => {
         </button>
         <button v-if="isSpeechSupported" @click="playSound" class="control-button">
           <i class="fas fa-volume-up"></i>
+        </button>
+        <button @click="handleAddToCart" class="control-button">
+          <i class="fas fa-pencil-alt"></i>
         </button>
       </div>
     </div>

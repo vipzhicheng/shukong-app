@@ -14,7 +14,7 @@ const navigateToHome = () => {
 
 <template>
   <div class="right-nav-container">
-    <div class="home-icon">
+    <div class="home-icon" v-show="$route.path !== '/quiz'">
       <a @click="navigateToHome" class="home-link" title="首页">
         <i class="fas fa-home"></i>
       </a>
@@ -76,7 +76,6 @@ const navigateToHome = () => {
 @media (max-width: 768px) {
   .home-icon {
     display: block;
-    margin-right: 1rem;
   }
 }
 
