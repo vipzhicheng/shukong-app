@@ -91,7 +91,7 @@ const loadBookData = async () => {
         }))
       }
 
-      if (volume.words) {
+      if (volume.words && volume.words.length > 0) {
         content['词语表'] = volume.words.map(lesson => ({
           title: volume.lessons?.[lesson.lesson] || lesson.lesson,
           number: lesson.short || '',

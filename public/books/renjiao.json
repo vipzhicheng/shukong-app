@@ -2032,32 +2032,7 @@
               ]
             }
           ],
-          "words": [
-            {
-              "lesson": "课文1",
-              "title": "秋天",
-              "words": [
-                {
-                  "word": "秋天",
-                  "pinyin": "qiū tiān"
-                },
-                {
-                  "word": "秋风",
-                  "pinyin": "qiū fēng"
-                }
-              ]
-            },
-            {
-              "lesson": "语文园地一",
-              "title": "复习与巩固",
-              "words": [
-                {
-                  "word": "日月",
-                  "pinyin": "rì yuè"
-                }
-              ]
-            }
-          ]
+          "words": []
         },
         {
           "volume": 2,
