@@ -11,10 +11,10 @@
 .rainbow-border-container::before {
   content: "";
   position: absolute;
-  top: -250%;
+  top: -450%;
   left: -50%;
   right: -50%;
-  bottom: -250%;
+  bottom: -450%;
   background: conic-gradient(
     from 0deg,
     #ff0000,

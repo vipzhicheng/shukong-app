@@ -1,5 +1,0 @@
-extraResources:
-  - from: "public/books"
-    to: "books"
-  - from: "public/hanzi-writer"
-    to: "hanzi-writer"

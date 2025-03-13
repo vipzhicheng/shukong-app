@@ -7,13 +7,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.name = "书空";
-
+let isLoadResourceHandlerRegistered = false;
 function createWindow() {
-  ipcMain.handle("load-resource", async (_, filePath) => {
-    const resourcePath = path.join(app.getAppPath(), "dist", filePath);
-    const data = fs.readFileSync(resourcePath, "utf8");
-    return JSON.parse(data);
-  });
+  if (!isLoadResourceHandlerRegistered) {
+    ipcMain.handle("load-resource", async (_, filePath) => {
+      const resourcePath = path.join(app.getAppPath(), "dist_app", filePath);
+      const data = fs.readFileSync(resourcePath, "utf8");
+      return JSON.parse(data);
+    });
+    isLoadResourceHandlerRegistered = true;
+  }
 
   const win = new BrowserWindow({
     width: 1200,
@@ -36,8 +39,8 @@ function createWindow() {
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
-    // win.loadFile(path.join(__dirname, "../dist/index.html"));
-    win.loadFile(path.join(__dirname, "."));
+    // win.loadFile(path.join(__dirname, "../dist_app/index.html"));
+    win.loadFile(path.join(__dirname, "../dist_app/index.html"));
   }
 
   return win;
@@ -69,7 +72,7 @@ const createMenu = (win) => {
               process.env.VITE_DEV_SERVER_URL
                 ? process.env.VITE_DEV_SERVER_URL + "#/settings"
                 : "file://" +
-                    path.join(__dirname, "../dist/index.html#/settings")
+                    path.join(__dirname, "../dist_app/index.html#/settings")
             );
           },
         },
@@ -87,7 +90,8 @@ const createMenu = (win) => {
             win.loadURL(
               process.env.VITE_DEV_SERVER_URL
                 ? process.env.VITE_DEV_SERVER_URL + "#/quiz"
-                : "file://" + path.join(__dirname, "../dist/index.html#/quiz")
+                : "file://" +
+                    path.join(__dirname, "../dist_app/index.html#/quiz")
             );
           },
         },
@@ -98,7 +102,8 @@ const createMenu = (win) => {
             win.loadURL(
               process.env.VITE_DEV_SERVER_URL
                 ? process.env.VITE_DEV_SERVER_URL + "#/"
-                : "file://" + path.join(__dirname, "../dist/index.html#/query")
+                : "file://" +
+                    path.join(__dirname, "../dist_app/index.html#/query")
             );
           },
         },
@@ -109,7 +114,8 @@ const createMenu = (win) => {
             win.loadURL(
               process.env.VITE_DEV_SERVER_URL
                 ? process.env.VITE_DEV_SERVER_URL + "#/book"
-                : "file://" + path.join(__dirname, "../dist/index.html#/book")
+                : "file://" +
+                    path.join(__dirname, "../dist_app/index.html#/book")
             );
           },
         },
@@ -146,14 +152,26 @@ const createMenu = (win) => {
   Menu.setApplicationMenu(menu);
 };
 
+let mainWindow = null;
+
 app.whenReady().then(() => {
-  const win = createWindow();
-  createMenu(win);
+  mainWindow = createWindow();
+  createMenu(mainWindow);
 
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+    // 检查主窗口是否存在且未被销毁
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.show();
+    } else {
+      // 如果主窗口不存在或已被销毁，创建新窗口
+      mainWindow = createWindow();
+      createMenu(mainWindow);
     }
+  });
+
+  // 监听主窗口的关闭事件
+  mainWindow.on("closed", () => {
+    mainWindow = null;
   });
 });
 

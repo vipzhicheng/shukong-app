@@ -4,7 +4,7 @@
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:5175",
-    "distDir": "../dist"
+    "distDir": "../dist_app"
   },
   "package": {
     "productName": "书空",

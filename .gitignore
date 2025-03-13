@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist_app
 dist-ssr
 dist_electron
 dist-electron

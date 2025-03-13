@@ -32,9 +32,7 @@ function copyPublicFilesPlugin() {
             "icon.png",
             "icon.svg",
             "quiz.json",
-          ].map((file) =>
-            fs.copy(`public/${file}`, `dist_electron/app/${file}`)
-          )
+          ].map((file) => fs.copy(`public/${file}`, `dist_app/${file}`))
         );
       }
     },
@@ -57,7 +55,7 @@ export default defineConfig({
     port: 5175, // 默认端口
   },
   build: {
-    outDir: process.env.ELECTRON === "true" ? "dist_electron/app" : "dist",
+    outDir: process.env.ELECTRON === "true" ? "dist_app" : "dist",
     rollupOptions: {
       input: {
         main: "index.html",

@@ -10,9 +10,10 @@
     "dev:tauri": "tauri dev",
     "dev:android": "cap sync android && cap open android",
     "dev:ios": "cap sync ios && cap open ios",
-    "build": "vite build",
+    "generate-icons": "node scripts/generate-icons.js",
+    "build": "npm run generate-icons && vite build",
     "build:electron": "ELECTRON=true vite build && electron-builder",
-    "build:tauri": "tauri build",
+    "build:tauri": "npm run generate-icons && tauri build",
     "build:android": "vite build && cap sync android && cd android && ./gradlew assembleRelease",
     "build:ios": "vite build && cap sync ios && cd ios && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive",
     "preview": "vite preview"
@@ -24,7 +25,7 @@
       "output": "dist_electron"
     },
     "files": [
-      "dist/**/*",
+      "dist_app/**/*",
       "electron/**/*"
     ],
     "mac": {
@@ -83,6 +84,7 @@
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.9",
     "vite": "^6.2.0",
-    "vite-plugin-electron": "^0.29.0"
+    "vite-plugin-electron": "^0.29.0",
+    "sharp": "^0.33.2"
   }
 }
