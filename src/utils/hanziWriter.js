@@ -34,18 +34,57 @@ export function createHanziWriter(targetId, char, options = {}) {
     autoAnimate: false,
     showCharacter: false,
     drawingWidth: 3,
-    charDataLoader: function (char, onComplete) {
-      // 尝试从本地加载数据
-      loadResource(`hanzi-writer/data/${char}.json`)
-        .then(function (charData) {
-          onComplete(charData);
-        })
-        .catch(() => {
-          // 本地数据加载失败，从 CDN 加载
-          HanziWriter.loadCharacterData(char).then(function (charData) {
+    charDataLoader: async function (char, onComplete) {
+      // 判断是否为浏览器环境
+      const isBrowser = typeof window !== 'undefined' && 
+        typeof window.document !== 'undefined' && 
+        typeof window.document.createElement !== 'undefined' &&
+        !window.electron && !window.capacitor;
+
+      // CDN列表，按优先级排序
+      const cdnList = [
+        // 非浏览器环境才使用本地数据
+        ...(!isBrowser ? [
+          // 本地数据
+          async () => await loadResource(`hanzi-writer/data/${char}.json`)
+        ] : []),
+        // 官方CDN
+        async () => await HanziWriter.loadCharacterData(char),
+        // jsDelivr CDN
+        async () => {
+          const response = await fetch(
+            `https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`
+          );
+          if (!response.ok) throw new Error("jsDelivr加载失败");
+          return await response.json();
+        },
+        // UNPKG CDN
+        async () => {
+          const response = await fetch(
+            `https://unpkg.com/hanzi-writer-data@latest/${char}.json`
+          );
+          if (!response.ok) throw new Error("UNPKG加载失败");
+          return await response.json();
+        },
+      ];
+
+      // 依次尝试每个CDN
+      for (const loadFn of cdnList) {
+        try {
+          const charData = await loadFn();
+          if (charData) {
             onComplete(charData);
-          });
-        });
+            return;
+          }
+        } catch (error) {
+          console.warn(`加载汉字数据失败，尝试下一个源: ${error.message}`);
+          continue;
+        }
+      }
+
+      // 所有CDN都失败时的处理
+      console.error("所有数据源都加载失败");
+      onComplete(null);
     },
   };
 

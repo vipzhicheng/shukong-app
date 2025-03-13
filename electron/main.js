@@ -12,7 +12,6 @@ function createWindow() {
   ipcMain.handle("load-resource", async (_, filePath) => {
     const resourcePath = path.join(app.getAppPath(), "dist", filePath);
     const data = fs.readFileSync(resourcePath, "utf8");
-    console.log("data", data);
     return JSON.parse(data);
   });
 
@@ -37,7 +36,8 @@ function createWindow() {
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
-    win.loadFile(path.join(__dirname, "../dist/index.html"));
+    // win.loadFile(path.join(__dirname, "../dist/index.html"));
+    win.loadFile(path.join(__dirname, "."));
   }
 
   return win;
