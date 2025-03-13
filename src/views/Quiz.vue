@@ -219,7 +219,7 @@ const showNextChar = async () => {
       width: containerSize.value,
       height: containerSize.value,
       padding: Math.floor(containerSize.value * 0.025),
-      drawingWidth: Math.floor(containerSize.value * 0.03),
+      drawingWidth: Math.floor(containerSize.value * 0.1),
       onComplete: () => {
         isPlaying.value = false
         currentCharIndex.value++
@@ -246,7 +246,7 @@ const resetQuiz = () => {
 }
 
 const containerSize = ref(500)
-const minSize = 300
+const minSize = 100
 const maxSize = 800
 const sizeStep = 50
 
@@ -340,7 +340,7 @@ const zoomIn = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 0.03),
+          drawingWidth: Math.floor(containerSize.value * 0.1),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++
@@ -366,7 +366,7 @@ const zoomOut = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 0.03),
+          drawingWidth: Math.floor(containerSize.value * 1),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++

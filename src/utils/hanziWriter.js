@@ -37,7 +37,12 @@ export function createHanziWriter(targetId, char, options = {}) {
     charDataLoader: async function (char, onComplete) {
       // 判断是否为浏览器环境
       const isTauri = window.origin.startsWith("tauri://") || window.__TAURI__;
-      const isBrowser = !isTauri && !window.electron && !window.capacitor;
+      let isBrowser = !isTauri && !window.electron && !window.capacitor;
+
+      if (process.env.NODE_ENV === "development") {
+        // 开发环境下，使用本地数据，主要是学习机有第三方地址拦截，用于了CDN
+        isBrowser = false;
+      }
 
       // CDN列表，按优先级排序
       const cdnList = [

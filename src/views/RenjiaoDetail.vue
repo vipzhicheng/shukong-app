@@ -198,7 +198,7 @@ const handlePencilClick = (lesson) => {
         </h3>
         <div class="characters-grid">
           <template v-if="activeTab === '词语表'">
-            <div
+            <div class="word-card flex flex-row gap-1"
             v-for="(chars, charIndex) in lesson.characters">
               <div
               v-for="(item, charIndex) in chars"

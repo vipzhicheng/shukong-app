@@ -353,7 +353,7 @@ onMounted(() => {
             <input
               type="range"
               v-model.number="quizSettings.containerSize"
-              min="300"
+              min="100"
               max="800"
               step="50"
               @change="saveQuizSettings"
@@ -361,7 +361,7 @@ onMounted(() => {
             />
             <span class="settings-value">{{ quizSettings.containerSize }}像素</span>
           </div>
-          <p class="settings-hint">可设置范围：300-800像素</p>
+          <p class="settings-hint">可设置范围：100-800像素</p>
         </div>
 
         <div class="settings-item">
