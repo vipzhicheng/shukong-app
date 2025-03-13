@@ -2081,9 +2081,166 @@
         {
           "volume": 4,
           "term": "二年级下册",
-          "recognition": [],
+          "lessons": {
+            "识字2": "传统节日"
+          },
+          "recognition": [
+            {
+              "lesson": "识字2",
+              "short": "2",
+              "characters": [
+                {
+                  "character": "贴",
+                  "pinyin": "tiē"
+                },
+                {
+                  "character": "街",
+                  "pinyin": "jiē"
+                },
+                {
+                  "character": "舟",
+                  "pinyin": "zhōu"
+                },
+                {
+                  "character": "艾",
+                  "pinyin": "ài"
+                },
+                {
+                  "character": "敬",
+                  "pinyin": "jìng"
+                },
+                {
+                  "character": "转",
+                  "pinyin": "zhuǎn"
+                },
+                {
+                  "character": "团",
+                  "pinyin": "tuán"
+                },
+                {
+                  "character": "热",
+                  "pinyin": "rè"
+                },
+                {
+                  "character": "闹",
+                  "pinyin": "nào"
+                }
+              ]
+            }
+          ],
           "writing": [],
-          "words": []
+          "words": [
+            {
+              "lesson": "识字2",
+              "short": "2",
+              "characters": [
+                [
+                  {
+                    "character": "节",
+                    "pinyin": "jié"
+                  },
+                  {
+                    "character": "日",
+                    "pinyin": "rì"
+                  }
+                ],
+                [
+                  {
+                    "character": "春",
+                    "pinyin": "chūn"
+                  },
+                  {
+                    "character": "节",
+                    "pinyin": "jié"
+                  }
+                ],
+                [
+                  {
+                    "character": "花",
+                    "pinyin": "huā"
+                  },
+                  {
+                    "character": "灯",
+                    "pinyin": "dēng"
+                  }
+                ],
+                [
+                  {
+                    "character": "清",
+                    "pinyin": "qīng"
+                  },
+                  {
+                    "character": "明",
+                    "pinyin": "míng"
+                  },
+                  {
+                    "character": "节",
+                    "pinyin": "jié"
+                  }
+                ],
+                [
+                  {
+                    "character": "先",
+                    "pinyin": "xiān"
+                  },
+                  {
+                    "character": "人",
+                    "pinyin": "rén"
+                  }
+                ],
+                [
+                  {
+                    "character": "龙",
+                    "pinyin": "lóng"
+                  },
+                  {
+                    "character": "舟",
+                    "pinyin": "zhōu"
+                  }
+                ],
+                [
+                  {
+                    "character": "中",
+                    "pinyin": "zhōng"
+                  },
+                  {
+                    "character": "秋",
+                    "pinyin": "qiū"
+                  }
+                ],
+                [
+                  {
+                    "character": "转",
+                    "pinyin": "zhuǎn"
+                  },
+                  {
+                    "character": "眼",
+                    "pinyin": "yǎn"
+                  }
+                ],
+                [
+                  {
+                    "character": "团",
+                    "pinyin": "tuán"
+                  },
+                  {
+                    "character": "圆",
+                    "pinyin": "yuán"
+                  }
+                ],
+                [
+                  {
+                    "character": "热",
+                    "pinyin": "rè"
+                  },
+                  {
+                    "character": "闹",
+                    "pinyin": "nào"
+                  }
+                ]
+              ]
+            }
+          ]
         }
       ]
     }

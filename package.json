@@ -1,5 +1,5 @@
 {
-  "name": "hanzi-electron",
+  "name": "shukong",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -7,13 +7,13 @@
   "scripts": {
     "dev": "vite",
     "dev:electron": "ELECTRON=true vite dev",
-    "dev:tauri": "tauri dev",
+    "dev:tauri": "ELECTRON=true tauri dev",
     "dev:android": "cap sync android && cap open android",
     "dev:ios": "cap sync ios && cap open ios",
     "generate-icons": "node scripts/generate-icons.js",
     "build": "npm run generate-icons && vite build",
     "build:electron": "ELECTRON=true vite build && electron-builder",
-    "build:tauri": "npm run generate-icons && tauri build",
+    "build:tauri": "npm run generate-icons && TAURI=true tauri build",
     "build:android": "vite build && cap sync android && cd android && ./gradlew assembleRelease",
     "build:ios": "vite build && cap sync ios && cd ios && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive",
     "preview": "vite preview"

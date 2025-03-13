@@ -9,7 +9,7 @@ function copyPublicFilesPlugin() {
   return {
     name: "copy-public-files",
     closeBundle: async () => {
-      if (process.env.ELECTRON !== "true") {
+      if (process.env.ELECTRON !== "true" && process.env.TAURI !== "true") {
         // 手动复制需要的public文件，排除hanzi-writer目录
         await Promise.all(
           [
@@ -49,13 +49,19 @@ export default defineConfig({
     }),
     copyPublicFilesPlugin(), // 添加自定义插件
   ],
-  base: process.env.ELECTRON == "true" ? "./" : "/",
+  base:
+    process.env.ELECTRON === "true" || process.env.TAURI === "true"
+      ? "./"
+      : "/",
   server: {
     host: true, // 允许局域网访问
     port: 5175, // 默认端口
   },
   build: {
-    outDir: process.env.ELECTRON === "true" ? "dist_app" : "dist",
+    outDir:
+      process.env.ELECTRON === "true" || process.env.TAURI === "true"
+        ? "dist_app"
+        : "dist",
     rollupOptions: {
       input: {
         main: "index.html",

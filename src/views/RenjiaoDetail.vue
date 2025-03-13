@@ -58,8 +58,10 @@ const loadBookData = async () => {
   try {
     const data = await loadResource('books/renjiao.json')
     metadata.value = data.metadata
-    const grade = data.grades.find(g => g.grade === parseInt(route.params.id))
+    const [gid, vid] = route.params.id.split('')
+    const grade = data.grades.find(g => g.grade === parseInt(gid))
     if (grade) {
+      const volume = grade.volumes.find(v => v.volume === parseInt(vid))
       // 重新组织数据结构
       const content = {
         '识字表': [],
@@ -68,9 +70,9 @@ const loadBookData = async () => {
       }
 
       // 处理识字内容
-      if (grade.volumes?.[0]?.recognition) {
-        content['识字表'] = grade.volumes[0].recognition.map(lesson => ({
-          title: grade.volumes[0].lessons?.[lesson.lesson] || lesson.lesson,
+      if (volume?.recognition) {
+        content['识字表'] = volume.recognition.map(lesson => ({
+          title: volume.lessons?.[lesson.lesson] || lesson.lesson,
           number: lesson.short || '',
           characters: lesson.characters.map(char => ({
             character: char.character,
@@ -78,14 +80,27 @@ const loadBookData = async () => {
           }))
         }))
       }
-      if (grade.volumes?.[0]?.writing) {
-        content['写字表'] = grade.volumes[0].writing.map(lesson => ({
-          title: grade.volumes[0].lessons?.[lesson.lesson] || lesson.lesson,
+      if (volume.writing) {
+        content['写字表'] = volume.writing.map(lesson => ({
+          title: volume.lessons?.[lesson.lesson] || lesson.lesson,
           number: lesson.short || '',
           characters: lesson.characters.map(char => ({
             character: char.character,
             pinyin: char.pinyin
           }))
+        }))
+      }
+
+      if (volume.words) {
+        content['词语表'] = volume.words.map(lesson => ({
+          title: volume.lessons?.[lesson.lesson] || lesson.lesson,
+          number: lesson.short || '',
+          characters: lesson.characters.map(chars => {
+            return chars.map(char => ({
+              character: char.character,
+              pinyin: char.pinyin
+            }))
+          })
         }))
       }
 
@@ -100,10 +115,6 @@ const loadBookData = async () => {
   }
 }
 
-const navigateToCharacter = (char) => {
-  router.push(`/zi/${encodeURIComponent(char)}`)
-}
-
 onMounted(() => {
   loadBookData()
 })
@@ -116,10 +127,20 @@ const handlePencilClick = (lesson) => {
       message.error(`已添加 ${count} 字到书空笔顺练习，书空笔顺练习最多只能添加 1000 个字。`)
       return;
     }
-    if (addToCart(item.character)) {
-      count += countChineseCharacters(item.character);
+    if (Array.isArray(item)) {
+      const word = item.map(subItem => subItem.character).join('')
+        if (addToCart(word)) {
+          count += countChineseCharacters(word);
+        } else {
+          continue;
+        }
     } else {
-      continue;
+
+      if (addToCart(item.character)) {
+        count += countChineseCharacters(item.character);
+      } else {
+        continue;
+      }
     }
   }
 
@@ -176,7 +197,22 @@ const handlePencilClick = (lesson) => {
           </button>
         </h3>
         <div class="characters-grid">
-          <div
+          <template v-if="activeTab === '词语表'">
+            <div
+            v-for="(chars, charIndex) in lesson.characters">
+              <div
+              v-for="(item, charIndex) in chars"
+              :key="charIndex"
+              class="character-card"
+              @click="handleCharacterClick(item.character)"
+            >
+              <div class="pinyin">{{ item.pinyin }}</div>
+              <div class="character">{{ item.character }}</div>
+            </div>
+          </div>
+          </template>
+          <template v-else>
+            <div
             v-for="(item, charIndex) in lesson.characters"
             :key="charIndex"
             class="character-card"
@@ -185,6 +221,9 @@ const handlePencilClick = (lesson) => {
             <div class="pinyin">{{ item.pinyin }}</div>
             <div class="character">{{ item.character }}</div>
           </div>
+          </template>
+
+
         </div>
       </div>
     </div>

@@ -36,18 +36,18 @@ export function createHanziWriter(targetId, char, options = {}) {
     drawingWidth: 3,
     charDataLoader: async function (char, onComplete) {
       // 判断是否为浏览器环境
-      const isBrowser = typeof window !== 'undefined' && 
-        typeof window.document !== 'undefined' && 
-        typeof window.document.createElement !== 'undefined' &&
-        !window.electron && !window.capacitor;
+      const isTauri = window.origin.startsWith("tauri://") || window.__TAURI__;
+      const isBrowser = !isTauri && !window.electron && !window.capacitor;
 
       // CDN列表，按优先级排序
       const cdnList = [
-        // 非浏览器环境才使用本地数据
-        ...(!isBrowser ? [
-          // 本地数据
-          async () => await loadResource(`hanzi-writer/data/${char}.json`)
-        ] : []),
+        // 非浏览器环境或Tauri环境才使用本地数据
+        ...(!isBrowser
+          ? [
+              // 本地数据
+              async () => await loadResource(`hanzi-writer/data/${char}.json`),
+            ]
+          : []),
         // 官方CDN
         async () => await HanziWriter.loadCharacterData(char),
         // jsDelivr CDN

@@ -16,7 +16,8 @@ onMounted(async () => {
       grade.volumes.forEach(volume => {
         formattedBooks.push({
           grade: grade.grade,
-          term: volume.term
+          term: volume.term,
+          volume: volume.volume
         })
       })
     })
@@ -39,7 +40,7 @@ onMounted(async () => {
   <div class="container mx-auto px-4 py-8">
     <div class="book-grid">
       <div v-for="volume in books" :key="volume.grade + '-' + volume.term" class="book-card">
-        <router-link :to="`/book/renjiao/${volume.grade}`" class="book-link">
+        <router-link :to="`/book/renjiao/${volume.grade}${volume.volume}`" class="book-link">
           <div class="book">
             <i class="fas fa-book book-icon"></i>
             <div class="book-title">

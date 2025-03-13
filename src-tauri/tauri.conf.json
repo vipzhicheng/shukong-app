@@ -78,7 +78,9 @@
         "height": 600,
         "resizable": true,
         "title": "书空",
-        "width": 800
+        "width": 800,
+        "visible": true,
+        "decorations": true
       }
     ]
   }
