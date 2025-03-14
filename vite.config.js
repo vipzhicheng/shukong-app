@@ -44,11 +44,11 @@ export default defineConfig({
   plugins: [
     vue(),
     tailwindcss(),
-    electron({
+    process.env.ELECTRON === "true" && electron({
       entry: "electron/main.js",
     }),
     copyPublicFilesPlugin(), // 添加自定义插件
-  ],
+  ].filter(Boolean),
   base:
     process.env.ELECTRON === "true" || process.env.TAURI === "true"
       ? "./"

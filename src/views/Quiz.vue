@@ -219,7 +219,7 @@ const showNextChar = async () => {
       width: containerSize.value,
       height: containerSize.value,
       padding: Math.floor(containerSize.value * 0.025),
-      drawingWidth: Math.floor(containerSize.value * 0.1),
+      drawingWidth: Math.floor(containerSize.value * 0.08),
       onComplete: () => {
         isPlaying.value = false
         currentCharIndex.value++
@@ -340,7 +340,7 @@ const zoomIn = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 0.1),
+          drawingWidth: Math.floor(containerSize.value * 0.08),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++
@@ -366,7 +366,7 @@ const zoomOut = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 1),
+          drawingWidth: Math.floor(containerSize.value * 0.08),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++

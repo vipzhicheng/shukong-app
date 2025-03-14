@@ -304,9 +304,18 @@ const addToCartHandler = () => {
             <div v-else class="article-paragraph mb-4 text-justify flex flex-col items-center">
               <div v-for="(line, lineIndex) in section.lines" :key="lineIndex"
                    class="flex flex-wrap" :class="{'mb-6': section.break}">
+                <template v-if="lineIndex === 0 && section.indent">
+                  <div class="character-container cursor-pointer text-2xl xl:text-5xl ml-8">
+                    <div class="pinyin text-xs xl:text-base">　</div>
+                    <div class="character">　</div>
+                  </div>
+                  <div class="character-container cursor-pointer text-2xl xl:text-5xl ml-8">
+                    <div class="pinyin text-xs xl:text-base">　</div>
+                    <div class="character">　</div>
+                  </div>
+                </template>
                 <div v-for="(token, tokenIndex) in line.tokens" :key="tokenIndex"
                      class="character-container cursor-pointer text-2xl xl:text-5xl ml-8" :class="{
-
                        'with-pinyin': token.pinyin && token.pinyin.trim() !== ''
                      }" @click="handleTokenClick(token)">
                   <div class="pinyin text-xs  xl:text-base">{{ token.pinyin || '　' }}</div>
