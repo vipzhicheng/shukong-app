@@ -9,6 +9,7 @@ import StrokeOrderModal from '../components/StrokeOrderModal.vue'
 import { addToCart, countTotalCharacters } from '../store/cart'
 import { message } from '../utils/message'
 import { countChineseCharacters } from '../utils/common'
+import { fontSettings } from '../store/font'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,33 +23,12 @@ const tabs = ['必背篇目', '考级篇目']
 const showModal = ref(false)
 const currentChar = ref('')
 
-// 字体设置
-const fontSettings = ref({
-  fontCDN: '',
-  fontName: ''
-})
-
 const goBackPage = () => {
   // 从 URL 中获取文章类型
   const type = route.params.type
   // 根据文章类型构建返回链接
   const tab = type === 'exam' ? '考级篇目' : '必背篇目'
   router.push(`/book/jiujiu/${route.params.id}?tab=${encodeURIComponent(tab)}`)
-}
-
-// 从 localStorage 加载设置
-const loadSettings = () => {
-  // 加载字体设置
-  const savedFontSettings = localStorage.getItem('fontSettings')
-  if (savedFontSettings) {
-    fontSettings.value = Object.assign(fontSettings.value, JSON.parse(savedFontSettings))
-    if (fontSettings.value.fontCDN) {
-      const link = document.createElement('link')
-      link.href = fontSettings.value.fontCDN
-      link.rel = 'stylesheet'
-      document.head.appendChild(link)
-    }
-  }
 }
 
 // 播放汉字读音
@@ -164,7 +144,6 @@ const handleKeyDown = (event) => {
 
 onMounted(() => {
   loadPostData()
-  loadSettings()
   // 添加键盘事件监听
   window.addEventListener('keydown', handleKeyDown)
 })

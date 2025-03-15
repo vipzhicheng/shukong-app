@@ -70,7 +70,7 @@ onMounted(() => {
           <div class="book" style="background-color: #4CAF50;">
             <i class="fas fa-book book-icon"></i>
             <div class="book-title">
-              <h2>人教版语文</h2>
+              <h2>部编版语文</h2>
               <p>小学语文教材</p>
             </div>
           </div>

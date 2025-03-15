@@ -33,7 +33,7 @@ onMounted(async () => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name || '人教版语文' }}</a>
+        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name || '部编版语文' }}</a>
       </div>
     </div>
   </RightNav>
@@ -45,7 +45,7 @@ onMounted(async () => {
             <i class="fas fa-book book-icon"></i>
             <div class="book-title">
               <h2>{{ volume.term }}</h2>
-              <p>{{ metadata?.publisher || '人教版语文' }}</p>
+              <p>{{ metadata?.publisher || '部编版语文' }}</p>
             </div>
           </div>
         </router-link>
