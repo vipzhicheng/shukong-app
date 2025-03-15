@@ -8,27 +8,32 @@ import { loadResource } from '../utils/resourceLoader'
 import QRCode from 'qrcode.vue'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
 import { addToCart } from '../store/cart'
-import { md5 } from '../utils/common'
+import { useQuizStore } from '../store/quiz'
 
 const router = useRouter()
 const route = useRoute()
-const inputText = ref('')
-const currentChar = ref('')
 const writer = ref(null)
-const isPlaying = ref(false)
-const isFinished = ref(false)
-const showQuiz = ref(false)
-const errorCount = ref(0)
-const errorChars = ref(new Map()) // 记录错误字及其次数
 const showModal = ref(false) // 控制笔顺组件的显示
-const progress = ref({ current: 0, total: 0 })
-const allChars = ref([])
-const currentCharIndex = ref(0)
-const quizData = ref([])
-const quizHistory = ref([])
-const activeTab = ref(route.query.tab || '自由')
+const quizStore = useQuizStore()
 
-
+// 从 store 中获取状态
+const inputText = computed({
+  get: () => quizStore.inputText,
+  set: (value) => quizStore.inputText = value
+})
+const currentChar = computed(() => quizStore.currentChar)
+const isPlaying = computed(() => quizStore.isPlaying)
+const isFinished = computed(() => quizStore.isFinished)
+const showQuiz = computed(() => quizStore.showQuiz)
+const errorCount = computed(() => quizStore.errorCount)
+const errorChars = computed(() => quizStore.errorChars)
+const progress = computed(() => quizStore.progress)
+const allChars = computed(() => quizStore.allChars)
+const currentCharIndex = computed(() => quizStore.currentCharIndex)
+const quizData = computed(() => quizStore.quizData)
+const activeTab = computed(() => quizStore.activeTab)
+const quizHistory = computed(() => quizStore.quizHistory)
+const quizSettings = computed(() => quizStore.quizSettings)
 
 // 检测是否在 Electron 环境中运行
 const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1;
@@ -36,70 +41,17 @@ const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1;
 const loadQuizData = async () => {
   try {
     const data = await loadResource('quiz.json')
-    quizData.value = data.data
+    quizStore.quizData = data.data
   } catch (error) {
     console.error('加载作业数据失败:', error)
   }
 }
 
-const quizSettings = ref({
-  containerSize: 500,
-  maxLines: 20,
-  maxCharsPerLine: 5
-})
-
-const loadQuizSettings = () => {
-  const savedSettings = localStorage.getItem('quizSettings')
-  if (savedSettings) {
-    const settings = JSON.parse(savedSettings)
-    containerSize.value = settings.containerSize
-    quizSettings.value = settings
-  }
-}
-
 const switchTab = (tab) => {
-  activeTab.value = tab
+  quizStore.setActiveTab(tab)
   router.push({
     query: { ...route.query, tab }
   })
-}
-
-const loadQuizHistory = () => {
-  const savedHistory = localStorage.getItem('quizHistory')
-  if (savedHistory) {
-    quizHistory.value = JSON.parse(savedHistory)
-  }
-}
-
-const clearHistory = () => {
-  if (confirm('确定要清空所有历史记录吗？')) {
-    quizHistory.value = []
-    localStorage.removeItem('quizHistory')
-  }
-}
-
-const saveQuizHistory = (content, errors = 0, forceAddNewHistory = false) => {
-  const currentHistory = quizHistory.value || []
-  const contentHash = md5(content.join(''))
-  const newHistoryItem = {
-    uuid: contentHash,
-    startTime: new Date().toISOString(),
-    content: content,
-    totalChars: content.reduce((acc, line) => acc + line.length, 0),
-    errorCount: errors
-  }
-
-  // 检查最后一条历史记录是否与当前练习内容相同
-  if (currentHistory.length > 0 && currentHistory[0].uuid === contentHash && !forceAddNewHistory) {
-    // 更新最后一条历史记录的错误次数
-    currentHistory[0].errorCount = errors
-  } else {
-    // 添加新的历史记录
-    currentHistory.unshift(newHistoryItem)
-  }
-
-  quizHistory.value = currentHistory.slice(0, 10)
-  localStorage.setItem('quizHistory', JSON.stringify(quizHistory.value))
 }
 
 const handleSubmit = () => {
@@ -115,20 +67,11 @@ const handleSubmit = () => {
     .filter(line => line.length > 0)
     .slice(0, quizSettings.value.maxLines)
 
-  progress.value.total = filteredLines.length
-  progress.value.current = 0
-
-  // 将每行文字转换为字符数组
-  allChars.value = filteredLines.map(line => Array.from(line))
-
-  if (allChars.value.length > 0 && allChars.value[0].length > 0) {
-    currentCharIndex.value = 0
-    showQuiz.value = true
-    saveQuizHistory(filteredLines)
+  if (quizStore.setQuizContent(filteredLines)) {
+    quizStore.saveQuizHistory(filteredLines)
     showNextChar()
   }
 }
-
 
 const handleAddErrorCharsToCart = () => {
   // 遍历错误字Map，将每个字符添加到购物车
@@ -139,38 +82,19 @@ const handleAddErrorCharsToCart = () => {
   alert(`已将${errorChars.value.size}个错误汉字添加到练习列表`)
 }
 
-
 const startQuizFromContent = (content) => {
-  // 过滤非汉字字符并限制每行字数和总行数
-  const filteredContent = content
-    .map(line => Array.from(line.toString())
-      .filter(char => /[\u4e00-\u9fa5]/.test(char))
-      .slice(0, quizSettings.value.maxCharsPerLine)
-      .join('')
-    )
-    .filter(line => line.length > 0)
-    .slice(0, quizSettings.value.maxLines)
-
-  progress.value.total = filteredContent.length
-  progress.value.current = 0
-  allChars.value = filteredContent.map(word => Array.from(word))
-
-  if (allChars.value.length > 0 && allChars.value[0].length > 0) {
-    currentCharIndex.value = 0
-    showQuiz.value = true
-    // 生成新的uuid，确保每次练习都创建新的历史记录
-    const newUuid = md5(Date.now().toString() + Math.random().toString())
-    saveQuizHistory(filteredContent, 0, true)
+  if (quizStore.setQuizContent(content)) {
+    quizStore.saveQuizHistory(content, 0, true)
     showNextChar()
   }
 }
 
 onMounted(() => {
   window.addEventListener('resize', updateContainerSize)
-  loadQuizSettings()
+  quizStore.loadQuizSettings()
   updateContainerSize()
   loadQuizData()
-  loadQuizHistory()
+  quizStore.loadQuizHistory()
   handleRouteChange()
 })
 
@@ -201,29 +125,24 @@ const createConfetti = () => {
 }
 
 const handleStrokeError = () => {
-  errorCount.value++
-  // 记录当前错误字的次数
-  const currentErrorCount = errorChars.value.get(currentChar.value) || 0
-  errorChars.value.set(currentChar.value, currentErrorCount + 1)
+  quizStore.handleStrokeError(currentChar.value)
 }
+
 const showNextChar = async () => {
   if (currentCharIndex.value >= allChars.value[progress.value.current].length) {
-    // 当前行的所有字符都完成了
-    progress.value.current++ // 提前更新进度
+    quizStore.setProgress(progress.value.current + 1)
     if (progress.value.current >= progress.value.total) {
-      // 所有行都完成了
-      isFinished.value = true
+      quizStore.setIsFinished(true)
       createConfetti()
-      // 保存练习记录时包含错误次数
-      saveQuizHistory(allChars.value.map(line => line.join('')), errorCount.value)
+      quizStore.saveQuizHistory(allChars.value.map(line => line.join('')), errorCount.value)
       return
     }
-    currentCharIndex.value = 0
+    quizStore.setCurrentCharIndex(0)
   }
 
   const char = allChars.value[progress.value.current][currentCharIndex.value]
-  currentChar.value = char
-  isPlaying.value = true
+  quizStore.setCurrentChar(char)
+  quizStore.setIsPlaying(true)
 
   await nextTick()
   const target = document.getElementById('character-target')
@@ -235,8 +154,8 @@ const showNextChar = async () => {
       padding: Math.floor(containerSize.value * 0.025),
       drawingWidth: Math.floor(containerSize.value * 0.08),
       onComplete: () => {
-        isPlaying.value = false
-        currentCharIndex.value++
+        quizStore.setIsPlaying(false)
+        quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
         showNextChar()
       },
       onMistake: handleStrokeError
@@ -248,15 +167,15 @@ const showNextChar = async () => {
 
 const resetQuiz = () => {
   inputText.value = ''
-  currentChar.value = ''
-  isPlaying.value = false
-  isFinished.value = false
-  showQuiz.value = false
-  progress.value = { current: 0, total: 0 }
-  allChars.value = []
-  currentCharIndex.value = 0
-  errorCount.value = 0
-  errorChars.value.clear()
+  quizStore.setCurrentChar('')
+  quizStore.setIsPlaying(false)
+  quizStore.setIsFinished(false)
+  quizStore.setShowQuiz(false)
+  quizStore.setProgress({ current: 0, total: 0 })
+  quizStore.setAllChars([])
+  quizStore.setCurrentCharIndex(0)
+  quizStore.setErrorCount(0)
+  quizStore.errorChars.clear()
 }
 
 const containerSize = ref(500)
@@ -306,9 +225,12 @@ watch(inputText, (newValue) => {
 
 // 监听路由参数变化
 watch(
-  () => [route.params.content, route.query.reload],
-  ([newContent, reload] = [], [oldContent] = []) => {
+  () => [route.params.content, route.query.reload, route.query.tab],
+  ([newContent, reload, newTab] = [], [oldContent] = []) => {
+    newTab = newTab || '自由'
+    quizStore.setActiveTab(newTab)
     if (newContent && (newContent !== oldContent || reload)) {
+
       resetQuiz();
       handleRouteChange();
       if (newContent) {
@@ -329,10 +251,10 @@ const handleAutoStart = () => {
 
 onMounted(() => {
   window.addEventListener('resize', updateContainerSize)
-  loadQuizSettings()
+  quizStore.loadQuizSettings()
   updateContainerSize()
   loadQuizData()
-  loadQuizHistory()
+  quizStore.loadQuizHistory()
   handleRouteChange()
   handleAutoStart()
 })
@@ -490,7 +412,7 @@ const totalCharsCount = computed(() => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a @click="() => { router.push('/quiz'); activeTab = '自由'; showQuiz = false; isFinished = false; isPlaying = false; inputText = ''; currentChar = ''; currentCharIndex = 0; allChars = []; progress = { current: 0, total: 0 }; if (writer) { writer.target.innerHTML = ''; writer = null; } }" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; cursor: pointer;">书空</a>
+        <a @click="() => { router.push('/quiz'); quizStore.setActiveTab('自由'); quizStore.resetState(); if (writer) { writer.target.innerHTML = ''; writer = null; } }" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; cursor: pointer;">书空</a>
       </div>
     </div>
   </RightNav>
@@ -653,7 +575,7 @@ const totalCharsCount = computed(() => {
       </div>
       <StrokeOrderModal
         v-model:show="showModal"
-        :character="currentChar"
+        :character="currentChar || ''"
       />
     </div>
   </div>

@@ -10,16 +10,25 @@
 <script setup>
 import { cartItems, countTotalCharacters, clearCart } from '../store/cart'
 import { useRouter } from 'vue-router'
+import { useQuizStore } from '../store/quiz'
 
 const router = useRouter()
+const quizStore = useQuizStore()
 
 const toggleCart = () => {
-  // 将购物车中的汉字转换为文本内容
-  const content = cartItems.value.join('\n')
-  // 将文本内容转换为base64编码
-  const encodedContent = btoa(encodeURIComponent(content))
-  // 跳转到quiz页面，并带上编码后的内容
-  router.push(`/quiz/${encodedContent}?reload=1`)
+  // 重置quiz状态
+  quizStore.resetState()
+  if (cartItems.value.length === 0) {
+    router.push(`/quiz`)
+  } else {
+
+    // 将购物车中的汉字转换为文本内容
+    const content = cartItems.value.join('\n')
+    // 将文本内容转换为base64编码
+    const encodedContent = btoa(encodeURIComponent(content))
+    // 跳转到quiz页面，并带上编码后的内容
+    router.push(`/quiz/${encodedContent}`)
+  }
 
   clearCart()
 }
