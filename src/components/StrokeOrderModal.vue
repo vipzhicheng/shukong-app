@@ -1,36 +1,38 @@
 <template>
-  <div v-if="show" class="modal" @click.self="handleClose">
-    <div class="modal-content">
-      <span class="close" @click="handleClose">&times;</span>
-      <div id="character-target-modal" class="character-display"></div>
-      <div class="control-buttons">
-        <button @click="togglePlay" class="control-button" title="播放/暂停">
-          <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
-        </button>
-        <button @click="resetAnimation" class="control-button" title="重新播放">
-          <i class="fas fa-redo"></i>
-        </button>
-        <button @click="openBaiduHanyu" class="control-button" title="查询汉子">
-          <i class="fas fa-search"></i>
-        </button>
-        <button
-          v-if="isSpeechSupported"
-          class="control-button"
-          @click="playCharacterSound"
-          title="播放读音"
-        >
-          <i class="fas fa-volume-up"></i>
-        </button>
-        <button
-          class="control-button"
-          @click="addToCartHandler"
-          title="添加到笔顺练习"
-        >
-          <i class="fas fa-pencil-alt"></i>
-        </button>
+  <teleport to="body">
+    <div v-if="show" class="modal" @click.self="handleClose">
+      <div class="modal-content">
+        <span class="close" @click="handleClose">&times;</span>
+        <div id="character-target-modal" class="character-display"></div>
+        <div class="control-buttons">
+          <button @click="togglePlay" class="control-button" title="播放/暂停">
+            <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+          </button>
+          <button @click="resetAnimation" class="control-button" title="重新播放">
+            <i class="fas fa-redo"></i>
+          </button>
+          <button @click="openBaiduHanyu" class="control-button" title="查询汉子">
+            <i class="fas fa-search"></i>
+          </button>
+          <button
+            v-if="isSpeechSupported"
+            class="control-button"
+            @click="playCharacterSound"
+            title="播放读音"
+          >
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button
+            class="control-button"
+            @click="addToCartHandler"
+            title="添加到笔顺练习"
+          >
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script setup>

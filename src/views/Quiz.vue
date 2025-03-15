@@ -554,7 +554,7 @@ const totalCharsCount = computed(() => {
               :key="char"
               class="error-char-item"
               @click="() => {
-                currentChar = char
+                quizStore.setCurrentChar(char)
                 showModal = true
               }"
             >
