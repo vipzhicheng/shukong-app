@@ -8,6 +8,7 @@ import { loadResource } from '../utils/resourceLoader'
 import QRCode from 'qrcode.vue'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
 import { addToCart } from '../store/cart'
+import { md5 } from '../utils/common'
 
 const router = useRouter()
 const route = useRoute()
@@ -77,15 +78,26 @@ const clearHistory = () => {
   }
 }
 
-const saveQuizHistory = (content, errors = 0) => {
+const saveQuizHistory = (content, errors = 0, forceAddNewHistory = false) => {
   const currentHistory = quizHistory.value || []
+  const contentHash = md5(content.join(''))
   const newHistoryItem = {
+    uuid: contentHash,
     startTime: new Date().toISOString(),
     content: content,
     totalChars: content.reduce((acc, line) => acc + line.length, 0),
     errorCount: errors
   }
-  currentHistory.unshift(newHistoryItem)
+
+  // 检查最后一条历史记录是否与当前练习内容相同
+  if (currentHistory.length > 0 && currentHistory[0].uuid === contentHash && !forceAddNewHistory) {
+    // 更新最后一条历史记录的错误次数
+    currentHistory[0].errorCount = errors
+  } else {
+    // 添加新的历史记录
+    currentHistory.unshift(newHistoryItem)
+  }
+
   quizHistory.value = currentHistory.slice(0, 10)
   localStorage.setItem('quizHistory', JSON.stringify(quizHistory.value))
 }
@@ -146,7 +158,9 @@ const startQuizFromContent = (content) => {
   if (allChars.value.length > 0 && allChars.value[0].length > 0) {
     currentCharIndex.value = 0
     showQuiz.value = true
-    saveQuizHistory(filteredContent)
+    // 生成新的uuid，确保每次练习都创建新的历史记录
+    const newUuid = md5(Date.now().toString() + Math.random().toString())
+    saveQuizHistory(filteredContent, 0, true)
     showNextChar()
   }
 }
