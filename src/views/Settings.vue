@@ -33,8 +33,8 @@ const voiceSettings = ref({
 
 const quizSettings = ref({
   containerSize: 500,
-  maxLines: 20,
-  maxCharsPerLine: 5,
+  maxLines: 40,
+  maxCharsPerLine: 10,
   drawingWidth: 50
 })
 

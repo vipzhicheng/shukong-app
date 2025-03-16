@@ -17,8 +17,8 @@ export const useQuizStore = defineStore("quiz", {
     quizHistory: [],
     quizSettings: {
       containerSize: 500,
-      maxLines: 20,
-      maxCharsPerLine: 5,
+      maxLines: 40,
+      maxCharsPerLine: 10,
       drawingWidth: 50,
     },
     activeTab: "自由",

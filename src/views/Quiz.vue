@@ -591,7 +591,7 @@ const totalCharsCount = computed(() => {
               }"
             >
               <div class="char">{{ char }}</div>
-              <div class="count text-red-500 font-bold">{{ count }}</div>
+              <div class="count font-bold">{{ count }}</div>
             </div>
           </div>
         </div>
@@ -600,8 +600,9 @@ const totalCharsCount = computed(() => {
           title="练习错字"
           v-if="errorChars.size > 0"
           @click="handleAddErrorCharsToCart"
-          class="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+          class="ml-4 px-4 py-2 rounded hover:bg-gray-700 transition-colors"
         >
+
           <i class="fas fa-pencil-alt"></i>
         </button>
       </div>
@@ -770,12 +771,16 @@ const totalCharsCount = computed(() => {
   transform: translate(-50%, -50%);
   width: 100%;
   min-width: 480px;
-  height: calc(100% - 120px);
+  max-height: calc(100vh - 120px);
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--bg-color);
+  overflow-y: auto;
+  padding: 2rem 0;
+  padding-bottom:10rem;
 }
 
 .character-display {

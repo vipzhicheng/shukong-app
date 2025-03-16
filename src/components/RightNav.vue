@@ -26,7 +26,7 @@ const navigateToHome = () => {
   </div>
   <div class="footer">
     <div class="slogan"></div>
-    <div class="ai-driven">Proudly driven by AI</div>
+    <div class="font-bold text-base italic">学笔顺用书空 @2025</div>
     <div class="footer-right">
       <a href="https://github.com" target="_blank" class="github-link" title="访问 Github">
         <i class="fab fa-github"></i>
@@ -95,12 +95,6 @@ const navigateToHome = () => {
   z-index: 1000;
 }
 
-.ai-driven {
-  color: var(--secondary-text-color);
-  font-size: 0.85rem;
-  font-style: italic;
-}
-
 .slogan {
   color: var(--secondary-text-color);
   font-size: 0.9rem;
@@ -114,7 +108,7 @@ const navigateToHome = () => {
 .footer-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .github-link {
