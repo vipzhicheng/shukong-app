@@ -23,6 +23,7 @@
             <i class="fas fa-volume-up"></i>
           </button>
           <button
+            v-if="writer && !isFallbackMode"
             class="control-button"
             @click="addToCartHandler"
             title="添加到笔顺练习"
@@ -56,6 +57,7 @@ const props = defineProps({
 const emit = defineEmits(['update:show', 'close'])
 
 const isPlaying = ref(false)
+const isFallbackMode = ref(false)
 let writer = null
 
 // 语音设置
@@ -129,6 +131,10 @@ const initWriter = () => {
     writer.hideCharacter()
     writer = null
   }
+
+  // 重置fallback模式状态
+  isFallbackMode.value = false
+
   writer = createHanziWriter('character-target-modal', props.character, {
     width: 300,
     height: 300,
@@ -136,7 +142,26 @@ const initWriter = () => {
     showOutline: true,
     strokeAnimationSpeed: 1,
     delayBetweenStrokes: 500,
-    onLoadCharDataSuccess: () => {
+    onLoadCharDataSuccess: (charData) => {
+      if (!charData) {
+        // 数据加载失败，使用fallback模式
+        isFallbackMode.value = true
+        writer = null
+        target.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+          <div class="fallback-character" style="
+            width: 300px;
+            height: 300px;
+            font-size: 200px;
+            font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          ">${props.character}</div>
+          <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
+        </div>`
+        isPlaying.value = false
+        return
+      }
       writer.animateCharacter()
       isPlaying.value = true
     }

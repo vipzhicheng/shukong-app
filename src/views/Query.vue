@@ -77,7 +77,28 @@ const showCharacter = async (char) => {
   if (target) {
     target.innerHTML = ''
     writer.value = createHanziWriter('character-target', char, {
-      onLoadCharDataSuccess: () => {
+      onLoadCharDataSuccess: (charData) => {
+        if (!charData) {
+          // 数据加载失败，使用fallback模式
+          writer.value = null
+          target.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+              <div class="fallback-character" style="
+                width: 300px;
+                height: 300px;
+                font-size: 200px;
+                font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              ">${char}</div>
+              <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
+            </div>
+          `
+          isPlaying.value = false
+          isFinished.value = true
+          return
+        }
         writer.value.animateCharacter({ onComplete: onAnimationComplete })
         isPlaying.value = true
         isFinished.value = false
@@ -196,7 +217,7 @@ onMounted(async () => {
         <button v-if="isSpeechSupported" @click="playSound" class="control-button">
           <i class="fas fa-volume-up"></i>
         </button>
-        <button @click="handleAddToCart" class="control-button">
+        <button v-if="writer" @click="handleAddToCart" class="control-button">
           <i class="fas fa-pencil-alt"></i>
         </button>
       </div>

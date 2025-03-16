@@ -34,7 +34,8 @@ const voiceSettings = ref({
 const quizSettings = ref({
   containerSize: 500,
   maxLines: 20,
-  maxCharsPerLine: 5
+  maxCharsPerLine: 5,
+  drawingWidth: 50
 })
 
 const autoPlaySettings = ref({
@@ -396,6 +397,23 @@ onMounted(() => {
             <span class="settings-value">{{ quizSettings.maxCharsPerLine }}字</span>
           </div>
           <p class="settings-hint">可设置范围：1-100字</p>
+        </div>
+
+        <div class="settings-item">
+          <label>画笔宽度：</label>
+          <div class="settings-slider-container">
+            <input
+              type="range"
+              v-model.number="quizSettings.drawingWidth"
+              min="10"
+              max="100"
+              step="1"
+              @change="saveQuizSettings"
+              class="settings-slider"
+            />
+            <span class="settings-value">{{ quizSettings.drawingWidth }}像素</span>
+          </div>
+          <p class="settings-hint">可设置范围：10-100像素</p>
         </div>
       </div>
     </div>

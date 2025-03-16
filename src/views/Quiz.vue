@@ -9,6 +9,7 @@ import QRCode from 'qrcode.vue'
 import StrokeOrderModal from '../components/StrokeOrderModal.vue'
 import { addToCart } from '../store/cart'
 import { useQuizStore } from '../store/quiz'
+import { message } from '../utils/message'
 
 const router = useRouter()
 const route = useRoute()
@@ -79,7 +80,7 @@ const handleAddErrorCharsToCart = () => {
     addToCart(char)
   })
   // 显示添加成功的提示
-  alert(`已将${errorChars.value.size}个错误汉字添加到练习列表`)
+  message.success(`已将${errorChars.value.size}个错误汉字添加到练习列表`)
 }
 
 const startQuizFromContent = (content) => {
@@ -148,20 +149,49 @@ const showNextChar = async () => {
   const target = document.getElementById('character-target')
   if (target) {
     target.innerHTML = ''
-    writer.value = createHanziWriter('character-target', char, {
-      width: containerSize.value,
-      height: containerSize.value,
-      padding: Math.floor(containerSize.value * 0.025),
-      drawingWidth: Math.floor(containerSize.value * 0.08),
-      onComplete: () => {
-        quizStore.setIsPlaying(false)
-        quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
-        showNextChar()
-      },
-      onMistake: handleStrokeError
-    })
+      writer.value = createHanziWriter('character-target', char, {
+        width: containerSize.value,
+        height: containerSize.value,
+        padding: Math.floor(containerSize.value * 0.025),
+        drawingWidth: Math.floor(quizSettings.value.drawingWidth),
+        onLoadCharDataSuccess: (charData) => {
+          if (!charData) {
+            // 数据加载失败，使用fallback模式
+            writer.value = null
+            target.innerHTML = `
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <div style="font-size: 200px; font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif; margin-bottom: 10px;">${char}</div>
+                <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
+                <button
+                  style="margin-top: 20px; padding: 8px 16px; background-color: #4a5568; color: white; border-radius: 4px; cursor: pointer;"
+                  onclick="document.getElementById('next-char-btn').click()"
+                >
+                  下一个
+                </button>
+              </div>
+            `
+            // 添加一个隐藏的按钮用于触发下一个字符
+            const nextButton = document.createElement('button')
+            nextButton.id = 'next-char-btn'
+            nextButton.style.display = 'none'
+            nextButton.onclick = () => {
+              quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
+              showNextChar()
+            }
+            target.appendChild(nextButton)
+            return
+          }
+          writer.value.quiz()
+        },
+        onComplete: () => {
+          quizStore.setIsPlaying(false)
+          quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
+          showNextChar()
+        },
+        onMistake: handleStrokeError
+      })
+      writer.value.quiz()
 
-    writer.value.quiz()
   }
 }
 
@@ -225,18 +255,20 @@ watch(inputText, (newValue) => {
 
 // 监听路由参数变化
 watch(
-  () => [route.params.content, route.query.reload, route.query.tab],
-  ([newContent, reload, newTab] = [], [oldContent] = []) => {
+  () => [route.params.content, route.query.reload, route.query.tab, route.path],
+  ([newContent, reload, newTab, newPath] = [], [oldContent, , , oldPath] = []) => {
     newTab = newTab || '自由'
     quizStore.setActiveTab(newTab)
-    if (newContent && (newContent !== oldContent || reload)) {
-
-      resetQuiz();
-      handleRouteChange();
+    // 当路由切换回 quiz 路径时，重置状态
+    if (newPath !== oldPath && newPath.startsWith('/quiz')) {
+      resetQuiz()
+      handleRouteChange()
+    } else if (newContent && (newContent !== oldContent || reload)) {
+      resetQuiz()
+      handleRouteChange()
       if (newContent) {
         router.replace(`/quiz/${newContent}`)
       }
-
     }
   },
   { immediate: true }
@@ -276,7 +308,7 @@ const zoomIn = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 0.08),
+          drawingWidth: Math.floor(quizSettings.value.drawingWidth),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++
@@ -302,7 +334,7 @@ const zoomOut = () => {
           width: containerSize.value,
           height: containerSize.value,
           padding: Math.floor(containerSize.value * 0.025),
-          drawingWidth: Math.floor(containerSize.value * 0.08),
+          drawingWidth: Math.floor(quizSettings.value.drawingWidth),
           onComplete: () => {
             isPlaying.value = false
             currentCharIndex.value++
