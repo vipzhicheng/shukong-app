@@ -214,7 +214,9 @@ const switchTab = (tab) => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
+        <router-link to="/book/jiujiu" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; color: inherit;">
+          {{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}
+        </router-link>
       </div>
     </div>
   </RightNav>

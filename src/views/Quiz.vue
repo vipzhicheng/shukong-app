@@ -600,7 +600,7 @@ const totalCharsCount = computed(() => {
           title="练习错字"
           v-if="errorChars.size > 0"
           @click="handleAddErrorCharsToCart"
-          class="ml-4 px-4 py-2 rounded hover:bg-gray-700 transition-colors"
+          class="ml-4 px-4 py-2 roundedtransition-colors"
         >
 
           <i class="fas fa-pencil-alt"></i>

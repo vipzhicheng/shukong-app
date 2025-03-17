@@ -107,6 +107,7 @@ const loadBookData = async () => {
       // 将处理后的数据赋值给 bookData
       bookData.value = {
         ...grade,
+        volume,
         content
       }
     }
@@ -158,7 +159,9 @@ const handlePencilClick = (lesson) => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
+        <router-link to="/book/renjiao" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; color: inherit;">
+          {{ metadata?.name || '部编版语文' }} {{ bookData && bookData.volume?.term || '加载中...' }}
+        </router-link>
       </div>
     </div>
   </RightNav>

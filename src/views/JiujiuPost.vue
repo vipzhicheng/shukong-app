@@ -209,8 +209,7 @@ const addToCartHandler = () => {
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <a style="font-size: 1.5rem; font-weight: bold;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
-
+        <a @click="goBackPage" style="font-size: 1.5rem; font-weight: bold; cursor: pointer;">{{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a>
       </div>
     </div>
   </RightNav>
