@@ -9,7 +9,10 @@ export const fontSettings = ref({
 export const loadFontSettings = () => {
   const savedFontSettings = localStorage.getItem('fontSettings')
   if (savedFontSettings) {
-    fontSettings.value = Object.assign(fontSettings.value, JSON.parse(savedFontSettings))
+    fontSettings.value = Object.assign(
+      fontSettings.value,
+      JSON.parse(savedFontSettings)
+    )
     if (fontSettings.value.fontCDN) {
       const link = document.createElement('link')
       link.href = fontSettings.value.fontCDN

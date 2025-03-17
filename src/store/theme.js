@@ -18,12 +18,14 @@ export const useThemeStore = defineStore('theme', {
     initTheme() {
       this.applyTheme()
       if (this.mode === 'system') {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-          if (this.mode === 'system') {
-            this.isDark = e.matches
-            document.documentElement.classList.toggle('dark', e.matches)
-          }
-        })
+        window
+          .matchMedia('(prefers-color-scheme: dark)')
+          .addEventListener('change', e => {
+            if (this.mode === 'system') {
+              this.isDark = e.matches
+              document.documentElement.classList.toggle('dark', e.matches)
+            }
+          })
       }
     },
     applyTheme() {

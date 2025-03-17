@@ -6,17 +6,16 @@
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
-    "dev:electron": "ELECTRON=true vite dev",
     "dev:tauri": "ELECTRON=true tauri dev",
     "dev:android": "cap sync android && cap open android",
     "dev:ios": "cap sync ios && cap open ios",
     "generate-icons": "node scripts/generate-icons.js",
-    "build": "npm run generate-icons && vite build",
-    "build:electron": "ELECTRON=true vite build && electron-builder",
-    "build:tauri": "npm run generate-icons && TAURI=true tauri build",
+    "build": "pnpm run generate-icons && vite build",
+    "build:tauri": "pnpm run generate-icons && TAURI=true tauri build",
     "build:android": "vite build && cap sync android && cd android && ./gradlew assembleRelease",
     "build:ios": "vite build && cap sync ios && cd ios && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write 'src/**/*.{js,vue,ts,jsx,tsx}' && eslint --fix 'src/**/*.{js,vue,ts,jsx,tsx}'"
   },
   "build": {
     "appId": "com.vipzhicheng.shukong",
@@ -72,19 +71,27 @@
   },
   "devDependencies": {
     "@capacitor/android": "^7.0.1",
-    "@capacitor/ios": "^7.0.1",
     "@capacitor/cli": "^7.0.1",
     "@capacitor/core": "^7.0.1",
+    "@capacitor/ios": "^7.0.1",
     "@electron/remote": "^2.1.2",
+    "@eslint/js": "^9.22.0",
     "@tauri-apps/cli": "^1.5.11",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
     "autoprefixer": "^10.4.20",
     "electron": "^34.3.0",
     "electron-builder": "^25.1.8",
+    "eslint": "^9.22.0",
+    "eslint-plugin-vue": "^9.33.0",
+    "fs-extra": "^11.3.0",
+    "globals": "^16.0.0",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "sharp": "^0.33.2",
     "tailwindcss": "^4.0.9",
     "vite": "^6.2.0",
     "vite-plugin-electron": "^0.29.0",
-    "sharp": "^0.33.2"
+    "vue-eslint-parser": "^10.1.1"
   }
 }
