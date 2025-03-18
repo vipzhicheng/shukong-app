@@ -6,14 +6,17 @@
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
-    "dev:tauri": "ELECTRON=true tauri dev",
-    "dev:android": "cap sync android && cap open android",
-    "dev:ios": "cap sync ios && cap open ios",
+    "dev:tauri": "TAURI=true tauri dev",
+    "dev:android": "pnpm run generate-icons && TAURI=true vite build && cap sync android && cap open android",
+    "dev:ios": "pnpm run generate-icons && TAURI=true vite build && cap sync ios && cap copy ios && cap open ios",
+    "dev:electron": "ELECTRON=true vite dev",
     "generate-icons": "node scripts/generate-icons.js",
     "build": "pnpm run generate-icons && vite build",
     "build:tauri": "pnpm run generate-icons && TAURI=true tauri build",
-    "build:android": "vite build && cap sync android && cd android && ./gradlew assembleRelease",
-    "build:ios": "vite build && cap sync ios && cd ios && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive",
+    "build:android": "pnpm run generate-icons && TAURI=true vite build && cap sync android && cd android && ./gradlew assembleRelease",
+    "build:ios": "pnpm run generate-icons && TAURI=true vite build && cap sync ios && cd ios/App && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive -archivePath ./build/App.xcarchive && xcodebuild -exportArchive -archivePath ./build/App.xcarchive -exportPath ./build/IPA -exportOptionsPlist exportOptions.plist",
+    "build:electron": "ELECTRON=true vite build && electron-builder",
+    "build:app": "pnpm run build:tauri && pnpm run build:electron",
     "preview": "vite preview",
     "format": "prettier --write 'src/**/*.{js,vue,ts,jsx,tsx}' && eslint --fix 'src/**/*.{js,vue,ts,jsx,tsx}'"
   },
@@ -28,13 +31,19 @@
       "electron/**/*"
     ],
     "mac": {
-      "category": "public.app-category.education",
       "target": [
         {
           "target": "dmg",
           "arch": [
-            "x64",
-            "arm64"
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
           ]
         }
       ],
@@ -45,7 +54,8 @@
         {
           "target": "nsis",
           "arch": [
-            "x64"
+            "x64",
+            "ia32"
           ]
         }
       ],
@@ -54,7 +64,8 @@
     "linux": {
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "rpm"
       ],
       "icon": "public/icon.png",
       "category": "Education"

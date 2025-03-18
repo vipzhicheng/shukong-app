@@ -36,8 +36,11 @@ export function createHanziWriter(targetId, char, options = {}) {
     drawingWidth: 3,
     charDataLoader: async function (char, onComplete) {
       // 判断是否为浏览器环境
+      const isCapacitor =
+        (window.Capacitor && window.Capacitor.isNativePlatform) ||
+        window.origin.startsWith('capacitor://')
       const isTauri = window.origin.startsWith('tauri://') || window.__TAURI__
-      let isBrowser = !isTauri && !window.electron && !window.capacitor
+      let isBrowser = !isCapacitor && !isTauri && !window.electron
 
       if (process.env.NODE_ENV === 'development') {
         // 开发环境下，使用本地数据，主要是学习机有第三方地址拦截，用于了CDN

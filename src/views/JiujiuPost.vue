@@ -228,8 +228,6 @@
   </RightNav>
   <div
     class="container px-4 py-8"
-    @touchstart="handleTouchStart"
-    @touchend="handleTouchEnd"
   >
     <!-- 导航区域 -->
     <div class="mb-4 nav-controller">

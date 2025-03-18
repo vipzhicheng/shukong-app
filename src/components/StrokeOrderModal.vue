@@ -229,12 +229,14 @@
   }
 
   .modal-content {
-    background: white;
+    background: var(--bg-color);
     padding: 2rem;
     border-radius: 8px;
     position: relative;
     max-width: 90vw;
     max-height: 90vh;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
   }
 
   .close {
@@ -243,7 +245,7 @@
     top: 0.5rem;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #666;
+    color: var(--text-color);
   }
 
   .character-display {
@@ -258,15 +260,16 @@
   }
 
   .control-button {
-    background: none;
-    border: 1px solid #ddd;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 0.5rem;
     cursor: pointer;
     transition: all 0.2s;
+    color: var(--text-color);
   }
 
   .control-button:hover {
-    background: #f5f5f5;
+    background: var(--hover-color);
   }
 </style>
