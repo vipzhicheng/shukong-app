@@ -5,6 +5,7 @@
   import RightNav from '../components/RightNav.vue'
   import { isSpeechSupported } from '../store/speech'
   import { loadResource } from '../utils/resourceLoader'
+  import { fontFamily } from '../store/font'
 
   const route = useRoute()
   const router = useRouter()
@@ -137,27 +138,6 @@
     }
   }
 
-  // 加载字体设置
-  const fontSettings = ref({
-    fontName: '楷体',
-    fontSize: 24,
-    fontCDN: ''
-  })
-
-  onMounted(() => {
-    const savedFontSettings = localStorage.getItem('fontSettings')
-    if (savedFontSettings) {
-      try {
-        const settings = JSON.parse(savedFontSettings)
-        fontSettings.value = {
-          ...fontSettings.value,
-          ...settings
-        }
-      } catch (e) {
-        console.error('字体设置解析失败:', e)
-      }
-    }
-  })
 
   onMounted(() => {
     loadBookData()
@@ -222,9 +202,7 @@
       v-if="bookData"
       class="articles-container"
       :style="
-        fontSettings.fontName
-          ? { fontFamily: fontSettings.fontName }
-          : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }
+        { fontFamily: fontFamily }
       "
     >
       <div

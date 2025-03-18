@@ -8,7 +8,7 @@
   import { addToCart, countTotalCharacters } from '../store/cart'
   import { message } from '../utils/message'
   import { countChineseCharacters } from '../utils/common'
-  import { fontSettings } from '../store/font'
+  import { fontFamily } from '../store/font'
 
   const route = useRoute()
   const router = useRouter()
@@ -291,9 +291,7 @@
       v-if="postData"
       class="articles-container"
       :style="
-        fontSettings.fontName
-          ? { fontFamily: fontSettings.fontName }
-          : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }
+        { fontFamily: fontFamily }
       "
     >
       <div class="article-section">

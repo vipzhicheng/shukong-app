@@ -584,7 +584,7 @@
       <div v-show="activeTab === '历史'" class="history-section">
         <div class="history-header">
           <button
-            @click="clearHistory"
+            @click="quizStore.clearHistory"
             class="clear-history-button"
             v-if="quizHistory.length > 0"
           >
@@ -593,7 +593,7 @@
         </div>
         <div v-if="quizHistory.length === 0" class="empty-history">
           <p class="empty-history-text">还没有任何书空练习记录</p>
-          <button @click="activeTab = '自由'" class="create-quiz-button mt-4">
+          <button @click="quizStore.setActiveTab('自由')" class="create-quiz-button mt-4">
             <i class="fas fa-plus"></i> 创建书空练习
           </button>
         </div>

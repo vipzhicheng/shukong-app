@@ -1,22 +1,15 @@
 <script setup>
-  import { ref, onMounted, watch } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { isSpeechSupported } from '../store/speech'
   import { useThemeStore } from '../store/theme'
   import RightNav from '../components/RightNav.vue'
+  import cdnfonts from '../utils/cdnfonts'
+  import { fontFamily, builtinFontSettings, saveBuiltinFontSettings, fontSettings, saveFontSettings, fontError, fontLoaded, fontLoading } from '../store/font'
 
   const themeStore = useThemeStore()
   const themeSettings = ref({
     mode: themeStore.mode
   })
-
-  const fontSettings = ref({
-    fontCDN: '',
-    fontName: ''
-  })
-
-  const fontLoaded = ref(false)
-  const fontLoading = ref(false)
-  const fontError = ref(false)
 
   const saveThemeSettings = () => {
     themeStore.mode = themeSettings.value.mode
@@ -66,17 +59,6 @@
         quizSettings.value,
         JSON.parse(savedQuizSettings)
       )
-    }
-
-    const savedFontSettings = localStorage.getItem('fontSettings')
-    if (savedFontSettings) {
-      fontSettings.value = Object.assign(
-        fontSettings.value,
-        JSON.parse(savedFontSettings)
-      )
-      if (fontSettings.value.fontCDN && fontSettings.value.fontName) {
-        loadFontFromCDN()
-      }
     }
   }
 
@@ -133,55 +115,8 @@
     }
   }
 
-  const saveFontSettings = () => {
-    localStorage.setItem('fontSettings', JSON.stringify(fontSettings.value))
-    if (fontSettings.value.fontCDN && fontSettings.value.fontName) {
-      loadFontFromCDN()
-    }
-  }
 
-  const loadFontFromCDN = () => {
-    // 重置状态
-    fontLoaded.value = false
-    fontLoading.value = true
-    fontError.value = false
 
-    // 检查是否已经加载过该字体
-    const existingLink = document.getElementById('custom-font-link')
-    if (existingLink) {
-      document.head.removeChild(existingLink)
-    }
-
-    // 创建新的link元素加载字体
-    const link = document.createElement('link')
-    link.id = 'custom-font-link'
-    link.rel = 'stylesheet'
-    link.href = fontSettings.value.fontCDN
-
-    // 监听加载事件
-    link.onload = () => {
-      fontLoading.value = false
-      fontLoaded.value = true
-      fontError.value = false
-    }
-
-    link.onerror = () => {
-      fontLoading.value = false
-      fontLoaded.value = false
-      fontError.value = true
-    }
-
-    document.head.appendChild(link)
-  }
-
-  // 监听字体设置变化
-  watch(
-    [() => fontSettings.value.fontCDN, () => fontSettings.value.fontName],
-    () => {
-      fontLoaded.value = false
-    },
-    { immediate: true }
-  )
 
   onMounted(() => {
     loadSettings()
@@ -260,6 +195,23 @@
       <h2 class="settings-subtitle">字体设置</h2>
       <div class="settings-content">
         <div class="settings-item">
+          <label>内置字体：</label>
+          <select
+            v-model="builtinFontSettings.value"
+            @change="saveBuiltinFontSettings"
+            class="settings-select"
+          >
+            <option
+              v-for="font in cdnfonts"
+              :key="font.value"
+              :value="font.value"
+            >
+              {{ font.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="settings-item">
           <label>字体CDN链接：</label>
           <input
             type="text"
@@ -294,7 +246,7 @@
             <div class="font-preview-header">字体预览：</div>
             <div
               class="font-preview"
-              :style="{ fontFamily: fontSettings.fontName || 'inherit' }"
+              :style="{ fontFamily: fontFamily }"
             >
               <p>你好，欢迎使用书空应用！</p>
               <p>这是自定义字体的预览效果。</p>

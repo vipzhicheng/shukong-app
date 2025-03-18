@@ -8,34 +8,13 @@
   import { addToCart, countTotalCharacters } from '../store/cart'
   import { message } from '../utils/message'
   import { countChineseCharacters } from '../utils/common'
+  import { fontFamily } from '../store/font'
 
   const route = useRoute()
   const router = useRouter()
   const showModal = ref(false)
   const currentChar = ref('')
 
-  // 字体设置
-  const fontSettings = ref({
-    fontName: '楷体',
-    fontSize: 24,
-    fontCDN: ''
-  })
-
-  // 加载字体设置
-  onMounted(() => {
-    const savedFontSettings = localStorage.getItem('fontSettings')
-    if (savedFontSettings) {
-      try {
-        const settings = JSON.parse(savedFontSettings)
-        fontSettings.value = {
-          ...fontSettings.value,
-          ...settings
-        }
-      } catch (e) {
-        console.error('字体设置解析失败:', e)
-      }
-    }
-  })
 
   const handleCharacterClick = char => {
     currentChar.value = char
@@ -195,9 +174,7 @@
       v-if="bookData"
       class="lessons-container"
       :style="
-        fontSettings.fontName
-          ? { fontFamily: fontSettings.fontName }
-          : { fontFamily: 'KaiTi, 楷体, STKaiti, 华文楷体, serif' }
+        { fontFamily: fontFamily }
       "
     >
       <div
