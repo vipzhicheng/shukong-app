@@ -195,7 +195,7 @@
       <h2 class="settings-subtitle">字体设置</h2>
       <div class="settings-content">
         <div class="settings-item">
-          <label>内置字体：</label>
+          <label>推荐尝试字体：</label>
           <select
             v-model="builtinFontSettings.value"
             @change="saveBuiltinFontSettings"
@@ -225,7 +225,7 @@
               href="https://chinese-font.netlify.app/"
               target="_blank"
               >这个</a
-            >和<a href="https://fonts.zeoseven.com/" target="_blank">这个</a>
+            >和<a href="https://fonts.zeoseven.com/" target="_blank">这个</a>，通常如果推荐尝试字体里没有你喜欢的，你可以自己找喜欢的字体在这里配置。
           </p>
         </div>
 
