@@ -8,7 +8,7 @@
   import { addToCart, countTotalCharacters } from '../store/cart'
   import { message } from '../utils/message'
   import { countChineseCharacters } from '../utils/common'
-  import { fontFamily } from '../store/font'
+  import {  fontFamily } from '../store/font'
 
   const route = useRoute()
   const router = useRouter()
@@ -23,7 +23,7 @@
 
   const bookData = ref(null)
   const metadata = ref(null)
-  const activeTab = ref(route.query.tab || '识字表')
+  const activeTab = ref(route.query.tab)
   const tabs = ['识字表', '写字表', '词语表']
 
   const switchTab = tab => {
@@ -58,6 +58,9 @@
               pinyin: char.pinyin
             }))
           }))
+          if (!activeTab.value && content['识字表'].length > 0) {
+            activeTab.value = '识字表'
+          }
         }
         if (volume.writing) {
           content['写字表'] = volume.writing.map(lesson => ({
@@ -68,6 +71,9 @@
               pinyin: char.pinyin
             }))
           }))
+          if (!activeTab.value && content['写字表'].length > 0) {
+            activeTab.value = '写字表'
+          }
         }
 
         if (volume.words && volume.words.length > 0) {
@@ -81,6 +87,9 @@
               }))
             })
           }))
+          if (!activeTab.value && content['词语表'].length > 0) {
+            activeTab.value = '词语表'
+          }
         }
 
         // 将处理后的数据赋值给 bookData
