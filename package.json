@@ -15,7 +15,7 @@
     "build:tauri": "pnpm run generate-icons && TAURI=true tauri build",
     "build:android": "pnpm run generate-icons && TAURI=true vite build && cap sync android && cd android && ./gradlew assembleRelease",
     "build:ios": "pnpm run generate-icons && TAURI=true vite build && cap sync ios && cd ios/App && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive -archivePath ./build/App.xcarchive && xcodebuild -exportArchive -archivePath ./build/App.xcarchive -exportPath ./build/IPA -exportOptionsPlist exportOptions.plist",
-    "build:electron": "ELECTRON=true vite build && electron-builder",
+    "build:electron": "ELECTRON=true vite build && electron-builder -mwl",
     "build:app": "pnpm run build:tauri && pnpm run build:electron",
     "preview": "vite preview",
     "format": "prettier --write 'src/**/*.{js,vue,ts,jsx,tsx}' && eslint --fix 'src/**/*.{js,vue,ts,jsx,tsx}'"
