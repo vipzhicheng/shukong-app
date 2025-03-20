@@ -231,7 +231,7 @@
   >
     <!-- 导航区域 -->
     <div class="mb-4 nav-controller">
-      <a href="#" @click.prevent="goBackPage" class="back-link">
+      <a href="" @click.prevent="goBackPage" class="back-link">
         <i class="fas fa-arrow-left"></i>
         <span>返回目录</span>
       </a>
@@ -241,7 +241,7 @@
         :to="
           postData && route.params.cid > 1
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) - 1}`
-            : '#'
+            : ''
         "
         class="back-link ml-4"
         :class="{ disabled: !postData || route.params.cid <= 1 }"
@@ -259,7 +259,7 @@
             route.params.type === 'required' ? '必背篇目' : '考级篇目'
           ]?.length > parseInt(route.params.cid)
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) + 1}`
-            : '#'
+            : ''
         "
         class="back-link ml-4"
         :class="{
@@ -352,7 +352,8 @@
             <!-- 段落渲染 -->
             <div
               v-else
-              class="article-paragraph mb-4 text-justify flex flex-col items-center"
+              class="article-paragraph mb-4 text-justify flex flex-col"
+              :class="{'items-start' : section.align === 'start', 'items-center' : section.align !=='start'}"
             >
               <div
                 v-for="(line, lineIndex) in section.lines"
