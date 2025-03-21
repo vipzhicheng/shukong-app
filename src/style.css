@@ -1,7 +1,7 @@
-@import "tailwindcss/theme.css";
-@import "tailwindcss/preflight.css";
-@import "tailwindcss/utilities.css";
-@import "./assets/input.css";
+@import 'tailwindcss/theme.css';
+@import 'tailwindcss/preflight.css';
+@import 'tailwindcss/utilities.css';
+@import './assets/input.css';
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -61,7 +61,6 @@ button:hover {
 #app {
   margin: 0 auto;
   width: 100%;
-  text-align: center;
 }
 
 .main-content {

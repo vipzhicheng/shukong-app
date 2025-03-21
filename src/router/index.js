@@ -10,6 +10,8 @@ import RenjiaoDetail from '../views/RenjiaoDetail.vue'
 import JiujiuDetail from '../views/JiujiuDetail.vue'
 import JiujiuPost from '../views/JiujiuPost.vue'
 import Settings from '../views/Settings.vue'
+import Apps from '../views/Apps.vue'
+import UI from '../views/UI.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -49,6 +51,11 @@ const router = createRouter({
       component: Book
     },
     {
+      path: '/apps',
+      name: 'apps',
+      component: Apps
+    },
+    {
       path: '/book/renjiao',
       name: 'renjiaoBooks',
       component: RenjiaoBooks
@@ -77,6 +84,11 @@ const router = createRouter({
       path: '/book/jiujiu/:id/:type/:cid',
       name: 'jiujiuPost',
       component: JiujiuPost
+    },
+    {
+      path: '/ui',
+      name: 'ui',
+      component: UI
     }
   ]
 })

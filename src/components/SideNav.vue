@@ -2,11 +2,15 @@
   import { useRouter } from 'vue-router'
   import '@fortawesome/fontawesome-free/css/all.css'
   import { useThemeStore } from '../store/theme'
-  import { ref } from 'vue'
+  import { useAppsStore } from '../store/apps'
+  import { ref, computed } from 'vue'
 
   const router = useRouter()
   const themeStore = useThemeStore()
+  const appsStore = useAppsStore()
   const isMenuOpen = ref(false)
+
+  const enabledApps = computed(() => appsStore.getEnabledApps())
 
   const navigateTo = path => {
     router.push(path)
@@ -33,21 +37,23 @@
         <i class="fas fa-home"></i>
         <span class="nav-text">首页</span>
       </a>
+      <template v-for="app in enabledApps" :key="app.path">
+        <a
+          @click="navigateTo(app.path)"
+          :class="{ active: $route.path.startsWith(app.path) }"
+          :title="app.title"
+        >
+          <i :class="app.navIcon"></i>
+          <span class="nav-text">{{ app.navLabel }}</span>
+        </a>
+      </template>
       <a
-        @click="navigateTo('/query')"
-        :class="{ active: $route.path === '/query' }"
-        title="查询笔顺"
+        @click="navigateTo('/apps')"
+        :class="{ active: $route.path === '/apps' }"
+        title="扩展"
       >
-        <i class="fas fa-search"></i>
-        <span class="nav-text">查询</span>
-      </a>
-      <a
-        @click="navigateTo('/book')"
-        :class="{ active: $route.path.startsWith('/book') }"
-        title="教材"
-      >
-        <i class="fas fa-book"></i>
-        <span class="nav-text">字书</span>
+        <i class="fas fa-puzzle-piece"></i>
+        <span class="nav-text">扩展</span>
       </a>
     </div>
     <div class="settings-link">

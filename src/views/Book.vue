@@ -81,7 +81,7 @@
           <div class="book" style="background-color: #2196f3">
             <i class="fas fa-book book-icon"></i>
             <div class="book-title">
-              <h2>久久积累</h2>
+              <h2>久久积累 2020</h2>
               <p>小学诗词启蒙</p>
             </div>
           </div>

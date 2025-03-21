@@ -784,6 +784,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    margin-top: 20px;
   }
 
   .input-field {
