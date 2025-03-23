@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import { isSpeechSupported } from '../store/speech'
+  import { isSpeechSupported, voices } from '../store/speech'
   import { useThemeStore } from '../store/theme'
   import RightNav from '../components/RightNav.vue'
   import cdnfonts from '../utils/cdnfonts'
@@ -17,7 +17,6 @@
     themeStore.applyTheme()
   }
 
-  const voices = ref([])
   const voiceSettings = ref({
     defaultVoice: '',
     speakRate: 1,
@@ -70,20 +69,6 @@
     localStorage.setItem('quizSettings', JSON.stringify(quizSettings.value))
   }
 
-  const updateVoices = () => {
-    // 获取所有语音并过滤出中文语音
-    const allVoices = window.speechSynthesis.getVoices()
-    // 使用 Set 去重，确保相同名称的语音只会出现一次
-    const uniqueVoices = new Map()
-    allVoices
-      .filter(voice => voice.lang.startsWith('zh') || voice.lang === 'zh-CN')
-      .forEach(voice => {
-        if (!uniqueVoices.has(voice.name)) {
-          uniqueVoices.set(voice.name, voice)
-        }
-      })
-    voices.value = Array.from(uniqueVoices.values())
-  }
 
   const playTestText = () => {
     if (!isSpeechSupported.value || !testText.value) return
@@ -105,7 +90,7 @@
   const scrollToSection = sectionId => {
     const element = document.getElementById(sectionId)
     if (element) {
-      const offset = 80 // 顶部导航栏的高度
+      const offset = 20 // 顶部导航栏的高度
       const elementPosition =
         element.getBoundingClientRect().top + window.pageYOffset
       window.scrollTo({
@@ -120,10 +105,6 @@
 
   onMounted(() => {
     loadSettings()
-    if (isSpeechSupported.value) {
-      updateVoices()
-      window.speechSynthesis.onvoiceschanged = updateVoices
-    }
   })
 </script>
 
@@ -135,71 +116,63 @@
       </div>
     </div>
   </RightNav>
-  <div class="settings-container">
-    <div class="floating-menu">
-      <a @click="scrollToSection('general-settings')" class="menu-item"
-        >基本设置</a
-      >
-      <a @click="scrollToSection('font-settings')" class="menu-item"
-        >字体设置</a
-      >
-      <a
-        v-if="isSpeechSupported"
-        @click="scrollToSection('voice-settings')"
-        class="menu-item"
-        >朗读设置</a
-      >
-      <a @click="scrollToSection('quiz-settings')" class="menu-item"
-        >书空设置</a
-      >
-    </div>
-    <div class="settings-card" id="general-settings">
-      <h2 class="settings-subtitle">基本设置</h2>
-      <div class="settings-content">
-        <div class="settings-item">
-          <label>主题：</label>
-          <div class="theme-options">
-            <label class="theme-option">
+  <div class="max-w-[800px] mx-auto px-5 py-5 mt-[60px]">
+    <ul class="hidden xl:block rounded-md font-bold xl:fixed md:left-[100px] md:top-[150px] md:bg-transparent md:p-4 md:gap-3 md:border md:border-gray-300">
+      <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">基本设置</li>
+      <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">字体设置</li>
+      <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">朗读设置</li>
+      <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">书空设置</li>
+    </ul>
+    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="general-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">基本设置</h2>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300">主题：</label>
+          <div class="flex gap-5">
+            <label class="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 v-model="themeSettings.mode"
                 value="light"
                 @change="saveThemeSettings"
+                class="cursor-pointer"
               />
-              <span>亮色</span>
+              <span class="dark:text-gray-300 text-[var(--text-color)]">亮色</span>
             </label>
-            <label class="theme-option">
+            <label class="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 v-model="themeSettings.mode"
                 value="dark"
                 @change="saveThemeSettings"
+                class="cursor-pointer"
               />
-              <span>暗色</span>
+              <span class="dark:text-gray-300 text-[var(--text-color)]">暗色</span>
             </label>
-            <label class="theme-option">
+            <label class="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 v-model="themeSettings.mode"
                 value="system"
                 @change="saveThemeSettings"
+                class="cursor-pointer"
               />
-              <span>跟随系统</span>
+              <span class="dark:text-gray-300 text-[var(--text-color)]">跟随系统</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="settings-card" id="font-settings">
-      <h2 class="settings-subtitle">字体设置</h2>
-      <div class="settings-content">
-        <div class="settings-item">
-          <label>推荐尝试字体：</label>
+    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="font-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">字体设置</h2>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300 ">推荐尝试字体：</label>
           <select
             v-model="builtinFontSettings.value"
             @change="saveBuiltinFontSettings"
-            class="settings-select"
+            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] cursor-pointer transition-colors duration-300 hover:border-green-500"
           >
             <option
               v-for="font in cdnfonts"
@@ -211,56 +184,57 @@
           </select>
         </div>
 
-        <div class="settings-item">
-          <label>字体CDN链接：</label>
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">字体CDN链接：</label>
           <input
             type="text"
             v-model="fontSettings.fontCDN"
             @change="saveFontSettings"
             placeholder="请输入字体CDN链接，例如：https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap"
-            class="settings-input font-input"
+            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] transition-colors duration-300 hover:border-green-500"
           />
-          <p class="settings-hint">
+          <p class="text-sm text-[var(--text-color-secondary)]">
             输入包含字体的CSS链接，通常是字体服务商提供的CDN链接，例如<a
               href="https://chinese-font.netlify.app/"
               target="_blank"
-              >这个</a
-            >和<a href="https://fonts.zeoseven.com/" target="_blank">这个</a>，通常如果推荐尝试字体里没有你喜欢的，你可以自己找喜欢的字体在这里配置。
+              class="text-green-500 hover:text-green-600"
+            >这个</a
+            >和<a href="https://fonts.zeoseven.com/" target="_blank" class="text-green-500 hover:text-green-600">这个</a>，通常如果推荐尝试字体里没有你喜欢的，你可以自己找喜欢的字体在这里配置。
           </p>
         </div>
 
-        <div class="settings-item">
-          <label>字体名称：</label>
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">字体名称：</label>
           <input
             type="text"
             v-model="fontSettings.fontName"
             @change="saveFontSettings"
             placeholder="请输入字体名称，例如：'Noto Serif SC', serif"
-            class="settings-input font-input"
+            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] transition-colors duration-300 hover:border-green-500"
           />
-          <p class="settings-hint">
+          <p class="text-sm text-[var(--text-color-secondary)]">
             输入CSS中定义的字体名称，如有多个备选字体请用逗号分隔
           </p>
 
-          <div class="font-preview-container">
-            <div class="font-preview-header">字体预览：</div>
+          <div class="mt-4">
+            <div class="text-base text-gray-600 mb-3">字体预览：</div>
             <div
-              class="font-preview"
+              class="p-6 border border-[var(--border-color)] rounded-lg dark:bg-gray-700 bg-[var(--bg-color)] dark:text-gray-300 shadow-sm"
               :style="{ fontFamily: fontFamily }"
             >
-              <p>你好，欢迎使用书空应用！</p>
-              <p>这是自定义字体的预览效果。</p>
-              <p>汉字：永字八法 - 永恒的艺术</p>
-              <p>英文：The quick brown fox jumps over the lazy dog.</p>
+              <p class="mb-3">你好，欢迎使用书空应用！</p>
+              <p class="mb-3">这是自定义字体的预览效果。</p>
+              <p class="mb-3">汉字：永字八法 - 永恒的艺术</p>
+              <p class="mb-3">英文：The quick brown fox jumps over the lazy dog.</p>
               <p>数字：0123456789</p>
             </div>
-            <div v-if="fontLoading" class="font-status loading">
+            <div v-if="fontLoading" class="mt-3 text-blue-500">
               字体加载中...
             </div>
-            <div v-if="fontError" class="font-status error">
+            <div v-if="fontError" class="mt-3 text-red-500">
               字体加载失败，请检查CDN链接和字体名称是否正确
             </div>
-            <div v-if="fontLoaded" class="font-status success">
+            <div v-if="fontLoaded" class="mt-3 text-green-500">
               字体加载成功
             </div>
           </div>
@@ -268,15 +242,15 @@
       </div>
     </div>
 
-    <div class="settings-card" v-if="isSpeechSupported" id="voice-settings">
-      <h2 class="settings-subtitle">朗读设置</h2>
-      <div class="settings-content">
-        <div class="settings-item">
-          <label>选择朗读汉字时使用的默认语音：</label>
+    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" v-if="isSpeechSupported" id="voice-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">朗读设置</h2>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300">选择朗读汉字时使用的默认语音：</label>
           <select
             v-model="voiceSettings.defaultVoice"
             @change="saveVoiceSettings"
-            class="settings-select"
+            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] cursor-pointer transition-colors duration-300 hover:border-green-500"
           >
             <option
               v-for="voice in voices"
@@ -288,9 +262,9 @@
           </select>
         </div>
 
-        <div class="settings-item">
-          <label>朗读速度：</label>
-          <div class="settings-slider-container">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300">朗读速度：</label>
+          <div class="flex items-center gap-4">
             <input
               type="range"
               v-model.number="voiceSettings.speakRate"
@@ -298,21 +272,16 @@
               max="2"
               step="0.1"
               @change="saveVoiceSettings"
-              class="settings-slider"
+              class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <span class="settings-value">{{ voiceSettings.speakRate }}</span>
+            <span class="min-w-[40px] text-base text-gray-600">{{ voiceSettings.speakRate }}</span>
           </div>
         </div>
 
-        <div class="settings-item">
-          <label>自动播放声音：</label>
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300">自动播放声音：</label>
           <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              cursor: pointer;
-            "
+            class="flex items-center gap-2 cursor-pointer"
             @click="
               () => {
                 voiceSettings.autoPlay = !voiceSettings.autoPlay
@@ -324,28 +293,26 @@
               type="checkbox"
               v-model="voiceSettings.autoPlay"
               @change="saveVoiceSettings"
-              class="settings-checkbox"
+              class="w-4 h-4 text-green-500 bg-[var(--bg-color)] border border-[var(--border-color)] rounded cursor-pointer focus:ring-green-500"
             />
-            <label style="cursor: pointer">弹窗自动播放文字发音</label>
+            <label class="cursor-pointer text-[var(--text-color)] dark:text-gray-300">弹窗自动播放文字发音</label>
           </div>
         </div>
 
-        <div class="settings-item">
-          <div class="setting-header">
-            <h3 class="setting-title">测试朗读</h3>
-            <p class="setting-description">
-              输入文本并点击播放按钮测试当前语音设置
-            </p>
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <h3 class="text-lg font-medium text-[var(--text-color)] dark:text-gray-300">测试朗读</h3>
+            <p class="text-sm text-[var(--text-color-secondary)]">输入文本并点击播放按钮测试当前语音设置</p>
           </div>
-          <div class="test-voice-container">
+          <div class="flex gap-2">
             <input
               v-model="testText"
               placeholder="请输入要测试的文本"
-              class="test-voice-input"
+              class="flex-1 px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] dark:bg-gray-700 transition-colors duration-300 hover:border-green-500"
             />
             <button
               @click="playTestText"
-              class="test-voice-button"
+              class="px-4 py-2.5 bg-transparent border border-[var(--border-color)] rounded-lg text-[var(--text-color)] cursor-pointer transition-colors duration-200 hover:text-[var(--primary-color)] hover:border-[var(--primary-color)]"
               title="播放"
             >
               <i class="fas fa-play"></i>
@@ -355,12 +322,12 @@
       </div>
     </div>
 
-    <div class="settings-card" id="quiz-settings">
-      <h2 class="settings-subtitle">书空设置</h2>
-      <div class="settings-content">
-        <div class="settings-item">
-          <label>调整书空练习时汉字显示的大小：</label>
-          <div class="settings-slider-container">
+    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="quiz-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">书空设置</h2>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">调整书空练习时汉字显示的大小：</label>
+          <div class="flex items-center gap-4">
             <input
               type="range"
               v-model.number="quizSettings.containerSize"
@@ -368,18 +335,16 @@
               max="800"
               step="50"
               @change="saveQuizSettings"
-              class="settings-slider"
+              class="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <span class="settings-value"
-              >{{ quizSettings.containerSize }}像素</span
-            >
+            <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.containerSize }}像素</span>
           </div>
-          <p class="settings-hint">可设置范围：100-800像素</p>
+          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：100-800像素</p>
         </div>
 
-        <div class="settings-item">
-          <label>最大行数限制：</label>
-          <div class="settings-slider-container">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">最大行数限制：</label>
+          <div class="flex items-center gap-4">
             <input
               type="range"
               v-model.number="quizSettings.maxLines"
@@ -387,16 +352,16 @@
               max="100"
               step="1"
               @change="saveQuizSettings"
-              class="settings-slider"
+              class="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <span class="settings-value">{{ quizSettings.maxLines }}行</span>
+            <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.maxLines }}行</span>
           </div>
-          <p class="settings-hint">可设置范围：1-100行</p>
+          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：1-100行</p>
         </div>
 
-        <div class="settings-item">
-          <label>每行最大字数限制：</label>
-          <div class="settings-slider-container">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">每行最大字数限制：</label>
+          <div class="flex items-center gap-4">
             <input
               type="range"
               v-model.number="quizSettings.maxCharsPerLine"
@@ -404,18 +369,16 @@
               max="100"
               step="1"
               @change="saveQuizSettings"
-              class="settings-slider"
+              class="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <span class="settings-value"
-              >{{ quizSettings.maxCharsPerLine }}字</span
-            >
+            <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.maxCharsPerLine }}字</span>
           </div>
-          <p class="settings-hint">可设置范围：1-100字</p>
+          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：1-100字</p>
         </div>
 
-        <div class="settings-item">
-          <label>画笔宽度：</label>
-          <div class="settings-slider-container">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600">画笔宽度：</label>
+          <div class="flex items-center gap-4">
             <input
               type="range"
               v-model.number="quizSettings.drawingWidth"
@@ -423,13 +386,11 @@
               max="100"
               step="1"
               @change="saveQuizSettings"
-              class="settings-slider"
+              class="flex-1 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-green-500 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-200 [&::-webkit-slider-thumb]:hover:scale-110"
             />
-            <span class="settings-value"
-              >{{ quizSettings.drawingWidth }}像素</span
-            >
+            <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.drawingWidth }}像素</span>
           </div>
-          <p class="settings-hint">可设置范围：10-100像素</p>
+          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：10-100像素</p>
         </div>
       </div>
     </div>
@@ -437,350 +398,4 @@
 </template>
 
 <style scoped>
-  .nav-content {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .nav-menu {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .nav-menu a {
-    color: var(--text-color);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .nav-menu a:hover {
-    color: var(--primary-color);
-  }
-
-  .settings-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    margin-top: 60px;
-  }
-
-  .settings-title {
-    font-size: 28px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  .settings-card {
-    background: var(--bg-color);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding: 24px;
-    margin-bottom: 24px;
-    border: 1px solid var(--border-color);
-  }
-
-  .settings-subtitle {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-color);
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .settings-content {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .settings-item {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .theme-options {
-    display: flex;
-    gap: 20px;
-  }
-
-  .theme-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-  }
-
-  .theme-option input[type='radio'] {
-    margin: 0;
-    cursor: pointer;
-  }
-
-  .theme-option span {
-    color: var(--text-color);
-  }
-
-  .settings-item label {
-    font-size: 16px;
-    color: #555;
-  }
-
-  .settings-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    cursor: pointer;
-    transition: border-color 0.3s;
-  }
-
-  .settings-select:hover {
-    border-color: #4caf50;
-  }
-
-  .settings-slider-container {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .settings-slider {
-    flex: 1;
-    height: 6px;
-    background: #ddd;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .settings-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #4caf50;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-
-  .settings-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
-  }
-
-  .settings-value {
-    min-width: 40px;
-    font-size: 16px;
-    color: #666;
-  }
-
-  .settings-size-input {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .settings-input {
-    width: 120px;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    transition: border-color 0.3s;
-  }
-
-  .settings-input:hover,
-  .settings-input:focus {
-    border-color: #4caf50;
-    outline: none;
-  }
-
-  .settings-unit {
-    font-size: 16px;
-    color: #666;
-  }
-
-  .settings-hint {
-    font-size: 14px;
-    color: #888;
-    margin-top: 8px;
-  }
-
-  .setting-header {
-    margin-bottom: 16px;
-  }
-
-  .setting-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 4px;
-  }
-
-  .setting-description {
-    font-size: 14px;
-    color: #666;
-  }
-
-  .test-voice-container {
-    display: flex;
-    gap: 12px;
-  }
-
-  .test-voice-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    transition: border-color 0.3s;
-  }
-
-  .test-voice-input:hover,
-  .test-voice-input:focus {
-    border-color: #4caf50;
-    outline: none;
-  }
-
-  .test-voice-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    background-color: #4caf50;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .test-voice-button:hover {
-    background-color: #45a049;
-  }
-
-  .font-input {
-    width: 100%;
-  }
-
-  .font-preview-container {
-    margin-top: 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 16px;
-    background-color: var(--bg-color-secondary, #f5f5f5);
-  }
-
-  .font-preview-header {
-    font-weight: 500;
-    margin-bottom: 12px;
-    color: var(--text-color);
-  }
-
-  .font-preview {
-    padding: 16px;
-    border-radius: 6px;
-    background-color: var(--bg-color);
-    border: 1px dashed var(--border-color);
-    line-height: 1.6;
-  }
-
-  .font-preview p {
-    margin: 8px 0;
-  }
-
-  .font-status {
-    margin-top: 12px;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .font-status.loading {
-    background-color: #e6f7ff;
-    color: #1890ff;
-    border: 1px solid #91d5ff;
-  }
-
-  .font-status.error {
-    background-color: #fff2f0;
-    color: #ff4d4f;
-    border: 1px solid #ffccc7;
-  }
-
-  .font-status.success {
-    background-color: #f6ffed;
-    color: #52c41a;
-    border: 1px solid #b7eb8f;
-  }
-
-  .floating-menu {
-    position: fixed;
-    left: 100px;
-    top: 100px;
-    background-color: transparent;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .menu-item {
-    color: var(--text-color);
-    text-decoration: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-
-  .menu-item:hover {
-    color: var(--primary-color);
-  }
-
-  @media screen and (max-width: 1200px) {
-    .floating-menu {
-      display: none;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .settings-container {
-      padding: 16px;
-    }
-
-    .settings-card {
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    .settings-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .settings-subtitle {
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
-    .settings-content {
-      gap: 16px;
-    }
-
-    .settings-item {
-      gap: 8px;
-    }
-  }
 </style>

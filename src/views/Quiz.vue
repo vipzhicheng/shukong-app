@@ -5,11 +5,12 @@
   import { createHanziWriter } from '../utils/hanziWriter'
   import RightNav from '../components/RightNav.vue'
   import { loadResource } from '../utils/resourceLoader'
-  import QRCode from 'qrcode.vue'
+  import QRCodeModal from '../components/QRCodeModal.vue'
   import StrokeOrderModal from '../components/StrokeOrderModal.vue'
   import { addToCart } from '../store/cart'
   import { useQuizStore } from '../store/quiz'
   import { message } from '../utils/message'
+  import ZoomControls from '../components/ZoomControls.vue'
 
   const router = useRouter()
   const route = useRoute()
@@ -102,24 +103,28 @@
 
   const createConfetti = () => {
     const confettiContainer = document.createElement('div')
-    confettiContainer.style.position = 'fixed'
-    confettiContainer.style.top = '0'
-    confettiContainer.style.left = '0'
-    confettiContainer.style.width = '100%'
-    confettiContainer.style.height = '100%'
-    confettiContainer.style.pointerEvents = 'none'
-    confettiContainer.style.zIndex = '1000'
+    confettiContainer.className = 'fixed inset-0 w-full h-full pointer-events-none z-[1000]'
 
-    for (let i = 0; i < 100; i++) {
+    const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-pink-500']
+    const sizes = ['w-2.5 h-2.5', 'w-3.5 h-3.5', 'w-3 h-3', 'w-4 h-4', 'w-3.5 h-3.5']
+    const delays = ['delay-0', 'delay-200', 'delay-400', 'delay-600', 'delay-800']
+
+    for (let i = 0; i < 200; i++) {
       const confetti = document.createElement('div')
-      confetti.className = 'confetti'
-      // 为每个粒子设置随机的偏移量和旋转角度
-      const xOffset = (Math.random() - 0.5) * window.innerWidth + 'px'
-      const yOffset = (Math.random() - 0.5) * window.innerHeight + 'px'
-      const rotation = Math.random() * 720 + 'deg'
-      confetti.style.setProperty('--x-offset', xOffset)
-      confetti.style.setProperty('--y-offset', yOffset)
-      confetti.style.setProperty('--rotation', rotation)
+      const colorIndex = i % colors.length
+      const xOffset = (Math.random() - 0.5) * window.innerWidth
+      const yOffset = (Math.random() - 0.5) * window.innerHeight
+      const rotation = Math.random() * 720
+
+      confetti.className = `
+        fixed left-1/2 top-1/2 rounded-full
+        ${colors[colorIndex]} ${sizes[colorIndex]} ${delays[colorIndex]}
+        animate-confetti-explode opacity-0
+        transform -translate-x-1/2 -translate-y-1/2
+      `
+      confetti.style.setProperty('--tw-translate-x', `calc(-50% + ${xOffset}px)`)
+      confetti.style.setProperty('--tw-translate-y', `calc(-50% + ${yOffset}px)`)
+      confetti.style.setProperty('--tw-rotate', `${rotation}deg`)
       confettiContainer.appendChild(confetti)
     }
 
@@ -131,6 +136,7 @@
   }
 
   const showNextChar = async () => {
+
     if (
       currentCharIndex.value >= allChars.value[progress.value.current].length
     ) {
@@ -494,12 +500,18 @@
       </div>
     </div>
   </RightNav>
-  <div class="tabs-container" v-if="!showQuiz">
-    <div class="tabs">
+  <div class="w-full bg-[var(--bg-color)] dark:bg-gray-900/30 border-b border-border" v-if="!showQuiz">
+    <div class="flex gap-4">
       <button
         v-for="tab in ['自由', '练习', '历史']"
         :key="tab"
-        :class="['tab-button', { active: activeTab === tab }]"
+        :class="[
+          'px-8 py-4 border-none bg-transparent text-text-color dark:text-gray-300 cursor-pointer text-base relative transition-all duration-300',
+          {
+            'text-primary dark:text-primary after:content-[\'\'] after:absolute after:bottom-[-1px] after:left-0 after:w-full after:h-0.5 after:bg-primary-color after:transition-all after:duration-300': activeTab === tab,
+            'hover:text-primary/80 hover:bg-primary-color/5 dark:hover:text-primary/80 dark:hover:bg-primary-color/5': activeTab !== tab
+          }
+        ]"
         @click="switchTab(tab)"
       >
         {{ tab }}
@@ -508,61 +520,74 @@
   </div>
   <div
     v-if="showQuiz && (progress.current > 0 || currentCharIndex > 0)"
-    class="progress-bar"
+    class="w-full h-0.5 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden"
   >
     <div
-      class="progress-bar-fill"
+      class="h-full bg-green-500 transition-all duration-300 ease-in-out"
       :style="{ width: progressPercentage + '%' }"
     ></div>
   </div>
-  <div class="container">
-    <div v-if="!showQuiz" class="content-section">
+  <div class="container flex justify-center mx-auto">
+    <div v-if="!showQuiz" class="content-section max-w-full md:max-w-2/3 w-full md:w-2/3 p-8">
       <div v-show="activeTab === '自由'" class="input-section">
-        <div class="rainbow-border-container">
+        <div class="relative w-full overflow-hidden rounded-lg p-0.5">
+          <div class="absolute -top-[450%] -bottom-[450%] -left-1/2 -right-1/2 z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#ff0000)] rounded-lg"></div>
           <textarea
             v-model="inputText"
             placeholder="请输入汉字，每行一个词"
-            class="input-field"
+            class="relative z-10 w-full p-4 -mb-1.5 bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 rounded-lg border-none focus:outline-none"
             rows="5"
           ></textarea>
         </div>
 
-        <div class="button-group">
-          <button @click="handleSubmit" class="submit-button">开始书空</button>
-          <div class="file-upload">
+        <div class="flex justify-center items-center gap-4 mt-6">
+          <button
+            @click="handleSubmit"
+            class="cursor-pointer w-40 px-6 py-2.5 bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700 text-white rounded-lg transition-colors duration-200 text-base font-medium"
+          >
+            开始书空
+          </button>
+          <div class="relative">
             <input
               type="file"
               accept=".txt"
               @change="handleFileUpload"
-              class="file-input"
+              class="hidden"
               id="file-upload"
             />
-            <label for="file-upload" class="file-label">
+            <label
+              for="file-upload"
+              class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200 cursor-pointer"
+            >
               <i class="fas fa-upload"></i>
             </label>
           </div>
           <button
             v-if="!isElectron"
             @click="copyCurrentUrl"
-            class="copy-button"
+            class="cursor-pointer inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
           >
             <i class="fas fa-link"></i>
           </button>
-          <button v-if="!isElectron" @click="generateQRCode" class="qr-button">
+          <button
+            v-if="!isElectron"
+            @click="generateQRCode"
+            class="cursor-pointer inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
+          >
             <i class="fas fa-qrcode"></i>
           </button>
         </div>
 
-        <div class="note-box">
-          <ul class="note-list">
-            <li>
+        <div class="mt-8 p-5 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-500 shadow-sm">
+          <ul class="list-decimal ml-5 text-sm text-left">
+            <li class="mb-2.5 text-gray-600 dark:text-gray-400 leading-relaxed">
               书空是跟随笔画在空中练习汉字书写的方法，本工具可以模拟书空，帮助孩子学习汉字笔顺，提高书写规范性。
             </li>
-            <li>
+            <li class="mb-2.5 text-gray-600 dark:text-gray-400 leading-relaxed">
               一行一个词，设置中可以修改支持的行数和每行的字数，超出部分会被忽略。
             </li>
-            <li>上传按钮支持读取文本文件，格式相同。</li>
-            <li v-if="!isElectron">
+            <li class="mb-2.5 text-gray-600 dark:text-gray-400 leading-relaxed">上传按钮支持读取文本文件，格式相同。</li>
+            <li v-if="!isElectron" class="text-gray-600 dark:text-gray-400 leading-relaxed">
               复制链接和生成二维码用于分享书空链接或二维码给其他人书空。
             </li>
           </ul>
@@ -573,7 +598,7 @@
           <li
             v-for="(item, index) in quizData"
             :key="index"
-            class="homework-item"
+            class="border border-gray-200 dark:text-gray-300 dark:border-gray-700 rounded-lg p-4 mb-4 flex justify-center cursor-pointer bg-white dark:bg-gray-900/30 hover:bg-green-100 dark:hover:bg-gray-800/40 transition-colors"
             @click="startQuizFromContent(item.content)"
           >
             {{ item.title }}
@@ -581,47 +606,46 @@
         </ul>
       </div>
 
-      <div v-show="activeTab === '历史'" class="history-section">
-        <div class="history-header">
+      <div v-show="activeTab === '历史'" class="p-4">
+        <div class="flex justify-end mb-4">
           <button
             @click="quizStore.clearHistory"
-            class="clear-history-button"
+            class="cursor-pointer px-4 py-2 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors flex items-center gap-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
             v-if="quizHistory.length > 0"
           >
             <i class="fas fa-trash"></i> 清空历史
           </button>
         </div>
-        <div v-if="quizHistory.length === 0" class="empty-history">
-          <p class="empty-history-text">还没有任何书空练习记录</p>
-          <button @click="quizStore.setActiveTab('自由')" class="create-quiz-button mt-4">
+        <div v-if="quizHistory.length === 0" class="flex flex-col items-center justify-center p-8 text-gray-500 dark:text-gray-400">
+          <p class="text-lg mb-4">还没有任何书空练习记录</p>
+          <button @click="quizStore.setActiveTab('自由')" class="flex items-center gap-2 px-6 py-3 bg-green-500 dark:bg-green-600 text-white rounded-lg hover:bg-green-600 dark:hover:bg-green-700 transition-colors">
             <i class="fas fa-plus"></i> 创建书空练习
           </button>
         </div>
-        <ul v-else class="history-list">
+        <ul v-else class="space-y-4">
           <li
             v-for="(item, index) in [...quizHistory].sort(
               (a, b) => new Date(b.startTime) - new Date(a.startTime)
             )"
             :key="index"
-            class="history-item"
+            class="dark:text-gray-300 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md transition-all cursor-pointer bg-white dark:bg-gray-800/50"
             @click="startQuizFromContent(item.content)"
           >
-            <div class="history-info">
-              <div>
-                <span class="history-time">{{
+          <div class="flex justify-between items-start mb-2">
+              <div class="flex flex-col gap-1">
+                <span class="text-gray-500 dark:text-gray-400 text-sm">{{
                   formatRelativeTime(item.startTime)
                 }}</span>
+                <div class="text-gray-700 dark:text-gray-300 mt-1">
+                  <span class="text-sm" :class="{'text-red-500' : item.errorCount > 0}">错误：{{ item.errorCount || 0 }}个</span>
+                  <span class="text-sm ml-4">字数：{{ item.content.join('').length }}个</span>
+                </div>
               </div>
-              <div>
-                <span class="history-chars" style="margin-right: 8px"
-                  >字数：{{ item.totalChars }}</span
-                >
-                <span
-                  class="history-errors"
-                  v-if="item.errorCount && item.errorCount > 0"
-                  >错误：{{ item.errorCount }}</span
-                >
+              <div class="text-green-500 hover:text-green-600 transition-colors">
+                <i class="fas fa-play"></i>
               </div>
+
+
             </div>
             <div class="history-content">
               {{
@@ -634,55 +658,51 @@
       </div>
     </div>
 
-    <div v-else class="quiz-section">
-      <div v-if="!isFinished" class="preview-chars">
+    <div v-else class="flex flex-col items-center justify-center p-6 w-full max-w-3xl mx-auto space-y-6">
+      <div v-if="!isFinished" class="flex justify-center items-center gap-3 text-2xl font-medium mb-2 overflow-x-auto py-2 w-full">
         <div
           v-for="(char, index) in visibleChars"
           :key="index"
           :class="[
-            `preview-char`,
-            { active: allChars[progress.current][currentCharIndex] === char }
+            `px-3 py-1 rounded transition-all duration-200 text-gray-700 dark:text-gray-300`,
+            { 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-bold': allChars[progress.current][currentCharIndex] === char }
           ]"
         >
           {{ char }}
         </div>
       </div>
-      <div class="zoom-controls">
-        <button
-          @click="zoomIn"
-          class="zoom-button"
-          :disabled="containerSize >= maxSize"
-        >
-          <i class="fas fa-search-plus"></i>
-        </button>
-        <button
-          @click="zoomOut"
-          class="zoom-button"
-          :disabled="containerSize <= minSize"
-        >
-          <i class="fas fa-search-minus"></i>
-        </button>
+
+      <template v-if="!isFinished">
+        <ZoomControls
+          :container-size="containerSize"
+          :min-size="minSize"
+          :max-size="maxSize"
+          @zoom-in="zoomIn"
+          @zoom-out="zoomOut"
+        />
+
+      </template>
+
+
+      <div v-if="!isFinished" class="w-full flex justify-center items-center bg-white dark:bg-gray-800  p-4 ">
+        <div id="character-target" class="w-full h-full flex justify-center"></div>
       </div>
 
-      <div v-if="!isFinished" class="character-display">
-        <div id="character-target"></div>
-      </div>
-
-      <div v-else class="completion-message">
-        <h2>恭喜完成所有书空练习！</h2>
-        <p>
+      <div v-else class="w-full flex flex-col items-center justify-center bg-white dark:bg-gray-800 p-8  space-y-6">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-4">恭喜完成所有书空练习！</h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300">
           本次共书空
           <span class="text-green-500 font-bold">{{ totalCharsCount }}</span>
           字，错误
           <span class="text-red-500 font-bold">{{ errorCount }}</span> 次。
         </p>
-        <div v-if="errorChars.size > 0" class="error-chars-grid">
-          <h3 class="font-bold">错误字统计</h3>
-          <div class="error-char-items">
+        <div v-if="errorChars.size > 0" class="w-full bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+          <h3 class="font-bold text-lg text-gray-800 dark:text-gray-300 mb-3">错误字统计</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             <div
               v-for="[char, count] in errorChars"
               :key="char"
-              class="error-char-item"
+              class="flex flex-col items-center justify-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500 cursor-pointer transition-colors duration-200"
               @click="
                 () => {
                   quizStore.setCurrentChar(char)
@@ -690,22 +710,25 @@
                 }
               "
             >
-              <div class="char">{{ char }}</div>
-              <div class="count font-bold">{{ count }}</div>
+              <div class="text-2xl mb-1">{{ char }}</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400 font-bold">{{ count }}</div>
             </div>
           </div>
         </div>
-        <button title="重新开始" @click="resetQuiz" class="reset-button">
-          重新开始
-        </button>
-        <button
-          title="练习错字"
-          v-if="errorChars.size > 0"
-          @click="handleAddErrorCharsToCart"
-          class="ml-4 px-4 py-2 roundedtransition-colors"
-        >
-          <i class="fas fa-pencil-alt"></i>
-        </button>
+        <div class="flex gap-4 mt-4">
+          <button title="重新开始" @click="resetQuiz" class="cursor-pointer px-6 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-200 text-base font-medium">
+            重新开始
+          </button>
+          <button
+            title="练习错字"
+            v-if="errorChars.size > 0"
+            @click="handleAddErrorCharsToCart"
+            class="cursor-pointer px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-200 text-base font-medium flex items-center gap-2"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            <span>练习错字</span>
+          </button>
+        </div>
       </div>
       <StrokeOrderModal
         v-model:show="showModal"
@@ -713,734 +736,5 @@
       />
     </div>
   </div>
-  <!-- QR Code Modal -->
-  <div v-if="showQRCode" class="qr-modal-overlay" @click="showQRCode = false">
-    <div class="qr-modal" @click.stop>
-      <div class="qr-modal-header">
-        <button class="close-button" @click="showQRCode = false">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="qr-modal-content">
-        <QRCode :value="qrCodeUrl" :size="200" level="H" />
-        <h3 class="qr-modal-title">手机扫码书空练习</h3>
-      </div>
-    </div>
-  </div>
+  <QRCodeModal v-model:show="showQRCode" :url="qrCodeUrl" />
 </template>
-
-<style scoped>
-  .nav-content {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .nav-menu {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .nav-menu a {
-    color: var(--text-color);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .nav-menu a:hover {
-    color: var(--primary-color);
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background-color: #4caf50;
-    transition: width 0.3s ease;
-  }
-
-  .title {
-    font-size: 2.5em;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .description {
-    font-size: 1.2em;
-    color: #666;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  .input-field {
-    margin: 2px;
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    resize: vertical;
-    position: relative;
-    border: 4px solid transparent;
-  }
-
-  .button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .submit-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #4caf50;
-  }
-
-  .file-label {
-    padding: 8px 16px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: white;
-    color: var(--text-color);
-    border: 1px solid #ddd;
-  }
-
-  .file-upload {
-    position: relative;
-    display: flex;
-  }
-
-  .file-input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-
-  .reset-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: center;
-  }
-
-  .submit-button:hover,
-  .reset-button:hover {
-    background-color: #45a049;
-  }
-
-  .quiz-section {
-    text-align: center;
-    position: fixed;
-    top: calc(50% + 60px);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    min-width: 480px;
-    max-height: calc(100vh - 120px);
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg-color);
-    overflow-y: auto;
-    padding: 2rem 0;
-    padding-bottom: 10rem;
-  }
-
-  .character-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    width: v-bind(containerSize + 'px');
-    height: v-bind(containerSize + 'px');
-    background-color: var(--bg-color);
-  }
-
-  .completion-message {
-    text-align: center;
-    position: relative;
-    padding: 0 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .completion-message h2 {
-    color: #4caf50;
-    margin-bottom: 20px;
-    font-size: clamp(24px, 6vw, 48px);
-    word-wrap: break-word;
-    line-height: 1.2;
-  }
-
-  .error-chars-grid {
-    margin: 2rem 0;
-  }
-
-  .error-chars-grid h3 {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-  }
-
-  .error-char-items {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 800px;
-    gap: 1rem;
-    margin: 1rem auto;
-    padding: 0 2rem;
-    justify-content: center;
-  }
-
-  @media (max-width: 768px) {
-    .error-char-items {
-      width: 100%;
-      padding: 0 2rem;
-    }
-  }
-
-  .error-char-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0.5rem 2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    aspect-ratio: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .error-char-item:hover {
-    border-color: var(--primary-color);
-    transform: scale(1.05);
-  }
-
-  .error-char-item .char {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .error-char-item .count {
-  }
-
-  @media screen and (max-width: 768px) {
-    .character-display {
-      width: calc(100vw - 32px);
-      height: calc(100vw - 32px);
-    }
-  }
-  .progress-bar {
-    width: 100%;
-    height: 2px;
-    background-color: #e0e0e0;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background-color: #4caf50;
-    transition: width 0.3s ease;
-  }
-
-  .tabs-container {
-    width: 100%;
-    background-color: var(--bg-color);
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .tabs {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .tab-button {
-    padding: 1rem 2rem;
-    border: none;
-    background: none;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 1rem;
-    position: relative;
-    transition: color 0.3s;
-  }
-
-  .tab-button.active {
-    color: var(--primary-color);
-  }
-
-  .tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
-  }
-
-  .content-section {
-    width: 100%;
-  }
-
-  .homework-section,
-  .history-section {
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .history-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-  }
-
-  .clear-history-button {
-    background-color: var(--danger-color, #dc3545);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
-  }
-
-  .clear-history-button:hover {
-    background-color: var(--danger-hover-color, #c82333);
-  }
-
-  .homework-title,
-  .history-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .homework-list,
-  .history-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .homework-item,
-  .history-item {
-    padding: 1rem;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 1rem;
-    color: var(--text-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .homework-item:hover,
-  .history-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .history-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    color: var(--text-color-secondary);
-    font-size: 0.875rem;
-  }
-
-  .history-time,
-  .history-chars,
-  .history-errors {
-    margin-right: 10px;
-  }
-
-  .history-errors {
-    color: #ff4d4f;
-  }
-
-  .history-content {
-    color: var(--text-color);
-    font-size: 1rem;
-  }
-
-  .confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background-color: #f00;
-    left: 50%;
-    top: 50%;
-    animation: explode 2s ease-out forwards;
-    --x-offset: 0px;
-    --y-offset: 0px;
-    --rotation: 0deg;
-  }
-
-  .confetti:nth-child(2n) {
-    background-color: #0f0;
-    animation-delay: 0.2s;
-    width: 15px;
-    height: 15px;
-  }
-
-  .confetti:nth-child(3n) {
-    background-color: #00f;
-    animation-delay: 0.4s;
-    width: 12px;
-    height: 12px;
-  }
-
-  .confetti:nth-child(4n) {
-    background-color: #ff0;
-    animation-delay: 0.6s;
-    width: 18px;
-    height: 18px;
-  }
-
-  .confetti:nth-child(5n) {
-    background-color: #f0f;
-    animation-delay: 0.8s;
-    width: 14px;
-    height: 14px;
-  }
-</style>
-
-<style>
-  @keyframes fallDown {
-    0% {
-      transform: translateY(-20px) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0.7;
-    }
-  }
-
-  @keyframes explode {
-    0% {
-      transform: translate(-50%, -50%) scale(0.1) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(
-          calc(-50% + var(--x-offset)),
-          calc(-50% + var(--y-offset))
-        )
-        scale(5) rotate(var(--rotation));
-      opacity: 0;
-    }
-  }
-
-  .zoom-controls {
-    position: fixed;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    z-index: 10;
-    padding: 0.5rem;
-  }
-
-  .zoom-button {
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .zoom-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .zoom-button:hover:not(:disabled) {
-    background-color: var(--hover-color);
-  }
-
-  .zoom-controls {
-    position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
-    visibility: v-bind(isFinished ? 'hidden': 'visible');
-  }
-
-  @media (max-width: 768px) {
-    .zoom-controls {
-      right: 40px;
-    }
-  }
-
-  .zoom-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s;
-  }
-
-  .zoom-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
-
-  .zoom-button:disabled {
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: not-allowed;
-  }
-
-  .confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background-color: #f00;
-    left: 50%;
-    top: 50%;
-    animation: explode 2s ease-out forwards;
-    --x-offset: 0px;
-    --y-offset: 0px;
-    --rotation: 0deg;
-  }
-
-  .confetti:nth-child(2n) {
-    background-color: #0f0;
-    animation-delay: 0.2s;
-    width: 15px;
-    height: 15px;
-  }
-
-  .confetti:nth-child(3n) {
-    background-color: #00f;
-    animation-delay: 0.4s;
-    width: 12px;
-    height: 12px;
-  }
-
-  .confetti:nth-child(4n) {
-    background-color: #ff0;
-    animation-delay: 0.6s;
-    width: 18px;
-    height: 18px;
-  }
-
-  .confetti:nth-child(5n) {
-    background-color: #f0f;
-    animation-delay: 0.8s;
-    width: 14px;
-    height: 14px;
-  }
-</style>
-
-<style scoped>
-  .preview-chars {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    background-color: var(--bg-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .preview-char {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: var(--bg-color);
-  }
-
-  .preview-char.active {
-    border-color: #4caf50;
-    background-color: rgba(76, 175, 80, 0.1);
-    font-weight: bold;
-    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
-  }
-  .copy-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: white;
-    border: 1px solid #ddd;
-    color: var(--text-color);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .qr-modal-title {
-    margin-top: 20px;
-  }
-
-  .qr-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    color: var(--text-color);
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-  }
-
-  .qr-label:hover {
-    background-color: #f5f5f5;
-  }
-
-  .qr-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .qr-modal {
-    background-color: var(--bg-color);
-    border-radius: 8px;
-    padding: 10px;
-    width: 90%;
-    max-width: 300px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .qr-modal-header {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin-bottom: -10px;
-  }
-
-  .qr-modal-header h3 {
-    margin: 0;
-    font-size: 18px;
-    color: var(--text-color);
-  }
-
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 5px;
-  }
-
-  .close-button:hover {
-    color: #666;
-  }
-
-  .qr-modal-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background-color: var(--bg-color);
-    border-radius: 4px;
-    color: var(--text-color);
-  }
-
-  .note-box {
-    margin-top: 2rem;
-    padding: 1.25rem;
-    background-color: rgba(76, 175, 80, 0.1);
-    border-radius: 0.75rem;
-    border: 1px solid #4caf50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .note-list {
-    list-style-type: decimal;
-    margin: 0;
-    padding-left: 1.25rem;
-    font-size: 0.9rem;
-    text-align: left;
-  }
-
-  .note-list li {
-    margin-bottom: 0.625rem;
-    color: var(--text-color-secondary);
-    line-height: 1.6;
-  }
-
-  .note-list li:last-child {
-    margin-bottom: 0;
-  }
-</style>

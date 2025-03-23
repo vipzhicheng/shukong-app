@@ -219,7 +219,7 @@
       <div class="nav-menu">
         <a
           @click="goBackPage"
-          style="font-size: 1.5rem; font-weight: bold; cursor: pointer"
+          class="text-2xl font-bold cursor-pointer"
           >{{ metadata?.name }}
           {{ bookData?.volumes?.[0]?.term || '加载中...' }}</a
         >
@@ -230,8 +230,8 @@
     class="container px-4 py-8"
   >
     <!-- 导航区域 -->
-    <div class="mb-4 nav-controller">
-      <a href="" @click.prevent="goBackPage" class="back-link">
+    <div class="mb-4 flex items-center gap-4">
+      <a href="" @click.prevent="goBackPage" class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)]">
         <i class="fas fa-arrow-left"></i>
         <span>返回目录</span>
       </a>
@@ -243,8 +243,8 @@
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) - 1}`
             : ''
         "
-        class="back-link ml-4"
-        :class="{ disabled: !postData || route.params.cid <= 1 }"
+        class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)] ml-4"
+        :class="{ 'cursor-not-allowed opacity-50 hover:text-[var(--text-color)]': !postData || route.params.cid <= 1 }"
         @click.prevent="postData && route.params.cid > 1 ? null : false"
       >
         <i class="fas fa-chevron-left"></i>
@@ -261,9 +261,9 @@
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) + 1}`
             : ''
         "
-        class="back-link ml-4"
+        class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)] ml-4"
         :class="{
-          disabled:
+          'cursor-not-allowed opacity-50 hover:text-[var(--text-color)]':
             !postData ||
             !bookData?.content[
               route.params.type === 'required' ? '必背篇目' : '考级篇目'
@@ -289,13 +289,13 @@
     <!-- 内容区域 -->
     <div
       v-if="postData"
-      class="articles-container"
+      class="flex flex-col gap-8"
       :style="
         { fontFamily: fontFamily }
       "
     >
-      <div class="article-section">
-        <div class="article-content">
+      <div class="mb-8 p-8 dark:bg-gray-800 bg-[var(--bg-color)] rounded-lg shadow border border-[var(--border-color)]">
+        <div class="text-lg leading-8 dark:text-gray-300  text-[var(--text-color)] whitespace-pre-wrap">
           <template
             v-for="(section, sectionIndex) in postData"
             :key="sectionIndex"
@@ -310,17 +310,17 @@
                 <div
                   v-for="(token, tokenIndex) in line.tokens"
                   :key="tokenIndex"
-                  class="character-container text-4xl xl:text-6xl font-bold cursor-pointer"
+                  class="flex flex-col items-center justify-center mx-0.5 p-0.5 box-border text-4xl xl:text-6xl font-bold cursor-pointer"
                   @click="handleTokenClick(token)"
                 >
-                  <div class="pinyin text-base">{{ token.pinyin || '　' }}</div>
-                  <div class="character">{{ token.char }}</div>
+                  <div class="text-base">{{ token.pinyin || '　' }}</div>
+                  <div>{{ token.char }}</div>
                 </div>
-                <div class="flex items-center justify-center">
+                <div class="flex items-end justify-center">
                   <button
                     v-if="postData"
                     @click="addToCartHandler"
-                    class="add-to-cart-btn"
+                    class="bg-transparent border-none text-[var(--text-color)] cursor-pointer p-2 text-lg transition-colors duration-300 hover:text-[var(--primary-color)]"
                     title="添加到书空笔顺练习"
                   >
                     <i class="fas fa-pencil-alt"></i>
@@ -341,18 +341,18 @@
                 <div
                   v-for="(token, tokenIndex) in line.tokens"
                   :key="tokenIndex"
-                  class="character-container text-3xl xl:text-4xl cursor-pointer"
+                  class="flex flex-col items-center justify-center mx-0.5 p-0.5 box-border text-3xl xl:text-4xl cursor-pointer"
                   @click="handleTokenClick(token)"
                 >
-                  <div class="pinyin text-base">{{ token.pinyin || '　' }}</div>
-                  <div class="character">{{ token.char }}</div>
+                  <div class="text-base">{{ token.pinyin || '　' }}</div>
+                  <div>{{ token.char }}</div>
                 </div>
               </div>
             </div>
             <!-- 段落渲染 -->
             <div
               v-else
-              class="article-paragraph mb-4 text-justify flex flex-col"
+              class="my-16 flex flex-col"
               :class="{'items-start' : section.align === 'start', 'items-center' : section.align !=='start'}"
             >
               <div
@@ -363,31 +363,31 @@
               >
                 <template v-if="lineIndex === 0 && section.indent">
                   <div
-                    class="character-container cursor-pointer text-2xl xl:text-5xl ml-8"
+                    class="flex flex-col items-center justify-center mx-0.5 p-0.5 box-border cursor-pointer text-2xl xl:text-5xl ml-8"
                   >
-                    <div class="pinyin text-xs xl:text-base">　</div>
-                    <div class="character">　</div>
+                    <div class="text-xs xl:text-base">　</div>
+                    <div>　</div>
                   </div>
                   <div
-                    class="character-container cursor-pointer text-2xl xl:text-5xl ml-8"
+                    class="flex flex-col items-center justify-center mx-0.5 p-0.5 box-border cursor-pointer text-2xl xl:text-5xl ml-8"
                   >
-                    <div class="pinyin text-xs xl:text-base">　</div>
-                    <div class="character">　</div>
+                    <div class="text-xs xl:text-base">　</div>
+                    <div>　</div>
                   </div>
                 </template>
                 <div
                   v-for="(token, tokenIndex) in line.tokens"
                   :key="tokenIndex"
-                  class="character-container cursor-pointer text-2xl xl:text-5xl ml-8"
+                  class="flex flex-col items-center justify-center mx-0.5 p-0.5 box-border cursor-pointer text-2xl xl:text-5xl ml-8"
                   :class="{
-                    'with-pinyin': token.pinyin && token.pinyin.trim() !== ''
+                    'border-none box-border p-1': token.pinyin && token.pinyin.trim() !== ''
                   }"
                   @click="handleTokenClick(token)"
                 >
-                  <div class="pinyin text-xs xl:text-base">
+                  <div class="text-xs xl:text-base">
                     {{ token.pinyin || '　' }}
                   </div>
-                  <div class="character">{{ token.char }}</div>
+                  <div>{{ token.char }}</div>
                 </div>
               </div>
             </div>
@@ -398,169 +398,3 @@
   </div>
   <StrokeOrderModal v-model:show="showModal" :character="currentChar" />
 </template>
-
-<style scoped>
-  .character-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
-    padding: 2px;
-    box-sizing: border-box;
-  }
-
-  @media (max-width: 768px) {
-    .character-container {
-      margin: 0 1px;
-      padding: 1px;
-    }
-    .character-container.text-4xl {
-      font-size: 1.75rem;
-    }
-    .character-container.text-3xl {
-      font-size: 1.5rem;
-    }
-    .character-container.text-2xl {
-      font-size: 1.25rem;
-    }
-    .character-container .pinyin {
-      font-size: 0.75rem;
-    }
-    .article-paragraph {
-      margin: 2rem 0;
-    }
-    .article-section {
-      padding: 1rem;
-    }
-  }
-  .character-container.with-pinyin {
-    border: none;
-    box-sizing: border-box;
-    padding: 4px;
-  }
-
-  .article-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .article-subtitle {
-    font-size: 20px;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .article-section {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: var(--bg-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-  }
-  .article-paragraph {
-    margin: 4rem 0;
-  }
-  .container {
-  }
-
-  .tabs-container {
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .tabs {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .tab-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--text-color-secondary);
-    border-bottom: 3px solid transparent;
-    margin-bottom: -3px;
-    transition: all 0.3s ease;
-    border-radius: 0;
-  }
-
-  .tab-button.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-  }
-
-  .articles-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .article-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-  }
-
-  .article-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-color-light);
-    margin-bottom: 0.5rem;
-  }
-
-  .article-author {
-    font-size: 1rem;
-    color: var(--text-color-light);
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-
-  .article-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-color);
-    white-space: pre-wrap;
-  }
-
-  .back-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: color 0.3s;
-  }
-  .back-link:hover:not(.disabled) {
-    color: var(--primary-color);
-  }
-  .back-link.disabled {
-    color: var(--text-color-light);
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  .nav-controller {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .add-to-cart-btn {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    transition: color 0.3s;
-  }
-
-  .add-to-cart-btn:hover {
-    color: var(--primary-color);
-  }
-</style>

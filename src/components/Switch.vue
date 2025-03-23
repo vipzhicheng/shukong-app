@@ -6,17 +6,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  activeColor: {
-    type: String,
-    default: 'var(--primary-color)'
-  },
-  inactiveColor: {
-    type: String,
-    default: '#dcdfe6'
-  },
+
   size: {
     type: String,
-    default: 'default' // 可选值：small, default, large
+    default: 'default'
   },
   disabled: {
     type: Boolean,
@@ -29,19 +22,16 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const switchSize = computed(() => {
   const sizes = {
     small: {
-      width: '40px',
-      height: '20px',
-      buttonSize: '16px'
+      containerClass: 'w-10 h-5',
+      buttonClass: 'w-4 h-4'
     },
     default: {
-      width: '48px',
-      height: '24px',
-      buttonSize: '20px'
+      containerClass: 'w-12 h-6',
+      buttonClass: 'w-5 h-5'
     },
     large: {
-      width: '56px',
-      height: '28px',
-      buttonSize: '24px'
+      containerClass: 'w-14 h-7',
+      buttonClass: 'w-6 h-6'
     }
   }
   return sizes[props.size] || sizes.default
@@ -58,59 +48,20 @@ const toggleSwitch = (event) => {
 
 <template>
   <div
-    class="switch"
-    :class="{
-      'is-checked': modelValue,
-      'is-disabled': disabled,
-      [`switch-${size}`]: true
-    }"
-    :style="{
-      '--switch-width': switchSize.width,
-      '--switch-height': switchSize.height,
-      '--button-size': switchSize.buttonSize,
-      '--active-color': activeColor,
-      '--inactive-color': inactiveColor
-    }"
+    :class="[
+      switchSize.containerClass,
+      'relative inline-flex items-center rounded-full cursor-pointer',
+      modelValue ? 'bg-primary dark:bg-primary' : 'bg-gray-300 dark:bg-gray-600',
+      disabled ? 'opacity-60 cursor-not-allowed' : ''
+    ]"
     @click="toggleSwitch"
   >
-    <div class="switch-button"></div>
+    <div
+      :class="[
+        switchSize.buttonClass,
+        'absolute rounded-full bg-white dark:bg-gray-200 shadow-md transform',
+        modelValue ? '-translate-x-0.5 right-0' : 'translate-x-0.5',
+      ]"
+    ></div>
   </div>
 </template>
-
-<style scoped>
-.switch {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  width: var(--switch-width);
-  height: var(--switch-height);
-  border-radius: calc(var(--switch-height) / 2);
-  background-color: var(--inactive-color);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.switch.is-checked {
-  background-color: var(--active-color);
-}
-
-.switch.is-disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.switch-button {
-  position: absolute;
-  left: 2px;
-  width: var(--button-size);
-  height: var(--button-size);
-  border-radius: 50%;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s;
-}
-
-.switch.is-checked .switch-button {
-  left: calc(100% - var(--button-size) - 2px);
-}
-</style>

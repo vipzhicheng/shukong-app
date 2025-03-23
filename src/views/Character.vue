@@ -67,27 +67,10 @@
 </script>
 
 <template>
-  <div id="character-display" class="character-container"></div>
+  <div class="flex items-center justify-center min-h-screen">
+    <div
+      id="character-display"
+      class="w-[800px] h-[800px] border-none m-0 p-0 box-border sm:w-[calc(100vw-32px)] sm:h-[calc(100vw-32px)]"
+    ></div>
+  </div>
 </template>
-
-<style scoped>
-  .character-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    border: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  @media screen and (max-width: 768px) {
-    .character-container {
-      width: calc(100vw - 32px);
-      height: calc(100vw - 32px);
-    }
-  }
-</style>

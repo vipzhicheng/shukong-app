@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Character from '../views/Character.vue'
 import Query from '../views/Query.vue'
-import View from '../views/View.vue'
 import Quiz from '../views/Quiz.vue'
 import Book from '../views/Book.vue'
 import RenjiaoBooks from '../views/RenjiaoBooks.vue'
@@ -34,11 +33,6 @@ const router = createRouter({
       path: '/query/:chars',
       name: 'query',
       component: Query
-    },
-    {
-      path: '/view/:chars',
-      name: 'view',
-      component: View
     },
     {
       path: '/quiz/:content?',

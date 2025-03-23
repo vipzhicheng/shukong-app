@@ -1,39 +1,45 @@
 <template>
   <teleport to="body">
-    <div v-if="show" class="modal" @click.self="handleClose">
-      <div class="modal-content">
-        <span class="close" @click="handleClose">&times;</span>
-        <div id="character-target-modal" class="character-display"></div>
-        <div class="control-buttons">
-          <button @click="togglePlay" class="control-button" title="播放/暂停">
+    <div v-if="show" class="fixed inset-0 bg-black/60 flex justify-center items-center z-[9999]" @click.self="handleClose">
+      <div class="bg-background dark:bg-background-dark p-8 rounded-lg relative max-w-[90vw] max-h-[90vh] border border-border dark:border-border-dark text-text dark:text-text-dark">
+        <button @click="handleClose" class="absolute right-4 top-2 text-2xl text-text dark:text-text-dark hover:text-primary dark:hover:text-primary transition-colors duration-300 cursor-pointer">
+          &times;
+        </button>
+        <div id="character-target-modal" class="my-4"></div>
+        <div class="flex justify-center gap-4 mt-4">
+          <button
+            @click="togglePlay"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
+            title="播放/暂停"
+          >
             <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
           </button>
           <button
             @click="resetAnimation"
-            class="control-button"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
             title="重新播放"
           >
             <i class="fas fa-redo"></i>
           </button>
           <button
             @click="openBaiduHanyu"
-            class="control-button"
-            title="查询汉子"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
+            title="查询汉字"
           >
             <i class="fas fa-search"></i>
           </button>
           <button
             v-if="isSpeechSupported"
-            class="control-button"
             @click="playCharacterSound"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
             title="播放读音"
           >
             <i class="fas fa-volume-up"></i>
           </button>
           <button
             v-if="writer && !isFallbackMode"
-            class="control-button"
             @click="addToCartHandler"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
             title="添加到笔顺练习"
           >
             <i class="fas fa-pencil-alt"></i>
@@ -156,17 +162,9 @@
           // 数据加载失败，使用fallback模式
           isFallbackMode.value = true
           writer = null
-          target.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-          <div class="fallback-character" style="
-            width: 300px;
-            height: 300px;
-            font-size: 200px;
-            font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          ">${props.character}</div>
-          <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
+          target.innerHTML = `<div class="flex flex-col items-center gap-2.5">
+          <div class="w-[300px] h-[300px] text-[200px] font-kai flex items-center justify-center">${props.character}</div>
+          <div class="text-text-secondary dark:text-text-secondary-dark text-sm">笔顺数据不存在</div>
         </div>`
           isPlaying.value = false
           return
@@ -213,63 +211,3 @@
     }
   })
 </script>
-
-<style scoped>
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .modal-content {
-    background: var(--bg-color);
-    padding: 2rem;
-    border-radius: 8px;
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-  }
-
-  .close {
-    position: absolute;
-    right: 1rem;
-    top: 0.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-color);
-  }
-
-  .character-display {
-    margin: 1rem 0;
-  }
-
-  .control-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .control-button {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--text-color);
-  }
-
-  .control-button:hover {
-    background: var(--hover-color);
-  }
-</style>

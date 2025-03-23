@@ -12,7 +12,7 @@ const appsStore = useAppsStore()
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-200 p-4">应用中心</h1>
+        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-300 p-4">应用中心</h1>
       </div>
     </div>
   </RightNav>
@@ -33,7 +33,7 @@ const appsStore = useAppsStore()
           </router-link>
         </div>
         <div>
-          <router-link :to="app.path" class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400">
+          <router-link :to="app.path" class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
             {{ app.title }}
           </router-link>
         </div>

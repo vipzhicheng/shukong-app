@@ -166,16 +166,11 @@
 
 <template>
   <RightNav>
-    <div class="nav-content">
-      <div class="nav-menu">
+    <div class="p-4">
+      <div>
         <router-link
           to="/book/jiujiu"
-          style="
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: inherit;
-          "
+          class="text-2xl font-bold no-underline text-inherit dark:text-gray-300"
         >
           {{ metadata?.name }} {{ bookData?.volumes?.[0]?.term || '加载中...' }}
         </router-link>
@@ -184,12 +179,17 @@
   </RightNav>
   <div class="container px-4 py-8">
     <!-- 二级导航栏 -->
-    <div class="tabs-container mb-8">
-      <div class="tabs">
+    <div class="border-b border-gray-200 dark:border-gray-700 mb-8">
+      <div class="flex gap-4">
         <button
           v-for="tab in tabs"
           :key="tab"
-          :class="['tab-button', { active: activeTab === tab }]"
+          :class="[
+            'px-4 py-2 text-base border-b-4 border-transparent transition-all duration-300 cursor-pointer',
+            { 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400': activeTab === tab,
+              'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-600 dark:hover:border-primary-300': activeTab !== tab
+            }
+          ]"
           @click="switchTab(tab)"
         >
           {{ tab }}
@@ -200,15 +200,13 @@
     <!-- 内容区域 -->
     <div
       v-if="bookData"
-      class="articles-container"
-      :style="
-        { fontFamily: fontFamily }
-      "
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4"
+      :style="{ fontFamily: fontFamily }"
     >
       <div
         v-for="(article, index) in bookData.content[activeTab]"
         :key="index"
-        class="article-item"
+        class="py-2"
       >
         <div
           @click="
@@ -216,33 +214,35 @@
               `/book/jiujiu/${currentVolumeId}/${activeTab === '必背篇目' ? 'required' : 'exam'}/${index + 1}`
             )
           "
-          class="article-link"
+          class="flex items-center gap-2 p-2 rounded-md cursor-pointer transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-2"
         >
-          <span class="article-index">{{ index + 1 }}.</span>
-          <span class="article-title">{{ article.title }}</span>
+          <span class="text-primary-600 dark:text-primary-400 font-bold min-w-[2.5rem] text-right pr-2">{{ index + 1 }}.</span>
+          <span class="text-gray-900 dark:text-gray-100 text-lg">{{ article.title }}</span>
         </div>
       </div>
     </div>
   </div>
   <!-- Modal -->
-  <div v-if="showModal" class="modal" @click.self="closeModal">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <div id="character-target-modal" class="character-display"></div>
-      <div class="control-buttons">
-        <button @click="togglePlay" class="control-button">
+  <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50" @click.self="closeModal">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 relative shadow-xl">
+      <button @click="closeModal" class="absolute right-6 top-6 text-2xl text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300">
+        &times;
+      </button>
+      <div id="character-target-modal" class="w-[300px] h-[300px] mx-auto mb-8"></div>
+      <div class="flex justify-center gap-4">
+        <button @click="togglePlay" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
-        <button @click="resetAnimation" class="control-button">
+        <button @click="resetAnimation" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i class="fas fa-redo"></i>
         </button>
-        <button @click="openBaiduHanyu" class="control-button">
+        <button @click="openBaiduHanyu" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i class="fas fa-search"></i>
         </button>
         <button
-          class="control-button"
           @click="playCharacterSound(currentChar)"
           title="播放读音"
+          class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105"
         >
           <i class="fas fa-volume-up"></i>
         </button>
@@ -252,199 +252,5 @@
 </template>
 
 <style scoped>
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .modal-content {
-    background-color: var(--bg-color);
-    border-radius: 12px;
-    padding: 2rem;
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  .close {
-    position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
-    font-size: 1.5rem;
-    color: #666;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    line-height: 1;
-    transition: color 0.3s ease;
-  }
-
-  .close:hover {
-    color: #333;
-  }
-
-  .character-display {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto 2rem;
-  }
-
-  .control-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .control-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 16px;
-  }
-
-  .control-button:hover {
-    background-color: #388e3c;
-    transform: scale(1.05);
-  }
-
-  .character-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 4px;
-    padding: 4px;
-    box-sizing: border-box;
-  }
-
-  .character-container.with-pinyin {
-    border: none;
-    box-sizing: border-box;
-    padding: 4px;
-  }
-
-  .article-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    color: var(--text-color);
-  }
-  .article-subtitle {
-    font-size: 20px;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .article-section {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: var(--bg-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-  }
-
-  .container {
-  }
-
-  .tabs-container {
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .tabs {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .tab-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--text-color-secondary);
-    border-bottom: 3px solid transparent;
-    margin-bottom: -3px;
-    transition: all 0.3s ease;
-    border-radius: 0;
-  }
-
-  .tab-button.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-  }
-
-  .articles-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    background-color: var(--bg-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .article-item {
-    padding: 0.5rem;
-    transition: all 0.3s ease;
-  }
-
-  .article-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-  }
-
-  .article-link:hover {
-    background-color: var(--bg-color-hover);
-    transform: translateX(8px);
-  }
-
-  .article-index {
-    color: var(--primary-color);
-    font-weight: bold;
-    min-width: 2.5rem;
-    text-align: right;
-    padding-right: 0.5rem;
-  }
-
-  .article-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-color-light);
-    margin-bottom: 0.5rem;
-  }
-
-  .article-author {
-    font-size: 1rem;
-    color: var(--text-color-light);
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-
-  .article-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-color);
-    white-space: pre-wrap;
-    font-family: 'Kaiti SC', '楷体', KaiTi, STKaiti, '华文楷体', sans-serif;
-  }
+  /* All styles have been moved to Tailwind classes in the template */
 </style>

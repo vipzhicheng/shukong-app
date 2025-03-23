@@ -3,23 +3,42 @@
     <Transition name="fade">
       <div
         v-if="visible"
-        class="message-dialog-overlay"
+        class="fixed inset-0 bg-black/50 flex justify-center items-center z-[9999]"
         @click="handleOverlayClick"
       >
-        <div class="message-dialog" :class="type" @click.stop>
-          <div class="message-dialog-header">
-            <div class="message-dialog-icon">
-              <i :class="iconClass"></i>
+        <div
+          class="bg-white dark:bg-gray-800 rounded-lg w-[90%] max-w-[400px] p-5 shadow-lg"
+          :class="{
+            'text-gray-900 dark:text-gray-100': true,
+          }"
+          @click.stop
+        >
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <i :class="[iconClass, {
+                'text-green-500': type === 'success',
+                'text-yellow-500': type === 'warning',
+                'text-blue-500': type === 'alert',
+                'text-red-500': type === 'error'
+              }, 'text-2xl']"></i>
             </div>
-            <button class="close-button" @click="close">
+            <button
+              class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-lg p-1 transition-colors"
+              @click="close"
+            >
               <i class="fas fa-times"></i>
             </button>
           </div>
-          <div class="message-dialog-content">
+          <div class="mb-5 text-base leading-relaxed text-center">
             {{ message }}
           </div>
-          <div class="message-dialog-footer">
-            <button class="confirm-button" @click="close">确定</button>
+          <div class="flex justify-center">
+            <button
+              class="cursor-pointer bg-primary hover:bg-primary text-white px-6 py-2 rounded text-sm transition-colors"
+              @click="close"
+            >
+              确定
+            </button>
           </div>
         </div>
       </div>
@@ -74,113 +93,14 @@
   }
 </script>
 
-<style scoped>
-  .message-dialog-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 11.3s ease;
+}
 
-  .message-dialog {
-    background-color: white;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 400px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .message-dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .message-dialog-icon {
-    font-size: 24px;
-  }
-
-  .success .message-dialog-icon {
-    color: #4caf50;
-  }
-
-  .warning .message-dialog-icon {
-    color: #ffc107;
-  }
-
-  .alert .message-dialog-icon {
-    color: #2196f3;
-  }
-
-  .success .message-dialog-icon {
-    color: #4caf50;
-  }
-
-  .warning .message-dialog-icon {
-    color: #ffc107;
-  }
-
-  .error .message-dialog-icon {
-    color: #f44336;
-  }
-
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #666;
-    cursor: pointer;
-    padding: 4px;
-    transition: color 0.2s;
-  }
-
-  .close-button:hover {
-    color: #333;
-  }
-
-  .message-dialog-content {
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    text-align: center;
-  }
-
-  .message-dialog-footer {
-    display: flex;
-    justify-content: center;
-  }
-
-  .confirm-button {
-    background-color: #4a5568;
-    color: white;
-    border: none;
-    padding: 8px 24px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
-  }
-
-  .confirm-button:hover {
-    background-color: #2d3748;
-  }
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.3s ease;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

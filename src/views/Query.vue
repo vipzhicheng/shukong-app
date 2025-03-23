@@ -188,60 +188,74 @@
       <div class="nav-menu">
         <router-link
           to="/query"
-          style="
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: inherit;
-          "
+          class="text-2xl font-bold no-underline text-[var(--text-color)] transition-colors duration-300 hover:text-primbg-primary cursor-pointer"
           >笔顺查询</router-link
         >
       </div>
     </div>
   </RightNav>
-  <div class="container">
-    <div v-if="!route.params.chars" class="input-section">
-      <div class="rainbow-border-container">
+  <div class="max-w-3xl mx-auto px-5 py-5">
+    <div v-if="!route.params.chars" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg px-5 py-5 flex flex-col sm:flex-row gap-4 z-10">
+      <div class="flex-1 relative overflow-hidden rounded-lg p-0.5">
+        <div class="absolute -top-[450%] -bottom-[450%] -left-1/2 -right-1/2 z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#ff0000)] rounded-lg"></div>
         <input
           v-model="inputText"
           placeholder="请输入汉字"
-          class="input-field"
+          class="relative z-10 w-full px-4 py-3 text-2xl bg-white dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 outline-none cursor-pointer transition-all duration-300 rounded-lg"
           @keyup.enter="handleQuery"
         />
       </div>
-      <button @click="handleQuery" class="query-button">查询笔顺</button>
+      <button
+        @click="handleQuery"
+        class="cursor-pointer px-6 py-3 text-2xl bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap"
+      >
+        查询笔顺
+      </button>
     </div>
-    <div v-else class="result-section">
-      <div class="character-list">
+    <div v-else class="flex flex-col items-center gap-5">
+      <div class="flex flex-wrap gap-2.5 mb-5">
         <button
           v-for="char in charList"
           :key="char"
           @click="showCharacter(char)"
-          :class="{ active: char === currentChar }"
-          class="char-button"
+          :class="{ 'bg-opacity-90': char === currentChar }"
+          class="px-4 py-2 text-base bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300"
         >
           {{ char }}
         </button>
       </div>
-      <div id="character-target" class="character-display"></div>
-      <div class="control-buttons">
-        <button @click="togglePlay" class="control-button">
+      <div id="character-target" class="w-[300px] h-[300px] border border-[var(--border-color)] dark:border-gray-800 rounded-lg"></div>
+      <div class="flex gap-2.5 mt-5">
+        <button
+          @click="togglePlay"
+          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
           <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
-        <button @click="resetAnimation" class="control-button">
+        <button
+          @click="resetAnimation"
+          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
           <i class="fas fa-redo"></i>
         </button>
-        <button @click="openBaiduHanyu" class="control-button">
+        <button
+          @click="openBaiduHanyu"
+          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
           <i class="fas fa-search"></i>
         </button>
         <button
           v-if="isSpeechSupported"
           @click="playSound"
-          class="control-button"
+          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-volume-up"></i>
         </button>
-        <button v-if="writer" @click="handleAddToCart" class="control-button">
+        <button
+          v-if="writer"
+          @click="handleAddToCart"
+          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
           <i class="fas fa-pencil-alt"></i>
         </button>
       </div>
@@ -249,147 +263,4 @@
   </div>
 </template>
 
-<style scoped>
-  .nav-content {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
 
-  .nav-menu {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .nav-menu a {
-    color: var(--text-color);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .nav-menu a:hover {
-    color: var(--primary-color);
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-
-  .input-section {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 40px);
-    max-width: 500px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    z-index: 10;
-    background-color: var(--bg-color);
-  }
-
-  .input-field {
-    flex: 1;
-    padding: 12px 18px;
-    width: 80%;
-    font-size: 24px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 2px;
-    outline: none;
-  }
-
-  .query-button {
-    padding: 12px 24px;
-    font-size: 24px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    .input-section {
-      flex-direction: column;
-    }
-
-    .query-button {
-      width: 100%;
-    }
-  }
-
-  .query-button:hover {
-    background-color: #45a049;
-  }
-
-  .result-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .character-list {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .char-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .char-button:hover {
-    background-color: #45a049;
-  }
-
-  .char-button.active {
-    background-color: #45a049;
-  }
-
-  .character-display {
-    width: 300px;
-    height: 300px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--bg-color);
-  }
-
-  .control-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .control-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .control-button:hover {
-    background-color: #45a049;
-  }
-</style>

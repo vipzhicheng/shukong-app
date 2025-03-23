@@ -1,77 +1,44 @@
 <template>
-  <div class="cart-button" @click="toggleCart">
-    <div class="cart-icon" title="开始笔顺练习">
+  <div
+    class="cart-button fixed right-8 bottom-24 z-50 cursor-pointer"
+    @click="toggleCart"
+  >
+    <div
+      class="cart-button-inner relative w-12 h-12 flex justify-center items-center bg-gray-600 text-white p-4 rounded-full shadow-md transition-all duration-200 hover:bg-gray-700 hover:scale-105"
+      title="开始笔顺练习"
+    >
       <i class="fas fa-pencil-alt"></i>
-      <span class="cart-count">{{ countTotalCharacters() }}</span>
+      <span
+        class="cart-button-count absolute -top-2 -right-0 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full min-w-[18px] text-center"
+      >
+        {{ countTotalCharacters() }}
+      </span>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { cartItems, countTotalCharacters, clearCart } from '../store/cart'
-  import { useRouter } from 'vue-router'
-  import { useQuizStore } from '../store/quiz'
+import { cartItems, countTotalCharacters, clearCart } from '../store/cart'
+import { useRouter } from 'vue-router'
+import { useQuizStore } from '../store/quiz'
 
-  const router = useRouter()
-  const quizStore = useQuizStore()
+const router = useRouter()
+const quizStore = useQuizStore()
 
-  const toggleCart = () => {
-    // 重置quiz状态
-    quizStore.resetState()
-    if (cartItems.value.length === 0) {
-      router.push(`/quiz`)
-    } else {
-      // 将购物车中的汉字转换为文本内容
-      const content = cartItems.value.join('\n')
-      // 将文本内容转换为base64编码
-      const encodedContent = btoa(encodeURIComponent(content))
-      // 跳转到quiz页面，并带上编码后的内容
-      router.push(`/quiz/${encodedContent}`)
-    }
-
-    clearCart()
+const toggleCart = () => {
+  // 重置quiz状态
+  quizStore.resetState()
+  if (cartItems.value.length === 0) {
+    router.push(`/quiz`)
+  } else {
+    // 将购物车中的汉字转换为文本内容
+    const content = cartItems.value.join('\n')
+    // 将文本内容转换为base64编码
+    const encodedContent = btoa(encodeURIComponent(content))
+    // 跳转到quiz页面，并带上编码后的内容
+    router.push(`/quiz/${encodedContent}`)
   }
+
+  clearCart()
+}
 </script>
-
-<style scoped>
-  .cart-button {
-    position: fixed;
-    right: 2rem;
-    bottom: 6rem;
-    z-index: 1000;
-    cursor: pointer;
-  }
-
-  .cart-icon {
-    position: relative;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #4a5568;
-    color: white;
-    padding: 1rem;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
-  }
-
-  .cart-icon:hover {
-    background-color: #2d3748;
-    transform: scale(1.05);
-  }
-
-  .cart-count {
-    position: absolute;
-    top: -8px;
-    right: 0px;
-    background-color: #e53e3e;
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 9999px;
-    min-width: 18px;
-    text-align: center;
-  }
-</style>

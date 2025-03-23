@@ -83,7 +83,6 @@
         {
           name: 'MessageDialog',
           component: MessageDialog,
-
           description: '消息对话框组件',
           props: [
             {
@@ -119,8 +118,7 @@
               description: '要展示笔顺的汉字'
             }
           ],
-          example:
-            '<StrokeOrderModal v-model:show="showModal" character="汉" />'
+          example: '<StrokeOrderModal v-model:show="showModal" character="汉" />'
         }
       ]
     }
@@ -128,14 +126,14 @@
 
   const activeCategory = ref('')
 
-// Switch组件演示数据
-const switchDemo = ref({
-  default: true,
-  small: false,
-  large: true,
-  custom: true,
-  disabled: false
-})
+  // Switch组件演示数据
+  const switchDemo = ref({
+    default: true,
+    small: false,
+    large: true,
+    custom: true,
+    disabled: false
+  })
 
   onMounted(() => {
     // 如果URL中有锚点，滚动到对应位置
@@ -158,26 +156,26 @@ const switchDemo = ref({
 </script>
 
 <template>
-  <RightNav
-    ><div class="nav-content">
+  <RightNav>
+    <div class="nav-content">
       <div class="nav-menu">
-        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-200 p-4">
+        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-300 p-4">
           组件库
         </h1>
       </div>
-    </div></RightNav
-  >
-  <div class="ui-container">
+    </div>
+  </RightNav>
+  <div class="flex min-h-screen">
     <!-- 左侧导航 -->
-    <div class="sidebar">
-      <nav class="category-nav">
+    <div class="fixed w-60 h-screen overflow-y-auto bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-5">
+      <nav class="flex flex-col space-y-2.5">
         <a
           v-for="category in components"
           :key="category.category"
           :href="`#${category.category}`"
           :class="[
-            'category-link',
-            { active: activeCategory === category.category }
+            'px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary-500 hover:text-white dark:hover:text-white transition-all duration-300',
+            { 'bg-primary-500 text-white': activeCategory === category.category }
           ]"
           @click.prevent="scrollToCategory(category.category)"
         >
@@ -187,78 +185,82 @@ const switchDemo = ref({
     </div>
 
     <!-- 右侧内容 -->
-    <div class="content">
+    <div class="flex-1 ml-60 p-5">
       <div
         v-for="category in components"
         :key="category.category"
         :id="category.category"
-        class="category-section"
+        class="mb-10"
       >
-        <h2 class="category-title">{{ category.category }}</h2>
-        <div class="components-grid">
+        <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-300 mb-5 pb-2.5 border-b-2 border-primary-500">{{ category.category }}</h2>
+        <div class="space-y-5">
           <div
             v-for="item in category.items"
             :key="item.name"
-            class="component-card"
+            class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <h3 class="component-name">{{ item.name }}</h3>
-            <p class="component-description">{{ item.description }}</p>
+            <h3 class="text-xl font-semibold text-primary-600 dark:text-primary-400 mb-2.5">{{ item.name }}</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{{ item.description }}</p>
 
             <!-- Props表格 -->
-            <div v-if="item.props && item.props.length > 0" class="props-table">
-              <h4 class="props-title">Props</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>名称</th>
-                    <th>类型</th>
-                    <th>默认值</th>
-                    <th>说明</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="prop in item.props" :key="prop.name">
-                    <td>{{ prop.name }}</td>
-                    <td>{{ prop.type }}</td>
-                    <td>{{ prop.default }}</td>
-                    <td>{{ prop.description }}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div v-if="item.props && item.props.length > 0" class="mt-6 mb-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">Props</h4>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-gray-50 dark:bg-gray-900">
+                    <tr>
+                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">名称</th>
+                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">类型</th>
+                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">默认值</th>
+                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">说明</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr v-for="prop in item.props" :key="prop.name" class="hover:bg-gray-50 dark:hover:bg-gray-900">
+                      <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ prop.name }}</td>
+                      <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ prop.type }}</td>
+                      <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ prop.default }}</td>
+                      <td class="px-4 py-3 text-gray-700 dark:text-gray-300">{{ prop.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <!-- 示例代码 -->
-            <div class="example-section">
-              <h4 class="example-title">示例代码</h4>
-              <pre class="example-code">{{ item.example }}</pre>
+            <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 mb-4">示例代码</h4>
+              <pre class="bg-white dark:bg-gray-800 p-4 rounded-md border border-gray-200 dark:border-gray-700 font-mono text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all">{{ item.example }}</pre>
             </div>
 
             <!-- Switch组件演示 -->
-            <div v-if="item.name === 'Switch'" class="demo-section">
-              <h4 class="demo-title">组件演示</h4>
-              <div class="demo-item">
-                <label>默认大小：</label>
-                <Switch v-model="switchDemo.default" />
-              </div>
-              <div class="demo-item">
-                <label>小尺寸：</label>
-                <Switch v-model="switchDemo.small" size="small" />
-              </div>
-              <div class="demo-item">
-                <label>大尺寸：</label>
-                <Switch v-model="switchDemo.large" size="large" />
-              </div>
-              <div class="demo-item">
-                <label>自定义颜色：</label>
-                <Switch
-                  v-model="switchDemo.custom"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                />
-              </div>
-              <div class="demo-item">
-                <label>禁用状态：</label>
-                <Switch v-model="switchDemo.disabled" disabled />
+            <div v-if="item.name === 'Switch'" class="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 mb-4">组件演示</h4>
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <label class="min-w-[100px] text-gray-700 dark:text-gray-300">默认大小：</label>
+                  <Switch v-model="switchDemo.default" />
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="min-w-[100px] text-gray-700 dark:text-gray-300">小尺寸：</label>
+                  <Switch v-model="switchDemo.small" size="small" />
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="min-w-[100px] text-gray-700 dark:text-gray-300">大尺寸：</label>
+                  <Switch v-model="switchDemo.large" size="large" />
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="min-w-[100px] text-gray-700 dark:text-gray-300">自定义颜色：</label>
+                  <Switch
+                    v-model="switchDemo.custom"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949"
+                  />
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="min-w-[100px] text-gray-700 dark:text-gray-300">禁用状态：</label>
+                  <Switch v-model="switchDemo.disabled" disabled />
+                </div>
               </div>
             </div>
           </div>
@@ -266,232 +268,4 @@ const switchDemo = ref({
       </div>
     </div>
   </div>
-
 </template>
-
-<style scoped>
-  .ui-container {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  .sidebar {
-    width: 240px;
-    background-color: var(--bg-color-secondary);
-    border-right: 1px solid var(--border-color);
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-  }
-
-  .sidebar-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-color);
-  }
-
-  .category-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .category-link {
-    padding: 10px;
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-  }
-
-  .category-link:hover,
-  .category-link.active {
-    background-color: var(--primary-color);
-    color: white;
-  }
-
-  .content {
-    flex: 1;
-    margin-left: 240px;
-    padding: 20px;
-  }
-
-  .category-section {
-    margin-bottom: 40px;
-  }
-
-  .category-title {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-color);
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--primary-color);
-  }
-
-  .components-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .component-card {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 20px;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .component-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .component-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-  }
-
-  .component-description {
-    color: var(--text-color);
-    margin-bottom: 15px;
-    line-height: 1.5;
-  }
-
-  .component-props {
-    margin-bottom: 15px;
-  }
-
-  .component-props h4 {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-color);
-  }
-
-  .component-props ul {
-    list-style: disc;
-    margin-left: 20px;
-    color: var(--text-color);
-  }
-
-  .component-example {
-    background-color: var(--bg-color-secondary);
-    border-radius: 6px;
-    padding: 15px;
-    border: 1px solid var(--border-color);
-  }
-
-  .component-example h4 {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-color);
-  }
-
-  .example-code {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 12px;
-    background-color: var(--bg-color-secondary);
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-all;
-    color: var(--text-color);
-  }
-
-  .props-table {
-    margin: 1.5rem 0;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .props-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-    padding: 1rem;
-    background-color: var(--bg-color-secondary);
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .example-section {
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background-color: var(--bg-color-secondary);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-  }
-
-  .example-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  .example-code {
-    padding: 1rem;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-family: monospace;
-    white-space: pre-wrap;
-    word-break: break-all;
-    color: var(--text-color);
-  }
-
-  .props-table th,
-  .props-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-  }
-
-  .props-table th {
-    background-color: var(--bg-color-secondary);
-    font-weight: 600;
-  }
-
-  .props-table tr:last-child td {
-    border-bottom: none;
-  }
-
-  .props-table tr:hover {
-    background-color: var(--hover-color);
-  }
-
-  .demo-section {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: var(--hover-color);
-    border-radius: 0.5rem;
-  }
-
-  .demo-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  .demo-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .demo-item label {
-    min-width: 100px;
-    color: var(--text-color);
-  }
-</style>

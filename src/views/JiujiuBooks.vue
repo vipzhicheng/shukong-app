@@ -54,7 +54,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 <style scoped>
 .book-grid {
   display: grid;
