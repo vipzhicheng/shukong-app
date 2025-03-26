@@ -673,7 +673,7 @@
                   formatRelativeTime(item.startTime)
                 }}</span>
                 <div class="text-gray-700 dark:text-gray-300 mt-1">
-                  <span class="text-sm" :class="{'text-red-500' : item.errorCount > 0}">错误：{{ item.errorCount || 0 }}个</span>
+                  <span class="text-sm" :class="{'text-red-500' : item.errorCount > 0}">错误：{{ item.errorCount || 0 }}次</span>
                   <span class="text-sm ml-4">字数：{{ item.content.join('').length }}个</span>
                 </div>
               </div>

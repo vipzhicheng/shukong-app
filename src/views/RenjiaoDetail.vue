@@ -270,7 +270,7 @@
             href="javascript:void(0)"
             @click="scrollToSection(item.id)"
             :class="[
-              'block py-1 px-2 rounded transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700',
+              'block py-1 px-2 rounded transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300',
               { 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium': activeSection === item.id }
             ]"
           >
@@ -344,7 +344,7 @@
               <div
                 v-for="(item, charIndex) in chars"
                 :key="charIndex"
-                class="aspect-square w-[100px] flex flex-col items-center justify-center bg-gray-100 border border-gray-300 rounded-lg cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-100 p-2"
+                class="aspect-square w-[100px] flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-100 dark:hover:bg-primary-900/30 p-2"
                 @click="handleCharacterClick(item.character)"
               >
                 <div class="text-base mb-1">{{ item.pinyin }}</div>
@@ -356,7 +356,7 @@
             <div
               v-for="(item, charIndex) in lesson.characters"
               :key="charIndex"
-              class="aspect-square w-[100px] flex flex-col items-center justify-center bg-gray-100 border border-gray-300 rounded-lg cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-100 p-2"
+              class="aspect-square w-[100px] flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:bg-primary-100 dark:hover:bg-primary-900/30 p-2"
               @click="handleCharacterClick(item.character)"
             >
               <div class="text-base mb-1">{{ item.pinyin }}</div>

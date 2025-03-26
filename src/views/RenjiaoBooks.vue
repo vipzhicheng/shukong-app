@@ -58,15 +58,15 @@ onMounted(async () => {
   <div class="container mx-auto px-4 py-8">
     <div class="flex gap-4 mb-6 mx-auto px-2 md:px-4 max-w-[1600px]">
       <div class="flex items-center gap-2">
-        <label class="font-medium">年级：</label>
-        <select v-model="selectedGrade" class="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+        <label class="font-medium text-gray-900 dark:text-gray-100">年级：</label>
+        <select v-model="selectedGrade" class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
           <option value="all">全部</option>
           <option v-for="grade in grades" :key="grade" :value="grade">{{ grade }}年级</option>
         </select>
       </div>
       <div class="flex items-center gap-2">
-        <label class="font-medium">册别：</label>
-        <select v-model="selectedVolume" class="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+        <label class="font-medium text-gray-900 dark:text-gray-100">册别：</label>
+        <select v-model="selectedVolume" class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
           <option value="all">全部</option>
           <option v-for="volume in volumes" :key="volume" :value="volume">第{{ volume }}册</option>
         </select>
