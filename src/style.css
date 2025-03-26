@@ -1,61 +1,6 @@
-@import 'tailwindcss';
-/* @import './assets/input.css'; */
-@config "../tailwind.config.js";
-
-@theme {
-  --color-primary-50: oklch(0.982 0.018 155.826);
-  --color-primary-100: oklch(0.962 0.044 156.743);
-  --color-primary-200: oklch(0.925 0.084 155.995);
-  --color-primary-300: oklch(0.871 0.15 154.449);
-  --color-primary-400: oklch(0.792 0.209 151.711);
-  --color-primary-500: oklch(0.723 0.219 149.579);
-  --color-primary-600: oklch(0.627 0.194 149.214);
-  --color-primary-700: oklch(0.527 0.154 150.069);
-  --color-primary-800: oklch(0.448 0.119 151.328);
-  --color-primary-900: oklch(0.393 0.095 152.535);
-  --color-primary-950: oklch(0.266 0.065 152.934);
-}
-
-:root {
-  /* 主要背景色 */
-  --bg-primary: #ffffff;
-  --bg-primary-dark: #1a1a1a;
-  --bg-color: var(--bg-primary);
-  @media (prefers-color-scheme: dark) {
-    --bg-color: var(--bg-primary-dark);
-  }
-
-  /* 次要背景色 */
-  --bg-secondary: #f5f5f5;
-  --bg-secondary-dark: #2a2a2a;
-
-  /* 文本颜色 */
-  --text-primary: #333333;
-  --text-primary-dark: #ffffff;
-  --text-secondary: #666666;
-  --text-secondary-dark: #a0a0a0;
-  --text-color: var(--text-primary);
-  --text-color-secondary: var(--text-secondary);
-
-  /* 主题色 */
-  --primary-color: var(--color-primary-500);
-
-  /* 边框颜色 */
-  --border-color: #e5e5e5;
-  --border-color-dark: #404040;
-
-  /* 交互状态颜色 */
-  --hover-bg: #f0f0f0;
-  --hover-bg-dark: #3a3a3a;
-  --active-bg: #e8e8e8;
-  --active-bg-dark: #404040;
-
-  /* 阴影 */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm-dark: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-md-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .nav-content {
   @apply flex items-center gap-2;
@@ -70,9 +15,9 @@
 }
 
 .nav-menu a:hover {
-  @apply text-primary dark:text-primary bg-primary-active dark:bg-primary-dark-hover;
+  @apply text-primary-500 dark:text-primary-500;
 }
 
 :deep(.nav-menu) a.active {
-  @apply text-primary dark:text-primary font-medium;
+  @apply text-primary-500 dark:text-primary-500 font-medium;
 }

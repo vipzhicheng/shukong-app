@@ -118,13 +118,13 @@
   </RightNav>
   <div class="max-w-[800px] mx-auto px-5 py-5 mt-[60px]">
     <ul class="hidden xl:block rounded-md font-bold xl:fixed md:left-[100px] md:top-[150px] md:bg-transparent md:p-4 md:gap-3 md:border md:border-gray-300">
-      <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">基本设置</li>
-      <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">字体设置</li>
-      <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">朗读设置</li>
-      <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-[var(--text-color)] no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-[var(--primary-color)]">书空设置</li>
+      <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">基本设置</li>
+      <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">字体设置</li>
+      <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">朗读设置</li>
+      <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">书空设置</li>
     </ul>
-    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="general-settings">
-      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">基本设置</h2>
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" id="general-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">基本设置</h2>
       <div class="flex flex-col gap-6">
         <div class="flex flex-col gap-3">
           <label class="text-base text-gray-600 dark:text-gray-300">主题：</label>
@@ -137,7 +137,7 @@
                 @change="saveThemeSettings"
                 class="cursor-pointer"
               />
-              <span class="dark:text-gray-300 text-[var(--text-color)]">亮色</span>
+              <span class="dark:text-gray-300 text-gray-800">亮色</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer">
               <input
@@ -147,7 +147,7 @@
                 @change="saveThemeSettings"
                 class="cursor-pointer"
               />
-              <span class="dark:text-gray-300 text-[var(--text-color)]">暗色</span>
+              <span class="dark:text-gray-300 text-gray-800">暗色</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer">
               <input
@@ -157,22 +157,22 @@
                 @change="saveThemeSettings"
                 class="cursor-pointer"
               />
-              <span class="dark:text-gray-300 text-[var(--text-color)]">跟随系统</span>
+              <span class="dark:text-gray-300 text-gray-800">跟随系统</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="font-settings">
-      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">字体设置</h2>
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" id="font-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">字体设置</h2>
       <div class="flex flex-col gap-6">
         <div class="flex flex-col gap-3">
           <label class="text-base text-gray-600 dark:text-gray-300 ">推荐尝试字体：</label>
           <select
             v-model="builtinFontSettings.value"
             @change="saveBuiltinFontSettings"
-            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] cursor-pointer transition-colors duration-300 hover:border-green-500"
+            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-gray-800 bg-gray-100 cursor-pointer transition-colors duration-300 hover:border-green-500"
           >
             <option
               v-for="font in cdnfonts"
@@ -191,9 +191,9 @@
             v-model="fontSettings.fontCDN"
             @change="saveFontSettings"
             placeholder="请输入字体CDN链接，例如：https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap"
-            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] transition-colors duration-300 hover:border-green-500"
+            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-gray-800 bg-gray-100 transition-colors duration-300 hover:border-green-500"
           />
-          <p class="text-sm text-[var(--text-color-secondary)]">
+          <p class="text-sm text-gray-600">
             输入包含字体的CSS链接，通常是字体服务商提供的CDN链接，例如<a
               href="https://chinese-font.netlify.app/"
               target="_blank"
@@ -210,16 +210,16 @@
             v-model="fontSettings.fontName"
             @change="saveFontSettings"
             placeholder="请输入字体名称，例如：'Noto Serif SC', serif"
-            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] transition-colors duration-300 hover:border-green-500"
+            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-gray-800 bg-gray-100 transition-colors duration-300 hover:border-green-500"
           />
-          <p class="text-sm text-[var(--text-color-secondary)]">
+          <p class="text-sm text-gray-600">
             输入CSS中定义的字体名称，如有多个备选字体请用逗号分隔
           </p>
 
           <div class="mt-4">
             <div class="text-base text-gray-600 mb-3">字体预览：</div>
             <div
-              class="p-6 border border-[var(--border-color)] rounded-lg dark:bg-gray-700 bg-[var(--bg-color)] dark:text-gray-300 shadow-sm"
+              class="p-6 border border-gray-300 rounded-lg dark:bg-gray-700 bg-gray-100 dark:text-gray-300 shadow-sm"
               :style="{ fontFamily: fontFamily }"
             >
               <p class="mb-3">你好，欢迎使用书空应用！</p>
@@ -242,15 +242,15 @@
       </div>
     </div>
 
-    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" v-if="isSpeechSupported" id="voice-settings">
-      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">朗读设置</h2>
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" v-if="isSpeechSupported" id="voice-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">朗读设置</h2>
       <div class="flex flex-col gap-6">
         <div class="flex flex-col gap-3">
           <label class="text-base text-gray-600 dark:text-gray-300">选择朗读汉字时使用的默认语音：</label>
           <select
             v-model="voiceSettings.defaultVoice"
             @change="saveVoiceSettings"
-            class="w-full px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] cursor-pointer transition-colors duration-300 hover:border-green-500"
+            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-gray-800 bg-gray-100 cursor-pointer transition-colors duration-300 hover:border-green-500"
           >
             <option
               v-for="voice in voices"
@@ -293,26 +293,26 @@
               type="checkbox"
               v-model="voiceSettings.autoPlay"
               @change="saveVoiceSettings"
-              class="w-4 h-4 text-green-500 bg-[var(--bg-color)] border border-[var(--border-color)] rounded cursor-pointer focus:ring-green-500"
+              class="w-4 h-4 text-green-500 bg-gray-100 border border-gray-300 rounded cursor-pointer focus:ring-green-500"
             />
-            <label class="cursor-pointer text-[var(--text-color)] dark:text-gray-300">弹窗自动播放文字发音</label>
+            <label class="cursor-pointer text-gray-800 dark:text-gray-300">弹窗自动播放文字发音</label>
           </div>
         </div>
 
         <div class="flex flex-col gap-3">
           <div class="flex flex-col gap-1">
-            <h3 class="text-lg font-medium text-[var(--text-color)] dark:text-gray-300">测试朗读</h3>
-            <p class="text-sm text-[var(--text-color-secondary)]">输入文本并点击播放按钮测试当前语音设置</p>
+            <h3 class="text-lg font-medium text-gray-800 dark:text-gray-300">测试朗读</h3>
+            <p class="text-sm text-gray-600">输入文本并点击播放按钮测试当前语音设置</p>
           </div>
           <div class="flex gap-2">
             <input
               v-model="testText"
               placeholder="请输入要测试的文本"
-              class="flex-1 px-3 py-2.5 border border-[var(--border-color)] rounded-lg text-base dark:text-gray-300 text-[var(--text-color)] bg-[var(--bg-color)] dark:bg-gray-700 transition-colors duration-300 hover:border-green-500"
+              class="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:text-gray-300 text-gray-800 bg-gray-100 dark:bg-gray-700 transition-colors duration-300 hover:border-green-500"
             />
             <button
               @click="playTestText"
-              class="px-4 py-2.5 bg-transparent border border-[var(--border-color)] rounded-lg text-[var(--text-color)] cursor-pointer transition-colors duration-200 hover:text-[var(--primary-color)] hover:border-[var(--primary-color)]"
+              class="px-4 py-2.5 bg-transparent border border-gray-300 rounded-lg text-gray-800 cursor-pointer transition-colors duration-200 hover:text-primary-500 hover:border-primary-100"
               title="播放"
             >
               <i class="fas fa-play"></i>
@@ -322,8 +322,8 @@
       </div>
     </div>
 
-    <div class="bg-[var(--bg-color)] dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-[var(--border-color)]" id="quiz-settings">
-      <h2 class="text-xl font-medium dark:text-gray-400 text-[var(--text-color)] mb-5 pb-3 border-b border-[var(--border-color)]">书空设置</h2>
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" id="quiz-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">书空设置</h2>
       <div class="flex flex-col gap-6">
         <div class="flex flex-col gap-3">
           <label class="text-base text-gray-600">调整书空练习时汉字显示的大小：</label>
@@ -339,7 +339,7 @@
             />
             <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.containerSize }}像素</span>
           </div>
-          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：100-800像素</p>
+          <p class="text-sm text-gray-600">可设置范围：100-800像素</p>
         </div>
 
         <div class="flex flex-col gap-3">
@@ -356,7 +356,7 @@
             />
             <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.maxLines }}行</span>
           </div>
-          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：1-100行</p>
+          <p class="text-sm text-gray-600">可设置范围：1-100行</p>
         </div>
 
         <div class="flex flex-col gap-3">
@@ -373,7 +373,7 @@
             />
             <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.maxCharsPerLine }}字</span>
           </div>
-          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：1-100字</p>
+          <p class="text-sm text-gray-600">可设置范围：1-100字</p>
         </div>
 
         <div class="flex flex-col gap-3">
@@ -390,7 +390,7 @@
             />
             <span class="min-w-[80px] text-base text-gray-600">{{ quizSettings.drawingWidth }}像素</span>
           </div>
-          <p class="text-sm text-[var(--text-color-secondary)]">可设置范围：10-100像素</p>
+          <p class="text-sm text-gray-600">可设置范围：10-100像素</p>
         </div>
       </div>
     </div>

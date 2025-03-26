@@ -199,7 +199,7 @@
             :key="item.name"
             class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <h3 class="text-xl font-semibold text-primary-600 dark:text-primary-400 mb-2.5">{{ item.name }}</h3>
+            <h3 class="text-xl font-semibold text-primary-600 dark:text-primary-500 mb-2.5">{{ item.name }}</h3>
             <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{{ item.description }}</p>
 
             <!-- Props表格 -->

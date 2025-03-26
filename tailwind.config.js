@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -21,15 +23,7 @@ export default {
         }
       },
       colors: {
-        primary: {
-          DEFAULT: '#4caf50',
-          hover: '#4caf50',
-          active: 'rgba(76, 175, 80, 0.15)',
-          dark: {
-            hover: 'rgba(76, 175, 80, 0.2)',
-            active: 'rgba(76, 175, 80, 0.25)'
-          }
-        },
+        primary: colors.green,
         background: {
           DEFAULT: '#ffffff',
           dark: '#1a1a1a',

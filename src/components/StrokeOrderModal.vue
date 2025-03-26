@@ -2,7 +2,7 @@
   <teleport to="body">
     <div v-if="show" class="fixed inset-0 bg-black/60 flex justify-center items-center z-[9999]" @click.self="handleClose">
       <div class="bg-background dark:bg-background-dark p-8 rounded-lg relative max-w-[90vw] max-h-[90vh] border border-border dark:border-border-dark text-text dark:text-text-dark">
-        <button @click="handleClose" class="absolute right-4 top-2 text-2xl text-text dark:text-text-dark hover:text-primary dark:hover:text-primary transition-colors duration-300 cursor-pointer">
+        <button @click="handleClose" class="absolute right-4 top-2 text-2xl text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300 cursor-pointer">
           &times;
         </button>
         <div id="character-target-modal" class="my-4"></div>

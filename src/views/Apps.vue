@@ -23,7 +23,7 @@ const appsStore = useAppsStore()
           <Switch :model-value="appsStore.appStates.find(state => state.path === app.path)?.enabled || false" @update:model-value="() => appsStore.toggleApp(app.path)" size="small" />
         </div>
         <div v-if="!app.image">
-          <router-link :to="app.path" class="w-24 h-24 mb-6 rounded-full flex items-center justify-center text-4xl bg-gray-100 dark:bg-gray-700 text-primary-600 dark:text-primary-400 transition-all duration-300 hover:scale-110">
+          <router-link :to="app.path" class="w-24 h-24 mb-6 rounded-full flex items-center justify-center text-4xl bg-gray-100 dark:bg-gray-700 text-primary-600 dark:text-primary-500 transition-all duration-300 hover:scale-110">
             <i :class="app.navIcon"></i>
           </router-link>
         </div>
@@ -33,12 +33,12 @@ const appsStore = useAppsStore()
           </router-link>
         </div>
         <div>
-          <router-link :to="app.path" class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+          <router-link :to="app.path" class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500">
             {{ app.title }}
           </router-link>
         </div>
         <div>
-          <router-link :to="app.path" class="text-gray-600 dark:text-gray-400 text-center leading-relaxed hover:text-primary-600 dark:hover:text-primary-400">
+          <router-link :to="app.path" class="text-gray-600 dark:text-gray-400 text-center leading-relaxed hover:text-primary-600 dark:hover:text-primary-500">
             {{ app.description }}
           </router-link>
         </div>

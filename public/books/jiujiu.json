@@ -1268,13 +1268,7 @@
                         { "char": "部", "pinyin": "bù", "type": "word" },
                         { "char": "份", "pinyin": "fèn", "type": "word" }
                       ]
-                    }
-                  ]
-                },
-                {
-                  "type": "paragraph",
-                  "break": false,
-                  "lines": [
+                    },
                     {
                       "tokens": [
                         { "char": "人", "pinyin": "rén", "type": "word" },
@@ -22647,9 +22641,2515 @@
                   ]
                 }
               ]
+            },
+            {
+              "title": "送杜少府之任蜀州",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "送", "pinyin": "sòng", "type": "word" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "少", "pinyin": "shào", "type": "word" },
+                        { "char": "府", "pinyin": "fǔ", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "任", "pinyin": "rèn", "type": "word" },
+                        { "char": "蜀", "pinyin": "shǔ", "type": "word" },
+                        { "char": "州", "pinyin": "zhōu", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "王", "pinyin": "wáng", "type": "word" },
+                        { "char": "勃", "pinyin": "bó", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "城", "pinyin": "chéng", "type": "word" },
+                        { "char": "阙", "pinyin": "què", "type": "word" },
+                        { "char": "辅", "pinyin": "fǔ", "type": "word" },
+                        { "char": "三", "pinyin": "sān", "type": "word" },
+                        { "char": "秦", "pinyin": "qín", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": "烟", "pinyin": "yān", "type": "word" },
+                        { "char": "望", "pinyin": "wàng", "type": "word" },
+                        { "char": "五", "pinyin": "wǔ", "type": "word" },
+                        { "char": "津", "pinyin": "jīn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "与", "pinyin": "yǔ", "type": "word" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "离", "pinyin": "lí", "type": "word" },
+                        { "char": "别", "pinyin": "bié", "type": "word" },
+                        { "char": "意", "pinyin": "yì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "同", "pinyin": "tóng", "type": "word" },
+                        { "char": "是", "pinyin": "shì", "type": "word" },
+                        { "char": "宦", "pinyin": "huàn", "type": "word" },
+                        { "char": "游", "pinyin": "yóu", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "海", "pinyin": "hǎi", "type": "word" },
+                        { "char": "内", "pinyin": "nèi", "type": "word" },
+                        { "char": "存", "pinyin": "cún", "type": "word" },
+                        { "char": "知", "pinyin": "zhī", "type": "word" },
+                        { "char": "己", "pinyin": "jǐ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "涯", "pinyin": "yá", "type": "word" },
+                        { "char": "若", "pinyin": "ruò", "type": "word" },
+                        { "char": "比", "pinyin": "bǐ", "type": "word" },
+                        { "char": "邻", "pinyin": "lín", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "无", "pinyin": "wú", "type": "word" },
+                        { "char": "为", "pinyin": "wéi", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "歧", "pinyin": "qí", "type": "word" },
+                        { "char": "路", "pinyin": "lù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "儿", "pinyin": "ér", "type": "word" },
+                        { "char": "女", "pinyin": "nǚ", "type": "word" },
+                        { "char": "共", "pinyin": "gòng", "type": "word" },
+                        { "char": "沾", "pinyin": "zhān", "type": "word" },
+                        { "char": "巾", "pinyin": "jīn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "天净沙·秋思",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "净", "pinyin": "jìng", "type": "word" },
+                        { "char": "沙", "pinyin": "shā", "type": "word" },
+                        { "char": "·", "pinyin": null, "type": "punctuation" },
+                        { "char": "秋", "pinyin": "qiū", "type": "word" },
+                        { "char": "思", "pinyin": "sī", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "元", "pinyin": "yuán", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "马", "pinyin": "mǎ", "type": "word" },
+                        { "char": "致", "pinyin": "zhì", "type": "word" },
+                        { "char": "远", "pinyin": "yuǎn", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "枯", "pinyin": "kū", "type": "word" },
+                        { "char": "藤", "pinyin": "téng", "type": "word" },
+                        { "char": "老", "pinyin": "lǎo", "type": "word" },
+                        { "char": "树", "pinyin": "shù", "type": "word" },
+                        { "char": "昏", "pinyin": "hūn", "type": "word" },
+                        { "char": "鸦", "pinyin": "yā", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "桥", "pinyin": "qiáo", "type": "word" },
+                        { "char": "流", "pinyin": "liú", "type": "word" },
+                        { "char": "水", "pinyin": "shuǐ", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "古", "pinyin": "gǔ", "type": "word" },
+                        { "char": "道", "pinyin": "dào", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": "瘦", "pinyin": "shòu", "type": "word" },
+                        { "char": "马", "pinyin": "mǎ", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "夕", "pinyin": "xī", "type": "word" },
+                        { "char": "阳", "pinyin": "yáng", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": "下", "pinyin": "xià", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "断", "pinyin": "duàn", "type": "word" },
+                        { "char": "肠", "pinyin": "cháng", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "涯", "pinyin": "yá", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "山坡羊·潼关怀古",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "坡", "pinyin": "pō", "type": "word" },
+                        { "char": "羊", "pinyin": "yáng", "type": "word" },
+                        { "char": "·", "pinyin": null, "type": "punctuation" },
+                        { "char": "潼", "pinyin": "tóng", "type": "word" },
+                        { "char": "关", "pinyin": "guān", "type": "word" },
+                        { "char": "怀", "pinyin": "huái", "type": "word" },
+                        { "char": "古", "pinyin": "gǔ", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "元", "pinyin": "yuán", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "张", "pinyin": "zhāng", "type": "word" },
+                        { "char": "养", "pinyin": "yǎng", "type": "word" },
+                        { "char": "浩", "pinyin": "hào", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "indent": true,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "峰", "pinyin": "fēng", "type": "word" },
+                        { "char": "峦", "pinyin": "luán", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "聚", "pinyin": "jù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "波", "pinyin": "bō", "type": "word" },
+                        { "char": "涛", "pinyin": "tāo", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "怒", "pinyin": "nù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "河", "pinyin": "hé", "type": "word" },
+                        { "char": "表", "pinyin": "biǎo", "type": "word" },
+                        { "char": "里", "pinyin": "lǐ", "type": "word" },
+                        { "char": "潼", "pinyin": "tóng", "type": "word" },
+                        { "char": "关", "pinyin": "guān", "type": "word" },
+                        { "char": "路", "pinyin": "lù", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "望", "pinyin": "wàng", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": "都", "pinyin": "dū", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "意", "pinyin": "yì", "type": "word" },
+                        { "char": "踌", "pinyin": "chóu", "type": "word" },
+                        { "char": "躇", "pinyin": "chú", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "伤", "pinyin": "shāng", "type": "word" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "秦", "pinyin": "qín", "type": "word" },
+                        { "char": "汉", "pinyin": "hàn", "type": "word" },
+                        { "char": "经", "pinyin": "jīng", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" },
+                        { "char": "处", "pinyin": "chù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "宫", "pinyin": "gōng", "type": "word" },
+                        { "char": "阙", "pinyin": "què", "type": "word" },
+                        { "char": "万", "pinyin": "wàn", "type": "word" },
+                        { "char": "间", "pinyin": "jiān", "type": "word" },
+                        { "char": "都", "pinyin": "dōu", "type": "word" },
+                        { "char": "做", "pinyin": "zuò", "type": "word" },
+                        { "char": "了", "pinyin": "le", "type": "word" },
+                        { "char": "土", "pinyin": "tǔ", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "兴", "pinyin": "xīng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "百", "pinyin": "bǎi", "type": "word" },
+                        { "char": "姓", "pinyin": "xìng", "type": "word" },
+                        { "char": "苦", "pinyin": "kǔ", "type": "word" },
+                        { "char": "；", "pinyin": null, "type": "punctuation" },
+                        { "char": "亡", "pinyin": "wáng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "百", "pinyin": "bǎi", "type": "word" },
+                        { "char": "姓", "pinyin": "xìng", "type": "word" },
+                        { "char": "苦", "pinyin": "kǔ", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "浣溪沙",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "浣", "pinyin": "huàn", "type": "word" },
+                        { "char": "溪", "pinyin": "xī", "type": "word" },
+                        { "char": "沙", "pinyin": "shā", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "清", "pinyin": "qīng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "纳", "pinyin": "nà", "type": "word" },
+                        { "char": "兰", "pinyin": "lán", "type": "word" },
+                        { "char": "性", "pinyin": "xìng", "type": "word" },
+                        { "char": "德", "pinyin": "dé", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "身", "pinyin": "shēn", "type": "word" },
+                        { "char": "向", "pinyin": "xiàng", "type": "word" },
+                        { "char": "云", "pinyin": "yún", "type": "word" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "那", "pinyin": "nà", "type": "word" },
+                        { "char": "畔", "pinyin": "pàn", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "北", "pinyin": "běi", "type": "word" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": "吹", "pinyin": "chuī", "type": "word" },
+                        { "char": "断", "pinyin": "duàn", "type": "word" },
+                        { "char": "马", "pinyin": "mǎ", "type": "word" },
+                        { "char": "嘶", "pinyin": "sī", "type": "word" },
+                        { "char": "声", "pinyin": "shēng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "深", "pinyin": "shēn", "type": "word" },
+                        { "char": "秋", "pinyin": "qiū", "type": "word" },
+                        { "char": "远", "pinyin": "yuǎn", "type": "word" },
+                        { "char": "塞", "pinyin": "sài", "type": "word" },
+                        { "char": "若", "pinyin": "ruò", "type": "word" },
+                        { "char": "为", "pinyin": "wéi", "type": "word" },
+                        { "char": "情", "pinyin": "qíng", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "抹", "pinyin": "mǒ", "type": "word" },
+                        { "char": "晚", "pinyin": "wǎn", "type": "word" },
+                        { "char": "烟", "pinyin": "yān", "type": "word" },
+                        { "char": "荒", "pinyin": "huāng", "type": "word" },
+                        { "char": "戍", "pinyin": "shù", "type": "word" },
+                        { "char": "垒", "pinyin": "lěi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "半", "pinyin": "bàn", "type": "word" },
+                        { "char": "竿", "pinyin": "gān", "type": "word" },
+                        { "char": "斜", "pinyin": "xié", "type": "word" },
+                        { "char": "日", "pinyin": "rì", "type": "word" },
+                        { "char": "旧", "pinyin": "jiù", "type": "word" },
+                        { "char": "关", "pinyin": "guān", "type": "word" },
+                        { "char": "城", "pinyin": "chéng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "古", "pinyin": "gǔ", "type": "word" },
+                        { "char": "今", "pinyin": "jīn", "type": "word" },
+                        { "char": "幽", "pinyin": "yōu", "type": "word" },
+                        { "char": "恨", "pinyin": "hèn", "type": "word" },
+                        { "char": "几", "pinyin": "jǐ", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "平", "pinyin": "píng", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "钱塘湖春行",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "钱", "pinyin": "qián", "type": "word" },
+                        { "char": "塘", "pinyin": "táng", "type": "word" },
+                        { "char": "湖", "pinyin": "hú", "type": "word" },
+                        { "char": "春", "pinyin": "chūn", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "白", "pinyin": "bái", "type": "word" },
+                        { "char": "居", "pinyin": "jū", "type": "word" },
+                        { "char": "易", "pinyin": "yì", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "孤", "pinyin": "gū", "type": "word" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "寺", "pinyin": "sì", "type": "word" },
+                        { "char": "北", "pinyin": "běi", "type": "word" },
+                        { "char": "贾", "pinyin": "jiǎ", "type": "word" },
+                        { "char": "亭", "pinyin": "tíng", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "水", "pinyin": "shuǐ", "type": "word" },
+                        { "char": "面", "pinyin": "miàn", "type": "word" },
+                        { "char": "初", "pinyin": "chū", "type": "word" },
+                        { "char": "平", "pinyin": "píng", "type": "word" },
+                        { "char": "云", "pinyin": "yún", "type": "word" },
+                        { "char": "脚", "pinyin": "jiǎo", "type": "word" },
+                        { "char": "低", "pinyin": "dī", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "几", "pinyin": "jǐ", "type": "word" },
+                        { "char": "处", "pinyin": "chù", "type": "word" },
+                        { "char": "早", "pinyin": "zǎo", "type": "word" },
+                        { "char": "莺", "pinyin": "yīng", "type": "word" },
+                        { "char": "争", "pinyin": "zhēng", "type": "word" },
+                        { "char": "暖", "pinyin": "nuǎn", "type": "word" },
+                        { "char": "树", "pinyin": "shù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "谁", "pinyin": "shuí", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "新", "pinyin": "xīn", "type": "word" },
+                        { "char": "燕", "pinyin": "yàn", "type": "word" },
+                        { "char": "啄", "pinyin": "zhuó", "type": "word" },
+                        { "char": "春", "pinyin": "chūn", "type": "word" },
+                        { "char": "泥", "pinyin": "ní", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "乱", "pinyin": "luàn", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "渐", "pinyin": "jiàn", "type": "word" },
+                        { "char": "欲", "pinyin": "yù", "type": "word" },
+                        { "char": "迷", "pinyin": "mí", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "眼", "pinyin": "yǎn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "浅", "pinyin": "qiǎn", "type": "word" },
+                        { "char": "草", "pinyin": "cǎo", "type": "word" },
+                        { "char": "才", "pinyin": "cái", "type": "word" },
+                        { "char": "能", "pinyin": "néng", "type": "word" },
+                        { "char": "没", "pinyin": "mò", "type": "word" },
+                        { "char": "马", "pinyin": "mǎ", "type": "word" },
+                        { "char": "蹄", "pinyin": "tí", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "最", "pinyin": "zuì", "type": "word" },
+                        { "char": "爱", "pinyin": "ài", "type": "word" },
+                        { "char": "湖", "pinyin": "hú", "type": "word" },
+                        { "char": "东", "pinyin": "dōng", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "足", "pinyin": "zú", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "绿", "pinyin": "lǜ", "type": "word" },
+                        { "char": "杨", "pinyin": "yáng", "type": "word" },
+                        { "char": "阴", "pinyin": "yīn", "type": "word" },
+                        { "char": "里", "pinyin": "lǐ", "type": "word" },
+                        { "char": "白", "pinyin": "bái", "type": "word" },
+                        { "char": "沙", "pinyin": "shā", "type": "word" },
+                        { "char": "堤", "pinyin": "dī", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "式微",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "式", "pinyin": "shì", "type": "word" },
+                        { "char": "微", "pinyin": "wēi", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "《", "pinyin": null, "type": "punctuation" },
+                        { "char": "诗", "pinyin": "shī", "type": "word" },
+                        { "char": "经", "pinyin": "jīng", "type": "word" },
+                        { "char": "·", "pinyin": null, "type": "punctuation" },
+                        { "char": "邶", "pinyin": "bèi", "type": "word" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": "》", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "式", "pinyin": "shì", "type": "word" },
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": "式", "pinyin": "shì", "type": "word" },
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "胡", "pinyin": "hú", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "归", "pinyin": "guī", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "故", "pinyin": "gù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "胡", "pinyin": "hú", "type": "word" },
+                        { "char": "为", "pinyin": "wèi", "type": "word" },
+                        { "char": "乎", "pinyin": "hū", "type": "word" },
+                        { "char": "中", "pinyin": "zhōng", "type": "word" },
+                        { "char": "露", "pinyin": "lù", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "式", "pinyin": "shì", "type": "word" },
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": "式", "pinyin": "shì", "type": "word" },
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "胡", "pinyin": "hú", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "归", "pinyin": "guī", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "微", "pinyin": "wēi", "type": "word" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "躬", "pinyin": "gōng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "胡", "pinyin": "hú", "type": "word" },
+                        { "char": "为", "pinyin": "wèi", "type": "word" },
+                        { "char": "乎", "pinyin": "hū", "type": "word" },
+                        { "char": "泥", "pinyin": "ní", "type": "word" },
+                        { "char": "中", "pinyin": "zhōng", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "江畔独步寻花",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "畔", "pinyin": "pàn", "type": "word" },
+                        { "char": "独", "pinyin": "dú", "type": "word" },
+                        { "char": "步", "pinyin": "bù", "type": "word" },
+                        { "char": "寻", "pinyin": "xún", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "甫", "pinyin": "fǔ", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "黄", "pinyin": "huáng", "type": "word" },
+                        { "char": "四", "pinyin": "sì", "type": "word" },
+                        { "char": "娘", "pinyin": "niáng", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "满", "pinyin": "mǎn", "type": "word" },
+                        { "char": "蹊", "pinyin": "xī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "千", "pinyin": "qiān", "type": "word" },
+                        { "char": "朵", "pinyin": "duǒ", "type": "word" },
+                        { "char": "万", "pinyin": "wàn", "type": "word" },
+                        { "char": "朵", "pinyin": "duǒ", "type": "word" },
+                        { "char": "压", "pinyin": "yā", "type": "word" },
+                        { "char": "枝", "pinyin": "zhī", "type": "word" },
+                        { "char": "低", "pinyin": "dī", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "留", "pinyin": "liú", "type": "word" },
+                        { "char": "连", "pinyin": "lián", "type": "word" },
+                        { "char": "戏", "pinyin": "xì", "type": "word" },
+                        { "char": "蝶", "pinyin": "dié", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "舞", "pinyin": "wǔ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "自", "pinyin": "zì", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "娇", "pinyin": "jiāo", "type": "word" },
+                        { "char": "莺", "pinyin": "yīng", "type": "word" },
+                        { "char": "恰", "pinyin": "qià", "type": "word" },
+                        { "char": "恰", "pinyin": "qià", "type": "word" },
+                        { "char": "啼", "pinyin": "tí", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "忆江南·三首",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "·", "pinyin": null, "type": "punctuation" },
+                        { "char": "三", "pinyin": "sān", "type": "word" },
+                        { "char": "首", "pinyin": "shǒu", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "白", "pinyin": "bái", "type": "word" },
+                        { "char": "居", "pinyin": "jū", "type": "word" },
+                        { "char": "易", "pinyin": "yì", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "好", "pinyin": "hǎo", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": "景", "pinyin": "jǐng", "type": "word" },
+                        { "char": "旧", "pinyin": "jiù", "type": "word" },
+                        { "char": "曾", "pinyin": "céng", "type": "word" },
+                        { "char": "谙", "pinyin": "ān", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "日", "pinyin": "rì", "type": "word" },
+                        { "char": "出", "pinyin": "chū", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "红", "pinyin": "hóng", "type": "word" },
+                        { "char": "胜", "pinyin": "shèng", "type": "word" },
+                        { "char": "火", "pinyin": "huǒ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "春", "pinyin": "chūn", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "水", "pinyin": "shuǐ", "type": "word" },
+                        { "char": "绿", "pinyin": "lǜ", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "蓝", "pinyin": "lán", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "能", "pinyin": "néng", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "最", "pinyin": "zuì", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": "是", "pinyin": "shì", "type": "word" },
+                        { "char": "杭", "pinyin": "háng", "type": "word" },
+                        { "char": "州", "pinyin": "zhōu", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "寺", "pinyin": "sì", "type": "word" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "中", "pinyin": "zhōng", "type": "word" },
+                        { "char": "寻", "pinyin": "xún", "type": "word" },
+                        { "char": "桂", "pinyin": "guì", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "郡", "pinyin": "jùn", "type": "word" },
+                        { "char": "亭", "pinyin": "tíng", "type": "word" },
+                        { "char": "枕", "pinyin": "zhěn", "type": "word" },
+                        { "char": "上", "pinyin": "shàng", "type": "word" },
+                        { "char": "看", "pinyin": "kàn", "type": "word" },
+                        { "char": "潮", "pinyin": "cháo", "type": "word" },
+                        { "char": "头", "pinyin": "tóu", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "日", "pinyin": "rì", "type": "word" },
+                        { "char": "更", "pinyin": "gèng", "type": "word" },
+                        { "char": "重", "pinyin": "chóng", "type": "word" },
+                        { "char": "游", "pinyin": "yóu", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "其", "pinyin": "qí", "type": "word" },
+                        { "char": "次", "pinyin": "cì", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": "吴", "pinyin": "wú", "type": "word" },
+                        { "char": "宫", "pinyin": "gōng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "吴", "pinyin": "wú", "type": "word" },
+                        { "char": "酒", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "杯", "pinyin": "bēi", "type": "word" },
+                        { "char": "春", "pinyin": "chūn", "type": "word" },
+                        { "char": "竹", "pinyin": "zhú", "type": "word" },
+                        { "char": "叶", "pinyin": "yè", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "吴", "pinyin": "wú", "type": "word" },
+                        { "char": "娃", "pinyin": "wá", "type": "word" },
+                        { "char": "双", "pinyin": "shuāng", "type": "word" },
+                        { "char": "舞", "pinyin": "wǔ", "type": "word" },
+                        { "char": "醉", "pinyin": "zuì", "type": "word" },
+                        { "char": "芙", "pinyin": "fú", "type": "word" },
+                        { "char": "蓉", "pinyin": "róng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "早", "pinyin": "zǎo", "type": "word" },
+                        { "char": "晚", "pinyin": "wǎn", "type": "word" },
+                        { "char": "复", "pinyin": "fù", "type": "word" },
+                        { "char": "相", "pinyin": "xiāng", "type": "word" },
+                        { "char": "逢", "pinyin": "féng", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "卜算子·黄州定慧院寓居作",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "卜", "pinyin": "bǔ", "type": "word" },
+                        { "char": "算", "pinyin": "suàn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "·", "pinyin": null, "type": "punctuation" },
+                        { "char": "黄", "pinyin": "huáng", "type": "word" },
+                        { "char": "州", "pinyin": "zhōu", "type": "word" },
+                        { "char": "定", "pinyin": "dìng", "type": "word" },
+                        { "char": "慧", "pinyin": "huì", "type": "word" },
+                        { "char": "院", "pinyin": "yuàn", "type": "word" },
+                        { "char": "寓", "pinyin": "yù", "type": "word" },
+                        { "char": "居", "pinyin": "jū", "type": "word" },
+                        { "char": "作", "pinyin": "zuò", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "宋", "pinyin": "sòng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "苏", "pinyin": "sū", "type": "word" },
+                        { "char": "轼", "pinyin": "shì", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "缺", "pinyin": "quē", "type": "word" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "挂", "pinyin": "guà", "type": "word" },
+                        { "char": "疏", "pinyin": "shū", "type": "word" },
+                        { "char": "桐", "pinyin": "tóng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "漏", "pinyin": "lòu", "type": "word" },
+                        { "char": "断", "pinyin": "duàn", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "初", "pinyin": "chū", "type": "word" },
+                        { "char": "静", "pinyin": "jìng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "谁", "pinyin": "shuí", "type": "word" },
+                        { "char": "见", "pinyin": "jiàn", "type": "word" },
+                        { "char": "幽", "pinyin": "yōu", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "独", "pinyin": "dú", "type": "word" },
+                        { "char": "往", "pinyin": "wǎng", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "缥", "pinyin": "piāo", "type": "word" },
+                        { "char": "缈", "pinyin": "miǎo", "type": "word" },
+                        { "char": "孤", "pinyin": "gū", "type": "word" },
+                        { "char": "鸿", "pinyin": "hóng", "type": "word" },
+                        { "char": "影", "pinyin": "yǐng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "惊", "pinyin": "jīng", "type": "word" },
+                        { "char": "起", "pinyin": "qǐ", "type": "word" },
+                        { "char": "却", "pinyin": "què", "type": "word" },
+                        { "char": "回", "pinyin": "huí", "type": "word" },
+                        { "char": "头", "pinyin": "tóu", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "恨", "pinyin": "hèn", "type": "word" },
+                        { "char": "无", "pinyin": "wú", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "省", "pinyin": "xǐng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "拣", "pinyin": "jiǎn", "type": "word" },
+                        { "char": "尽", "pinyin": "jìn", "type": "word" },
+                        { "char": "寒", "pinyin": "hán", "type": "word" },
+                        { "char": "枝", "pinyin": "zhī", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "肯", "pinyin": "kěn", "type": "word" },
+                        { "char": "栖", "pinyin": "qī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "寂", "pinyin": "jì", "type": "word" },
+                        { "char": "寞", "pinyin": "mò", "type": "word" },
+                        { "char": "沙", "pinyin": "shā", "type": "word" },
+                        { "char": "洲", "pinyin": "zhōu", "type": "word" },
+                        { "char": "冷", "pinyin": "lěng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "过故人庄",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "过", "pinyin": "guò", "type": "word" },
+                        { "char": "故", "pinyin": "gù", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "庄", "pinyin": "zhuāng", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "孟", "pinyin": "mèng", "type": "word" },
+                        { "char": "浩", "pinyin": "hào", "type": "word" },
+                        { "char": "然", "pinyin": "rán", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "故", "pinyin": "gù", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "具", "pinyin": "jù", "type": "word" },
+                        { "char": "鸡", "pinyin": "jī", "type": "word" },
+                        { "char": "黍", "pinyin": "shǔ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "邀", "pinyin": "yāo", "type": "word" },
+                        { "char": "我", "pinyin": "wǒ", "type": "word" },
+                        { "char": "至", "pinyin": "zhì", "type": "word" },
+                        { "char": "田", "pinyin": "tián", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "绿", "pinyin": "lǜ", "type": "word" },
+                        { "char": "树", "pinyin": "shù", "type": "word" },
+                        { "char": "村", "pinyin": "cūn", "type": "word" },
+                        { "char": "边", "pinyin": "biān", "type": "word" },
+                        { "char": "合", "pinyin": "hé", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "青", "pinyin": "qīng", "type": "word" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "郭", "pinyin": "guō", "type": "word" },
+                        { "char": "外", "pinyin": "wài", "type": "word" },
+                        { "char": "斜", "pinyin": "xié", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "开", "pinyin": "kāi", "type": "word" },
+                        { "char": "轩", "pinyin": "xuān", "type": "word" },
+                        { "char": "面", "pinyin": "miàn", "type": "word" },
+                        { "char": "场", "pinyin": "cháng", "type": "word" },
+                        { "char": "圃", "pinyin": "pǔ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "把", "pinyin": "bǎ", "type": "word" },
+                        { "char": "酒", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "话", "pinyin": "huà", "type": "word" },
+                        { "char": "桑", "pinyin": "sāng", "type": "word" },
+                        { "char": "麻", "pinyin": "má", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "待", "pinyin": "dài", "type": "word" },
+                        { "char": "到", "pinyin": "dào", "type": "word" },
+                        { "char": "重", "pinyin": "chóng", "type": "word" },
+                        { "char": "阳", "pinyin": "yáng", "type": "word" },
+                        { "char": "日", "pinyin": "rì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "还", "pinyin": "huán", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": "就", "pinyin": "jiù", "type": "word" },
+                        { "char": "菊", "pinyin": "jú", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "夜雨寄北",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "雨", "pinyin": "yǔ", "type": "word" },
+                        { "char": "寄", "pinyin": "jì", "type": "word" },
+                        { "char": "北", "pinyin": "běi", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "李", "pinyin": "lǐ", "type": "word" },
+                        { "char": "商", "pinyin": "shāng", "type": "word" },
+                        { "char": "隐", "pinyin": "yǐn", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "问", "pinyin": "wèn", "type": "word" },
+                        { "char": "归", "pinyin": "guī", "type": "word" },
+                        { "char": "期", "pinyin": "qī", "type": "word" },
+                        { "char": "未", "pinyin": "wèi", "type": "word" },
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "期", "pinyin": "qī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "巴", "pinyin": "bā", "type": "word" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "雨", "pinyin": "yǔ", "type": "word" },
+                        { "char": "涨", "pinyin": "zhǎng", "type": "word" },
+                        { "char": "秋", "pinyin": "qiū", "type": "word" },
+                        { "char": "池", "pinyin": "chí", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "当", "pinyin": "dāng", "type": "word" },
+                        { "char": "共", "pinyin": "gòng", "type": "word" },
+                        { "char": "剪", "pinyin": "jiǎn", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": "窗", "pinyin": "chuāng", "type": "word" },
+                        { "char": "烛", "pinyin": "zhú", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "却", "pinyin": "què", "type": "word" },
+                        { "char": "话", "pinyin": "huà", "type": "word" },
+                        { "char": "巴", "pinyin": "bā", "type": "word" },
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "雨", "pinyin": "yǔ", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "泊秦淮",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "泊", "pinyin": "bó", "type": "word" },
+                        { "char": "秦", "pinyin": "qín", "type": "word" },
+                        { "char": "淮", "pinyin": "huái", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "牧", "pinyin": "mù", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "烟", "pinyin": "yān", "type": "word" },
+                        { "char": "笼", "pinyin": "lǒng", "type": "word" },
+                        { "char": "寒", "pinyin": "hán", "type": "word" },
+                        { "char": "水", "pinyin": "shuǐ", "type": "word" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "笼", "pinyin": "lǒng", "type": "word" },
+                        { "char": "沙", "pinyin": "shā", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "泊", "pinyin": "bó", "type": "word" },
+                        { "char": "秦", "pinyin": "qín", "type": "word" },
+                        { "char": "淮", "pinyin": "huái", "type": "word" },
+                        { "char": "近", "pinyin": "jìn", "type": "word" },
+                        { "char": "酒", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "商", "pinyin": "shāng", "type": "word" },
+                        { "char": "女", "pinyin": "nǚ", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "知", "pinyin": "zhī", "type": "word" },
+                        { "char": "亡", "pinyin": "wáng", "type": "word" },
+                        { "char": "国", "pinyin": "guó", "type": "word" },
+                        { "char": "恨", "pinyin": "hèn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "隔", "pinyin": "gé", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "犹", "pinyin": "yóu", "type": "word" },
+                        { "char": "唱", "pinyin": "chàng", "type": "word" },
+                        { "char": "后", "pinyin": "hòu", "type": "word" },
+                        { "char": "庭", "pinyin": "tíng", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "竹里馆",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "竹", "pinyin": "zhú", "type": "word" },
+                        { "char": "里", "pinyin": "lǐ", "type": "word" },
+                        { "char": "馆", "pinyin": "guǎn", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "王", "pinyin": "wáng", "type": "word" },
+                        { "char": "维", "pinyin": "wéi", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "独", "pinyin": "dú", "type": "word" },
+                        { "char": "坐", "pinyin": "zuò", "type": "word" },
+                        { "char": "幽", "pinyin": "yōu", "type": "word" },
+                        { "char": "篁", "pinyin": "huáng", "type": "word" },
+                        { "char": "里", "pinyin": "lǐ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "弹", "pinyin": "tán", "type": "word" },
+                        { "char": "琴", "pinyin": "qín", "type": "word" },
+                        { "char": "复", "pinyin": "fù", "type": "word" },
+                        { "char": "长", "pinyin": "cháng", "type": "word" },
+                        { "char": "啸", "pinyin": "xiào", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "深", "pinyin": "shēn", "type": "word" },
+                        { "char": "林", "pinyin": "lín", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "知", "pinyin": "zhī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "明", "pinyin": "míng", "type": "word" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": "相", "pinyin": "xiāng", "type": "word" },
+                        { "char": "照", "pinyin": "zhào", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "月夜忆舍弟",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "忆", "pinyin": "yì", "type": "word" },
+                        { "char": "舍", "pinyin": "shè", "type": "word" },
+                        { "char": "弟", "pinyin": "dì", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "甫", "pinyin": "fǔ", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "戍", "pinyin": "shù", "type": "word" },
+                        { "char": "鼓", "pinyin": "gǔ", "type": "word" },
+                        { "char": "断", "pinyin": "duàn", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "秋", "pinyin": "qiū", "type": "word" },
+                        { "char": "边", "pinyin": "biān", "type": "word" },
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "雁", "pinyin": "yàn", "type": "word" },
+                        { "char": "声", "pinyin": "shēng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "露", "pinyin": "lù", "type": "word" },
+                        { "char": "从", "pinyin": "cóng", "type": "word" },
+                        { "char": "今", "pinyin": "jīn", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "白", "pinyin": "bái", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "是", "pinyin": "shì", "type": "word" },
+                        { "char": "故", "pinyin": "gù", "type": "word" },
+                        { "char": "乡", "pinyin": "xiāng", "type": "word" },
+                        { "char": "明", "pinyin": "míng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "弟", "pinyin": "dì", "type": "word" },
+                        { "char": "皆", "pinyin": "jiē", "type": "word" },
+                        { "char": "分", "pinyin": "fēn", "type": "word" },
+                        { "char": "散", "pinyin": "sàn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "无", "pinyin": "wú", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "问", "pinyin": "wèn", "type": "word" },
+                        { "char": "死", "pinyin": "sǐ", "type": "word" },
+                        { "char": "生", "pinyin": "shēng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "寄", "pinyin": "jì", "type": "word" },
+                        { "char": "书", "pinyin": "shū", "type": "word" },
+                        { "char": "长", "pinyin": "cháng", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "达", "pinyin": "dá", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "况", "pinyin": "kuàng", "type": "word" },
+                        { "char": "乃", "pinyin": "nǎi", "type": "word" },
+                        { "char": "未", "pinyin": "wèi", "type": "word" },
+                        { "char": "休", "pinyin": "xiū", "type": "word" },
+                        { "char": "兵", "pinyin": "bīng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "醉花阴",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "醉", "pinyin": "zuì", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "阴", "pinyin": "yīn", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "宋", "pinyin": "sòng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "李", "pinyin": "lǐ", "type": "word" },
+                        { "char": "清", "pinyin": "qīng", "type": "word" },
+                        { "char": "照", "pinyin": "zhào", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "薄", "pinyin": "bó", "type": "word" },
+                        { "char": "雾", "pinyin": "wù", "type": "word" },
+                        { "char": "浓", "pinyin": "nóng", "type": "word" },
+                        { "char": "云", "pinyin": "yún", "type": "word" },
+                        { "char": "愁", "pinyin": "chóu", "type": "word" },
+                        { "char": "永", "pinyin": "yǒng", "type": "word" },
+                        { "char": "昼", "pinyin": "zhòu", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "瑞", "pinyin": "ruì", "type": "word" },
+                        { "char": "脑", "pinyin": "nǎo", "type": "word" },
+                        { "char": "消", "pinyin": "xiāo", "type": "word" },
+                        { "char": "金", "pinyin": "jīn", "type": "word" },
+                        { "char": "兽", "pinyin": "shòu", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "佳", "pinyin": "jiā", "type": "word" },
+                        { "char": "节", "pinyin": "jié", "type": "word" },
+                        { "char": "又", "pinyin": "yòu", "type": "word" },
+                        { "char": "重", "pinyin": "chóng", "type": "word" },
+                        { "char": "阳", "pinyin": "yáng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "玉", "pinyin": "yù", "type": "word" },
+                        { "char": "枕", "pinyin": "zhěn", "type": "word" },
+                        { "char": "纱", "pinyin": "shā", "type": "word" },
+                        { "char": "厨", "pinyin": "chú", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "半", "pinyin": "bàn", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "凉", "pinyin": "liáng", "type": "word" },
+                        { "char": "初", "pinyin": "chū", "type": "word" },
+                        { "char": "透", "pinyin": "tòu", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "东", "pinyin": "dōng", "type": "word" },
+                        { "char": "篱", "pinyin": "lí", "type": "word" },
+                        { "char": "把", "pinyin": "bǎ", "type": "word" },
+                        { "char": "酒", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "黄", "pinyin": "huáng", "type": "word" },
+                        { "char": "昏", "pinyin": "hūn", "type": "word" },
+                        { "char": "后", "pinyin": "hòu", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "暗", "pinyin": "àn", "type": "word" },
+                        { "char": "香", "pinyin": "xiāng", "type": "word" },
+                        { "char": "盈", "pinyin": "yíng", "type": "word" },
+                        { "char": "袖", "pinyin": "xiù", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "莫", "pinyin": "mò", "type": "word" },
+                        { "char": "道", "pinyin": "dào", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "销", "pinyin": "xiāo", "type": "word" },
+                        { "char": "魂", "pinyin": "hún", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "帘", "pinyin": "lián", "type": "word" },
+                        { "char": "卷", "pinyin": "juǎn", "type": "word" },
+                        { "char": "西", "pinyin": "xī", "type": "word" },
+                        { "char": "风", "pinyin": "fēng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "比", "pinyin": "bǐ", "type": "word" },
+                        { "char": "黄", "pinyin": "huáng", "type": "word" },
+                        { "char": "花", "pinyin": "huā", "type": "word" },
+                        { "char": "瘦", "pinyin": "shòu", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "龟虽寿",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "龟", "pinyin": "guī", "type": "word" },
+                        { "char": "虽", "pinyin": "suī", "type": "word" },
+                        { "char": "寿", "pinyin": "shòu", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "汉", "pinyin": "hàn", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "曹", "pinyin": "cáo", "type": "word" },
+                        { "char": "操", "pinyin": "cāo", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "神", "pinyin": "shén", "type": "word" },
+                        { "char": "龟", "pinyin": "guī", "type": "word" },
+                        { "char": "虽", "pinyin": "suī", "type": "word" },
+                        { "char": "寿", "pinyin": "shòu", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "犹", "pinyin": "yóu", "type": "word" },
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "竟", "pinyin": "jìng", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "腾", "pinyin": "téng", "type": "word" },
+                        { "char": "蛇", "pinyin": "shé", "type": "word" },
+                        { "char": "乘", "pinyin": "chéng", "type": "word" },
+                        { "char": "雾", "pinyin": "wù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "终", "pinyin": "zhōng", "type": "word" },
+                        { "char": "为", "pinyin": "wéi", "type": "word" },
+                        { "char": "土", "pinyin": "tǔ", "type": "word" },
+                        { "char": "灰", "pinyin": "huī", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "老", "pinyin": "lǎo", "type": "word" },
+                        { "char": "骥", "pinyin": "jì", "type": "word" },
+                        { "char": "伏", "pinyin": "fú", "type": "word" },
+                        { "char": "枥", "pinyin": "lì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "志", "pinyin": "zhì", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "千", "pinyin": "qiān", "type": "word" },
+                        { "char": "里", "pinyin": "lǐ", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "烈", "pinyin": "liè", "type": "word" },
+                        { "char": "士", "pinyin": "shì", "type": "word" },
+                        { "char": "暮", "pinyin": "mù", "type": "word" },
+                        { "char": "年", "pinyin": "nián", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "壮", "pinyin": "zhuàng", "type": "word" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "已", "pinyin": "yǐ", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "盈", "pinyin": "yíng", "type": "word" },
+                        { "char": "缩", "pinyin": "suō", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "期", "pinyin": "qī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "但", "pinyin": "dàn", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "养", "pinyin": "yǎng", "type": "word" },
+                        { "char": "怡", "pinyin": "yí", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "福", "pinyin": "fú", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "得", "pinyin": "dé", "type": "word" },
+                        { "char": "永", "pinyin": "yǒng", "type": "word" },
+                        { "char": "年", "pinyin": "nián", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "幸", "pinyin": "xìng", "type": "word" },
+                        { "char": "甚", "pinyin": "shèn", "type": "word" },
+                        { "char": "至", "pinyin": "zhì", "type": "word" },
+                        { "char": "哉", "pinyin": "zāi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "歌", "pinyin": "gē", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "咏", "pinyin": "yǒng", "type": "word" },
+                        { "char": "志", "pinyin": "zhì", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "短歌行",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "短", "pinyin": "duǎn", "type": "word" },
+                        { "char": "歌", "pinyin": "gē", "type": "word" },
+                        { "char": "行", "pinyin": "xíng", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "汉", "pinyin": "hàn", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "曹", "pinyin": "cáo", "type": "word" },
+                        { "char": "操", "pinyin": "cāo", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "对", "pinyin": "duì", "type": "word" },
+                        { "char": "酒", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "当", "pinyin": "dāng", "type": "word" },
+                        { "char": "歌", "pinyin": "gē", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "生", "pinyin": "shēng", "type": "word" },
+                        { "char": "几", "pinyin": "jǐ", "type": "word" },
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "譬", "pinyin": "pì", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "朝", "pinyin": "zhāo", "type": "word" },
+                        { "char": "露", "pinyin": "lù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "去", "pinyin": "qù", "type": "word" },
+                        { "char": "日", "pinyin": "rì", "type": "word" },
+                        { "char": "苦", "pinyin": "kǔ", "type": "word" },
+                        { "char": "多", "pinyin": "duō", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "慨", "pinyin": "kǎi", "type": "word" },
+                        { "char": "当", "pinyin": "dāng", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "慷", "pinyin": "kāng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "忧", "pinyin": "yōu", "type": "word" },
+                        { "char": "思", "pinyin": "sī", "type": "word" },
+                        { "char": "难", "pinyin": "nán", "type": "word" },
+                        { "char": "忘", "pinyin": "wàng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "解", "pinyin": "jiě", "type": "word" },
+                        { "char": "忧", "pinyin": "yōu", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" },
+                        { "char": "唯", "pinyin": "wéi", "type": "word" },
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "康", "pinyin": "kāng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "青", "pinyin": "qīng", "type": "word" },
+                        { "char": "青", "pinyin": "qīng", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "衿", "pinyin": "jīn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "悠", "pinyin": "yōu", "type": "word" },
+                        { "char": "悠", "pinyin": "yōu", "type": "word" },
+                        { "char": "我", "pinyin": "wǒ", "type": "word" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "但", "pinyin": "dàn", "type": "word" },
+                        { "char": "为", "pinyin": "wèi", "type": "word" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "故", "pinyin": "gù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "沉", "pinyin": "chén", "type": "word" },
+                        { "char": "吟", "pinyin": "yín", "type": "word" },
+                        { "char": "至", "pinyin": "zhì", "type": "word" },
+                        { "char": "今", "pinyin": "jīn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "呦", "pinyin": "yōu", "type": "word" },
+                        { "char": "呦", "pinyin": "yōu", "type": "word" },
+                        { "char": "鹿", "pinyin": "lù", "type": "word" },
+                        { "char": "鸣", "pinyin": "míng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "食", "pinyin": "shí", "type": "word" },
+                        { "char": "野", "pinyin": "yě", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "苹", "pinyin": "píng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "我", "pinyin": "wǒ", "type": "word" },
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "嘉", "pinyin": "jiā", "type": "word" },
+                        { "char": "宾", "pinyin": "bīn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "鼓", "pinyin": "gǔ", "type": "word" },
+                        { "char": "瑟", "pinyin": "sè", "type": "word" },
+                        { "char": "吹", "pinyin": "chuī", "type": "word" },
+                        { "char": "笙", "pinyin": "shēng", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "明", "pinyin": "míng", "type": "word" },
+                        { "char": "明", "pinyin": "míng", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "时", "pinyin": "shí", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "掇", "pinyin": "duō", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "忧", "pinyin": "yōu", "type": "word" },
+                        { "char": "从", "pinyin": "cóng", "type": "word" },
+                        { "char": "中", "pinyin": "zhōng", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "断", "pinyin": "duàn", "type": "word" },
+                        { "char": "绝", "pinyin": "jué", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "越", "pinyin": "yuè", "type": "word" },
+                        { "char": "陌", "pinyin": "mò", "type": "word" },
+                        { "char": "度", "pinyin": "dù", "type": "word" },
+                        { "char": "阡", "pinyin": "qiān", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "枉", "pinyin": "wǎng", "type": "word" },
+                        { "char": "用", "pinyin": "yòng", "type": "word" },
+                        { "char": "相", "pinyin": "xiāng", "type": "word" },
+                        { "char": "存", "pinyin": "cún", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "契", "pinyin": "qì", "type": "word" },
+                        { "char": "阔", "pinyin": "kuò", "type": "word" },
+                        { "char": "谈", "pinyin": "tán", "type": "word" },
+                        { "char": "宴", "pinyin": "yàn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "念", "pinyin": "niàn", "type": "word" },
+                        { "char": "旧", "pinyin": "jiù", "type": "word" },
+                        { "char": "恩", "pinyin": "ēn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "月", "pinyin": "yuè", "type": "word" },
+                        { "char": "明", "pinyin": "míng", "type": "word" },
+                        { "char": "星", "pinyin": "xīng", "type": "word" },
+                        { "char": "稀", "pinyin": "xī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "乌", "pinyin": "wū", "type": "word" },
+                        { "char": "鹊", "pinyin": "què", "type": "word" },
+                        { "char": "南", "pinyin": "nán", "type": "word" },
+                        { "char": "飞", "pinyin": "fēi", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "绕", "pinyin": "rào", "type": "word" },
+                        { "char": "树", "pinyin": "shù", "type": "word" },
+                        { "char": "三", "pinyin": "sān", "type": "word" },
+                        { "char": "匝", "pinyin": "zā", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "枝", "pinyin": "zhī", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "依", "pinyin": "yī", "type": "word" },
+                        { "char": "?", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "山", "pinyin": "shān", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "厌", "pinyin": "yàn", "type": "word" },
+                        { "char": "高", "pinyin": "gāo", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "海", "pinyin": "hǎi", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "厌", "pinyin": "yàn", "type": "word" },
+                        { "char": "深", "pinyin": "shēn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "周", "pinyin": "zhōu", "type": "word" },
+                        { "char": "公", "pinyin": "gōng", "type": "word" },
+                        { "char": "吐", "pinyin": "tǔ", "type": "word" },
+                        { "char": "哺", "pinyin": "bǔ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "下", "pinyin": "xià", "type": "word" },
+                        { "char": "归", "pinyin": "guī", "type": "word" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "《论语》10句",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "《", "pinyin": null, "type": "punctuation" },
+                        { "char": "论", "pinyin": "lún", "type": "word" },
+                        { "char": "语", "pinyin": "yǔ", "type": "word" },
+                        { "char": "》", "pinyin": null, "type": "punctuation" },
+                        { "char": "10", "pinyin": "shí", "type": "word" },
+                        { "char": "句", "pinyin": "jù", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "1.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "川", "pinyin": "chuān", "type": "word" },
+                        { "char": "上", "pinyin": "shàng", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "逝", "pinyin": "shì", "type": "word" },
+                        { "char": "者", "pinyin": "zhě", "type": "word" },
+                        { "char": "如", "pinyin": "rú", "type": "word" },
+                        { "char": "斯", "pinyin": "sī", "type": "word" },
+                        { "char": "夫", "pinyin": "fú", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "舍", "pinyin": "shě", "type": "word" },
+                        { "char": "昼", "pinyin": "zhòu", "type": "word" },
+                        { "char": "夜", "pinyin": "yè", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "2.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "仁", "pinyin": "rén", "type": "word" },
+                        { "char": "者", "pinyin": "zhě", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "久", "pinyin": "jiǔ", "type": "word" },
+                        { "char": "处", "pinyin": "chǔ", "type": "word" },
+                        { "char": "约", "pinyin": "yuē", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "长", "pinyin": "cháng", "type": "word" },
+                        { "char": "处", "pinyin": "chǔ", "type": "word" },
+                        { "char": "乐", "pinyin": "lè", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "仁", "pinyin": "rén", "type": "word" },
+                        { "char": "者", "pinyin": "zhě", "type": "word" },
+                        { "char": "安", "pinyin": "ān", "type": "word" },
+                        { "char": "仁", "pinyin": "rén", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "知", "pinyin": "zhì", "type": "word" },
+                        { "char": "者", "pinyin": "zhě", "type": "word" },
+                        { "char": "利", "pinyin": "lì", "type": "word" },
+                        { "char": "仁", "pinyin": "rén", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "3.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "怀", "pinyin": "huái", "type": "word" },
+                        { "char": "德", "pinyin": "dé", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "怀", "pinyin": "huái", "type": "word" },
+                        { "char": "土", "pinyin": "tǔ", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "怀", "pinyin": "huái", "type": "word" },
+                        { "char": "刑", "pinyin": "xíng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "怀", "pinyin": "huái", "type": "word" },
+                        { "char": "惠", "pinyin": "huì", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "4.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "喻", "pinyin": "yù", "type": "word" },
+                        { "char": "于", "pinyin": "yú", "type": "word" },
+                        { "char": "义", "pinyin": "yì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "喻", "pinyin": "yù", "type": "word" },
+                        { "char": "于", "pinyin": "yú", "type": "word" },
+                        { "char": "利", "pinyin": "lì", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "5.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "成", "pinyin": "chéng", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "美", "pinyin": "měi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "成", "pinyin": "chéng", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": "恶", "pinyin": "è", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "反", "pinyin": "fǎn", "type": "word" },
+                        { "char": "是", "pinyin": "shì", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "6.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "君", "pinyin": "jūn", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "和", "pinyin": "hé", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "同", "pinyin": "tóng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "小", "pinyin": "xiǎo", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "同", "pinyin": "tóng", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "和", "pinyin": "hé", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "7.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "默", "pinyin": "mò", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "识", "pinyin": "zhì", "type": "word" },
+                        { "char": "之", "pinyin": "zhī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "学", "pinyin": "xué", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "厌", "pinyin": "yàn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "诲", "pinyin": "huì", "type": "word" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "倦", "pinyin": "juàn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "何", "pinyin": "hé", "type": "word" },
+                        { "char": "有", "pinyin": "yǒu", "type": "word" },
+                        { "char": "于", "pinyin": "yú", "type": "word" },
+                        { "char": "我", "pinyin": "wǒ", "type": "word" },
+                        { "char": "哉", "pinyin": "zāi", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "8.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "愤", "pinyin": "fèn", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "启", "pinyin": "qǐ", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "悱", "pinyin": "fěi", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "发", "pinyin": "fā", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "举", "pinyin": "jǔ", "type": "word" },
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "隅", "pinyin": "yú", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "以", "pinyin": "yǐ", "type": "word" },
+                        { "char": "三", "pinyin": "sān", "type": "word" },
+                        { "char": "隅", "pinyin": "yú", "type": "word" },
+                        { "char": "反", "pinyin": "fǎn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "则", "pinyin": "zé", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "复", "pinyin": "fù", "type": "word" },
+                        { "char": "也", "pinyin": "yě", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "9.", "pinyin": null, "type": "punctuation" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "贤", "pinyin": "xián", "type": "word" },
+                        { "char": "哉", "pinyin": "zāi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "回", "pinyin": "huí", "type": "word" },
+                        { "char": "也", "pinyin": "yě", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" },
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "箪", "pinyin": "dān", "type": "word" },
+                        { "char": "食", "pinyin": "shí", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "一", "pinyin": "yī", "type": "word" },
+                        { "char": "瓢", "pinyin": "piáo", "type": "word" },
+                        { "char": "饮", "pinyin": "yǐn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "在", "pinyin": "zài", "type": "word" },
+                        { "char": "陋", "pinyin": "lòu", "type": "word" },
+                        { "char": "巷", "pinyin": "xiàng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "人", "pinyin": "rén", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "堪", "pinyin": "kān", "type": "word" },
+                        { "char": "其", "pinyin": "qí", "type": "word" },
+                        { "char": "忧", "pinyin": "yōu", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "回", "pinyin": "huí", "type": "word" },
+                        { "char": "也", "pinyin": "yě", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "改", "pinyin": "gǎi", "type": "word" },
+                        { "char": "其", "pinyin": "qí", "type": "word" },
+                        { "char": "乐", "pinyin": "lè", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "贤", "pinyin": "xián", "type": "word" },
+                        { "char": "哉", "pinyin": "zāi", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "回", "pinyin": "huí", "type": "word" },
+                        { "char": "也", "pinyin": "yě", "type": "word" },
+                        { "char": "!", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        {
+                          "char": "10.",
+                          "pinyin": null,
+                          "type": "punctuation"
+                        },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "曰", "pinyin": "yuē", "type": "word" },
+                        { "char": ":", "pinyin": null, "type": "punctuation" },
+                        { "char": "“", "pinyin": null, "type": "punctuation" },
+                        { "char": "吾", "pinyin": "wú", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "有", "pinyin": "yòu", "type": "word" },
+                        { "char": "五", "pinyin": "wǔ", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "志", "pinyin": "zhì", "type": "word" },
+                        { "char": "于", "pinyin": "yú", "type": "word" },
+                        { "char": "学", "pinyin": "xué", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "三", "pinyin": "sān", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "立", "pinyin": "lì", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "四", "pinyin": "sì", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "惑", "pinyin": "huò", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "五", "pinyin": "wǔ", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "知", "pinyin": "zhī", "type": "word" },
+                        { "char": "天", "pinyin": "tiān", "type": "word" },
+                        { "char": "命", "pinyin": "mìng", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "六", "pinyin": "liù", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "耳", "pinyin": "ěr", "type": "word" },
+                        { "char": "顺", "pinyin": "shùn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "七", "pinyin": "qī", "type": "word" },
+                        { "char": "十", "pinyin": "shí", "type": "word" },
+                        { "char": "而", "pinyin": "ér", "type": "word" },
+                        { "char": "从", "pinyin": "cóng", "type": "word" },
+                        { "char": "心", "pinyin": "xīn", "type": "word" },
+                        { "char": "所", "pinyin": "suǒ", "type": "word" },
+                        { "char": "欲", "pinyin": "yù", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "逾", "pinyin": "yú", "type": "word" },
+                        { "char": "矩", "pinyin": "jǔ", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" },
+                        { "char": "”", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ],
-          "exam": []
+          "exam": [
+            {
+              "title": "题乌江亭",
+              "content": [
+                {
+                  "type": "title",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "题", "pinyin": "tí", "type": "word" },
+                        { "char": "乌", "pinyin": "wū", "type": "word" },
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "亭", "pinyin": "tíng", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "subtitle",
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "【", "pinyin": null, "type": "punctuation" },
+                        { "char": "唐", "pinyin": "táng", "type": "word" },
+                        { "char": "】", "pinyin": null, "type": "punctuation" },
+                        { "char": "杜", "pinyin": "dù", "type": "word" },
+                        { "char": "牧", "pinyin": "mù", "type": "word" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "break": false,
+                  "lines": [
+                    {
+                      "tokens": [
+                        { "char": "胜", "pinyin": "shèng", "type": "word" },
+                        { "char": "败", "pinyin": "bài", "type": "word" },
+                        { "char": "兵", "pinyin": "bīng", "type": "word" },
+                        { "char": "家", "pinyin": "jiā", "type": "word" },
+                        { "char": "事", "pinyin": "shì", "type": "word" },
+                        { "char": "不", "pinyin": "bù", "type": "word" },
+                        { "char": "期", "pinyin": "qī", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "包", "pinyin": "bāo", "type": "word" },
+                        { "char": "羞", "pinyin": "xiū", "type": "word" },
+                        { "char": "忍", "pinyin": "rěn", "type": "word" },
+                        { "char": "耻", "pinyin": "chǐ", "type": "word" },
+                        { "char": "是", "pinyin": "shì", "type": "word" },
+                        { "char": "男", "pinyin": "nán", "type": "word" },
+                        { "char": "儿", "pinyin": "ér", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "江", "pinyin": "jiāng", "type": "word" },
+                        { "char": "东", "pinyin": "dōng", "type": "word" },
+                        { "char": "子", "pinyin": "zǐ", "type": "word" },
+                        { "char": "弟", "pinyin": "dì", "type": "word" },
+                        { "char": "多", "pinyin": "duō", "type": "word" },
+                        { "char": "才", "pinyin": "cái", "type": "word" },
+                        { "char": "俊", "pinyin": "jùn", "type": "word" },
+                        { "char": ",", "pinyin": null, "type": "punctuation" }
+                      ]
+                    },
+                    {
+                      "tokens": [
+                        { "char": "卷", "pinyin": "juǎn", "type": "word" },
+                        { "char": "土", "pinyin": "tǔ", "type": "word" },
+                        { "char": "重", "pinyin": "chóng", "type": "word" },
+                        { "char": "来", "pinyin": "lái", "type": "word" },
+                        { "char": "未", "pinyin": "wèi", "type": "word" },
+                        { "char": "可", "pinyin": "kě", "type": "word" },
+                        { "char": "知", "pinyin": "zhī", "type": "word" },
+                        { "char": "。", "pinyin": null, "type": "punctuation" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

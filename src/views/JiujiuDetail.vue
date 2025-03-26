@@ -186,8 +186,8 @@
           :key="tab"
           :class="[
             'px-4 py-2 text-base border-b-4 border-transparent transition-all duration-300 cursor-pointer',
-            { 'text-primary-600 dark:text-primary-400 border-primary-600 dark:border-primary-400': activeTab === tab,
-              'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-600 dark:hover:border-primary-300': activeTab !== tab
+            { 'text-primary-600 dark:text-primary-500 border-primary-600 dark:border-primary-400': activeTab === tab,
+              'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-500 hover:border-primary-600 dark:hover:border-primary-300': activeTab !== tab
             }
           ]"
           @click="switchTab(tab)"
@@ -214,9 +214,9 @@
               `/book/jiujiu/${currentVolumeId}/${activeTab === '必背篇目' ? 'required' : 'exam'}/${index + 1}`
             )
           "
-          class="flex items-center gap-2 p-2 rounded-md cursor-pointer transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-2"
+          class="flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-2"
         >
-          <span class="text-primary-600 dark:text-primary-400 font-bold min-w-[2.5rem] text-right pr-2">{{ index + 1 }}.</span>
+          <span class="text-primary-600 dark:text-primary-500 font-bold min-w-[2.5rem] text-right pr-2">{{ index + 1 }}.</span>
           <span class="text-gray-900 dark:text-gray-100 text-lg">{{ article.title }}</span>
         </div>
       </div>
@@ -230,19 +230,19 @@
       </button>
       <div id="character-target-modal" class="w-[300px] h-[300px] mx-auto mb-8"></div>
       <div class="flex justify-center gap-4">
-        <button @click="togglePlay" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
+        <button @click="togglePlay" class="p-3 bg-primary-500 hover:bg-primary-500-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
-        <button @click="resetAnimation" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
+        <button @click="resetAnimation" class="p-3 bg-primary-500 hover:bg-primary-500-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i class="fas fa-redo"></i>
         </button>
-        <button @click="openBaiduHanyu" class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
+        <button @click="openBaiduHanyu" class="p-3 bg-primary-500 hover:bg-primary-500-600 text-white rounded-md transition-all duration-300 transform hover:scale-105">
           <i class="fas fa-search"></i>
         </button>
         <button
           @click="playCharacterSound(currentChar)"
           title="播放读音"
-          class="p-3 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-all duration-300 transform hover:scale-105"
+          class="p-3 bg-primary-500 hover:bg-primary-500-600 text-white rounded-md transition-all duration-300 transform hover:scale-105"
         >
           <i class="fas fa-volume-up"></i>
         </button>

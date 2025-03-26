@@ -231,7 +231,7 @@
   >
     <!-- 导航区域 -->
     <div class="mb-4 flex items-center gap-4">
-      <a href="" @click.prevent="goBackPage" class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)]">
+      <a href="" @click.prevent="goBackPage" class="flex items-center gap-2 no-underline dark:text-gray-300 text-gray-800 transition-colors duration-300 hover:text-primary-500">
         <i class="fas fa-arrow-left"></i>
         <span>返回目录</span>
       </a>
@@ -243,8 +243,8 @@
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) - 1}`
             : ''
         "
-        class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)] ml-4"
-        :class="{ 'cursor-not-allowed opacity-50 hover:text-[var(--text-color)]': !postData || route.params.cid <= 1 }"
+        class="flex items-center gap-2 no-underline dark:text-gray-300 text-gray-800 transition-colors duration-300 hover:text-primary-500 ml-4"
+        :class="{ 'cursor-not-allowed opacity-50 hover:text-gray-800': !postData || route.params.cid <= 1 }"
         @click.prevent="postData && route.params.cid > 1 ? null : false"
       >
         <i class="fas fa-chevron-left"></i>
@@ -261,9 +261,9 @@
             ? `/book/jiujiu/${currentVolumeId}/${route.params.type}/${parseInt(route.params.cid) + 1}`
             : ''
         "
-        class="flex items-center gap-2 no-underline dark:text-gray-300 text-[var(--text-color)] transition-colors duration-300 hover:text-[var(--primary-color)] ml-4"
+        class="flex items-center gap-2 no-underline dark:text-gray-300 text-gray-800 transition-colors duration-300 hover:text-primary-500 ml-4"
         :class="{
-          'cursor-not-allowed opacity-50 hover:text-[var(--text-color)]':
+          'cursor-not-allowed opacity-50 hover:text-gray-800':
             !postData ||
             !bookData?.content[
               route.params.type === 'required' ? '必背篇目' : '考级篇目'
@@ -294,8 +294,8 @@
         { fontFamily: fontFamily }
       "
     >
-      <div class="mb-8 p-8 dark:bg-gray-800 bg-[var(--bg-color)] rounded-lg shadow border border-[var(--border-color)]">
-        <div class="text-lg leading-8 dark:text-gray-300  text-[var(--text-color)] whitespace-pre-wrap">
+      <div class="mb-8 p-8 dark:bg-gray-800 bg-gray-100 rounded-lg shadow border border-gray-300">
+        <div class="text-lg leading-8 dark:text-gray-300  text-gray-800 whitespace-pre-wrap">
           <template
             v-for="(section, sectionIndex) in postData"
             :key="sectionIndex"
@@ -320,7 +320,7 @@
                   <button
                     v-if="postData"
                     @click="addToCartHandler"
-                    class="bg-transparent border-none text-[var(--text-color)] cursor-pointer p-2 text-lg transition-colors duration-300 hover:text-[var(--primary-color)]"
+                    class="bg-transparent border-none text-gray-800 cursor-pointer p-2 text-lg transition-colors duration-300 hover:text-primary-500"
                     title="添加到书空笔顺练习"
                   >
                     <i class="fas fa-pencil-alt"></i>

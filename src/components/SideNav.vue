@@ -35,8 +35,8 @@ const toggleMenu = () => {
       <a
         @click="navigateTo('/quiz')"
         :class="[
-          'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary dark:hover:text-primary hover:bg-primary/10',
-          { 'text-primary dark:text-primary': $route.path === '/quiz' }
+          'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 hover:bg-primary-500/10',
+          { 'text-primary-500 dark:text-primary-500': $route.path === '/quiz' }
         ]"
         title="首页"
       >
@@ -47,8 +47,8 @@ const toggleMenu = () => {
         <a
           @click="navigateTo(app.path)"
           :class="[
-            'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary dark:hover:text-primary hover:bg-primary/10',
-            { 'text-primary dark:text-primary': $route.path.startsWith(app.path) }
+            'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 hover:bg-primary-500/10',
+            { 'text-primary-500 dark:text-primary-500': $route.path.startsWith(app.path) }
           ]"
           :title="app.title"
         >
@@ -59,8 +59,8 @@ const toggleMenu = () => {
       <a
         @click="navigateTo('/apps')"
         :class="[
-          'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary dark:hover:text-primary hover:bg-primary/10',
-          { 'text-primary dark:text-primary': $route.path === '/apps' }
+          'flex flex-col items-center justify-center py-3 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 hover:bg-primary-500/10',
+          { 'text-primary-500 dark:text-primary-500': $route.path === '/apps' }
         ]"
         title="扩展"
       >
@@ -71,7 +71,7 @@ const toggleMenu = () => {
     <div class="w-full">
       <a
         @click="toggleTheme()"
-        class="flex flex-col items-center justify-center py-2 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary dark:hover:text-primary"
+        class="flex flex-col items-center justify-center py-2 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500"
         title="切换主题"
       >
         <i :class="['fas text-xl', themeStore.isDark ? 'fa-sun' : 'fa-moon']"></i>
@@ -79,15 +79,15 @@ const toggleMenu = () => {
       <a
         @click="navigateTo('/settings')"
         :class="[
-          'mb-16 flex flex-col items-center justify-center py-2 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary dark:hover:text-primary',
-          { 'text-primary dark:text-primary': $route.path === '/settings' }
+          'mb-16 flex flex-col items-center justify-center py-2 cursor-pointer transition-all duration-300 text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500',
+          { 'text-primary-500 dark:text-primary-500': $route.path === '/settings' }
         ]"
         title="设置"
       >
         <i class="fas fa-cog text-xl"></i>
       </a>
       <div
-        class="md:hidden fixed bottom-2 left-4 z-[1001] p-2 cursor-pointer text-text dark:text-text-dark hover:text-primary dark:hover:text-primary transition-all duration-300"
+        class="md:hidden fixed bottom-2 left-4 z-[1001] p-2 cursor-pointer text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 transition-all duration-300"
         title="切换侧边栏"
         @click="toggleMenu"
       >

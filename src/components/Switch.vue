@@ -51,7 +51,7 @@ const toggleSwitch = (event) => {
     :class="[
       switchSize.containerClass,
       'relative inline-flex items-center rounded-full cursor-pointer',
-      modelValue ? 'bg-primary dark:bg-primary' : 'bg-gray-300 dark:bg-gray-600',
+      modelValue ? 'bg-primary-500 dark:bg-primary-500' : 'bg-gray-300 dark:bg-gray-600',
       disabled ? 'opacity-60 cursor-not-allowed' : ''
     ]"
     @click="toggleSwitch"

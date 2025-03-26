@@ -5,6 +5,8 @@
   import { loadResource } from '../utils/resourceLoader'
   const books = ref([])
   const jiujiuBooks = ref([])
+  const isDev = import.meta.env.DEV
+
 
   const loadBooks = async () => {
     try {
@@ -76,7 +78,7 @@
           </div>
         </router-link>
       </div>
-      <div class="aspect-[2/3] w-full">
+      <div v-if="isDev" class="aspect-[2/3] w-full">
         <router-link to="/book/jiujiu" class="block h-full">
           <div class="h-full bg-blue-500 rounded-lg p-6 flex flex-col justify-center items-center text-white shadow-md hover:-translate-y-1 transition-transform duration-200">
             <i class="fas fa-book text-4xl md:text-5xl mb-4"></i>

@@ -15,7 +15,7 @@
 <template>
   <div class="relative w-full flex items-center justify-between p-1.5 bg-background dark:bg-background-dark border-b border-border dark:border-border-dark max-w-[100vw] overflow-x-hidden shadow-sm backdrop-blur-md">
     <div class="md:hidden block" v-show="$route.path !== '/quiz'">
-      <a @click="navigateToHome" class="flex items-center text-2xl text-text dark:text-text-dark p-2 cursor-pointer hover:text-primary dark:hover:text-primary transition-colors duration-300" title="首页">
+      <a @click="navigateToHome" class="flex items-center text-2xl text-text dark:text-text-dark p-2 cursor-pointer hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300" title="首页">
         <i class="fas fa-home"></i>
       </a>
     </div>
@@ -30,7 +30,7 @@
       <a
         href="https://github.com"
         target="_blank"
-        class="text-text-secondary dark:text-text-secondary-dark text-xl hover:text-primary dark:hover:text-primary transition-colors duration-300"
+        class="text-text-secondary dark:text-text-secondary-dark text-xl hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300"
         title="访问 Github"
       >
         <i class="fab fa-github"></i>

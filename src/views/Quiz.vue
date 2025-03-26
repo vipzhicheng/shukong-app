@@ -12,6 +12,49 @@
   import { message } from '../utils/message'
   import ZoomControls from '../components/ZoomControls.vue'
 
+  // 创建统一的汉字书写器配置
+  const createHanziWriterWithConfig = (targetId, char, size, onComplete) => {
+    return createHanziWriter(targetId, char, {
+      width: size,
+      height: size,
+      padding: Math.floor(size * 0.025),
+      drawingWidth: Math.floor(quizSettings.value.drawingWidth),
+      strokeMatchingThreshold: 0.6,
+      onMistake: () => handleStrokeError(),
+      onLoadCharDataSuccess: charData => {
+        if (!charData) {
+          // 数据加载失败，使用fallback模式
+          writer.value = null
+          const target = document.getElementById(targetId)
+          target.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+              <div style="font-size: 200px; font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif; margin-bottom: 10px;">${char}</div>
+              <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
+              <button
+                style="margin-top: 20px; padding: 8px 16px; background-color: #4a5568; color: white; border-radius: 4px; cursor: pointer;"
+                onclick="document.getElementById('next-char-btn').click()"
+              >
+                下一个
+              </button>
+            </div>
+          `
+          // 添加一个隐藏的按钮用于触发下一个字符
+          const nextButton = document.createElement('button')
+          nextButton.id = 'next-char-btn'
+          nextButton.style.display = 'none'
+          nextButton.onclick = () => {
+            quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
+            showNextChar()
+          }
+          target.appendChild(nextButton)
+          return
+        }
+        writer.value.quiz()
+      },
+      onComplete
+    })
+  }
+
   const router = useRouter()
   const route = useRoute()
   const writer = ref(null)
@@ -141,15 +184,6 @@
       currentCharIndex.value >= allChars.value[progress.value.current].length
     ) {
       quizStore.setProgress(progress.value.current + 1)
-      if (progress.value.current >= progress.value.total) {
-        quizStore.setIsFinished(true)
-        createConfetti()
-        quizStore.saveQuizHistory(
-          allChars.value.map(line => line.join('')),
-          errorCount.value
-        )
-        return
-      }
       quizStore.setCurrentCharIndex(0)
     }
 
@@ -161,47 +195,27 @@
     const target = document.getElementById('character-target')
     if (target) {
       target.innerHTML = ''
-      writer.value = createHanziWriter('character-target', char, {
-        width: containerSize.value,
-        height: containerSize.value,
-        padding: Math.floor(containerSize.value * 0.025),
-        strokeMatchingThreshold: 0.6,
-        drawingWidth: Math.floor(quizSettings.value.drawingWidth),
-        onLoadCharDataSuccess: charData => {
-          if (!charData) {
-            // 数据加载失败，使用fallback模式
-            writer.value = null
-            target.innerHTML = `
-              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                <div style="font-size: 200px; font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif; margin-bottom: 10px;">${char}</div>
-                <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
-                <button
-                  style="margin-top: 20px; padding: 8px 16px; background-color: #4a5568; color: white; border-radius: 4px; cursor: pointer;"
-                  onclick="document.getElementById('next-char-btn').click()"
-                >
-                  下一个
-                </button>
-              </div>
-            `
-            // 添加一个隐藏的按钮用于触发下一个字符
-            const nextButton = document.createElement('button')
-            nextButton.id = 'next-char-btn'
-            nextButton.style.display = 'none'
-            nextButton.onclick = () => {
-              quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
-              showNextChar()
-            }
-            target.appendChild(nextButton)
-            return
-          }
-          writer.value.quiz()
-        },
-        onComplete: () => {
-          quizStore.setIsPlaying(false)
-          quizStore.setCurrentCharIndex(currentCharIndex.value + 1)
+      writer.value = createHanziWriterWithConfig('character-target', char, containerSize.value, () => {
+        quizStore.setIsPlaying(false)
+        const nextCharIndex = currentCharIndex.value + 1
+        const isLastCharInLine = nextCharIndex >= allChars.value[progress.value.current].length
+        const isLastLine = progress.value.current === progress.value.total - 1
+
+        if (isLastCharInLine && isLastLine) {
+          quizStore.setProgress(progress.value.total)
+          quizStore.setCurrentCharIndex(nextCharIndex)
+          setTimeout(() => {
+            quizStore.setIsFinished(true)
+            createConfetti()
+            quizStore.saveQuizHistory(
+              allChars.value.map(line => line.join('')),
+              errorCount.value
+            )
+          }, 500)
+        } else {
+          quizStore.setCurrentCharIndex(nextCharIndex)
           showNextChar()
-        },
-        onMistake: handleStrokeError
+        }
       })
       writer.value.quiz()
     }
@@ -326,21 +340,28 @@
         const target = document.getElementById('character-target')
         if (target) {
           target.innerHTML = ''
-          writer.value = createHanziWriter(
-            'character-target',
-            currentChar.value,
-            {
-              width: containerSize.value,
-              height: containerSize.value,
-              padding: Math.floor(containerSize.value * 0.025),
-              drawingWidth: Math.floor(quizSettings.value.drawingWidth),
-              onComplete: () => {
-                isPlaying.value = false
-                currentCharIndex.value++
-                showNextChar()
-              }
+          writer.value = createHanziWriterWithConfig('character-target', currentChar.value, containerSize.value, () => {
+            quizStore.setIsPlaying(false)
+            const nextCharIndex = currentCharIndex.value + 1
+            const isLastCharInLine = nextCharIndex >= allChars.value[progress.value.current].length
+            const isLastLine = progress.value.current === progress.value.total - 1
+
+            if (isLastCharInLine && isLastLine) {
+              quizStore.setCurrentCharIndex(nextCharIndex)
+              quizStore.setProgress(progress.value.total)
+              setTimeout(() => {
+                quizStore.setIsFinished(true)
+                createConfetti()
+                quizStore.saveQuizHistory(
+                  allChars.value.map(line => line.join('')),
+                  errorCount.value
+                )
+              }, 500)
+            } else {
+              quizStore.setCurrentCharIndex(nextCharIndex)
+              showNextChar()
             }
-          )
+          })
           writer.value.quiz()
         }
       }
@@ -359,21 +380,28 @@
         const target = document.getElementById('character-target')
         if (target) {
           target.innerHTML = ''
-          writer.value = createHanziWriter(
-            'character-target',
-            currentChar.value,
-            {
-              width: containerSize.value,
-              height: containerSize.value,
-              padding: Math.floor(containerSize.value * 0.025),
-              drawingWidth: Math.floor(quizSettings.value.drawingWidth),
-              onComplete: () => {
-                isPlaying.value = false
-                currentCharIndex.value++
-                showNextChar()
-              }
+          writer.value = createHanziWriterWithConfig('character-target', currentChar.value, containerSize.value, () => {
+            quizStore.setIsPlaying(false)
+            const nextCharIndex = currentCharIndex.value + 1
+            const isLastCharInLine = nextCharIndex >= allChars.value[progress.value.current].length
+            const isLastLine = progress.value.current === progress.value.total - 1
+
+            if (isLastCharInLine && isLastLine) {
+              quizStore.setCurrentCharIndex(nextCharIndex)
+              quizStore.setProgress(progress.value.total)
+              setTimeout(() => {
+                quizStore.setIsFinished(true)
+                createConfetti()
+                quizStore.saveQuizHistory(
+                  allChars.value.map(line => line.join('')),
+                  errorCount.value
+                )
+              }, 500)
+            } else {
+              quizStore.setCurrentCharIndex(nextCharIndex)
+              showNextChar()
             }
-          )
+          })
           writer.value.quiz()
         }
       }
@@ -500,7 +528,7 @@
       </div>
     </div>
   </RightNav>
-  <div class="w-full bg-[var(--bg-color)] dark:bg-gray-900/30 border-b border-border" v-if="!showQuiz">
+  <div class="w-full bg-gray-100 dark:bg-gray-800/30 border-b border-border" v-if="!showQuiz">
     <div class="flex gap-4">
       <button
         v-for="tab in ['自由', '练习', '历史']"
@@ -508,8 +536,8 @@
         :class="[
           'px-8 py-4 border-none bg-transparent text-text-color dark:text-gray-300 cursor-pointer text-base relative transition-all duration-300',
           {
-            'text-primary dark:text-primary after:content-[\'\'] after:absolute after:bottom-[-1px] after:left-0 after:w-full after:h-0.5 after:bg-primary-color after:transition-all after:duration-300': activeTab === tab,
-            'hover:text-primary/80 hover:bg-primary-color/5 dark:hover:text-primary/80 dark:hover:bg-primary-color/5': activeTab !== tab
+            'text-primary-500 dark:text-primary-500 after:content-[\'\'] after:absolute after:bottom-[-1px] after:left-0 after:w-full after:h-0.5 after:bg-primary-500-color after:transition-all after:duration-300': activeTab === tab,
+            'hover:text-primary-500/80 hover:bg-primary-500-color/5 dark:hover:text-primary-500/80 dark:hover:bg-primary-500-color/5': activeTab !== tab
           }
         ]"
         @click="switchTab(tab)"
@@ -520,12 +548,20 @@
   </div>
   <div
     v-if="showQuiz && (progress.current > 0 || currentCharIndex > 0)"
-    class="w-full h-0.5 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden"
+    class="w-full"
   >
-    <div
-      class="h-full bg-green-500 transition-all duration-300 ease-in-out"
-      :style="{ width: progressPercentage + '%' }"
-    ></div>
+    <div class="h-0.5 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+      <div
+        class="h-full bg-green-500 transition-all duration-300 ease-in-out"
+        :style="{ width: progressPercentage + '%' }"
+      ></div>
+    </div>
+    <div class="h-0.5 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+      <div
+        class="h-full bg-green-500 transition-all duration-300 ease-in-out"
+        :style="{ width: (currentCharIndex / allChars[progress.current >= progress.total ? progress.total - 1 : progress.current].length * 100) + '%' }"
+      ></div>
+    </div>
   </div>
   <div class="container flex justify-center mx-auto">
     <div v-if="!showQuiz" class="content-section max-w-full md:max-w-2/3 w-full md:w-2/3 p-8">
@@ -698,7 +734,7 @@
         </p>
         <div v-if="errorChars.size > 0" class="w-full bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
           <h3 class="font-bold text-lg text-gray-800 dark:text-gray-300 mb-3">错误字统计</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 text-gray-600 dark:text-gray-400">
             <div
               v-for="[char, count] in errorChars"
               :key="char"
@@ -711,7 +747,7 @@
               "
             >
               <div class="text-2xl mb-1">{{ char }}</div>
-              <div class="text-sm text-gray-600 dark:text-gray-400 font-bold">{{ count }}</div>
+              <div class="text-sm font-bold">{{ count }}</div>
             </div>
           </div>
         </div>

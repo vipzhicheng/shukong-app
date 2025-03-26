@@ -34,7 +34,7 @@
           </div>
           <div class="flex justify-center">
             <button
-              class="cursor-pointer bg-primary hover:bg-primary text-white px-6 py-2 rounded text-sm transition-colors"
+              class="cursor-pointer bg-primary-500 hover:bg-primary-500 text-white px-6 py-2 rounded text-sm transition-colors"
               @click="close"
             >
               确定

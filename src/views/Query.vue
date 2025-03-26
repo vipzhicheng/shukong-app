@@ -188,7 +188,7 @@
       <div class="nav-menu">
         <router-link
           to="/query"
-          class="text-2xl font-bold no-underline text-[var(--text-color)] transition-colors duration-300 hover:text-primbg-primary cursor-pointer"
+          class="text-2xl font-bold no-underline text-gray-800 transition-colors duration-300 hover:text-primbg-primary-500 cursor-pointer"
           >笔顺查询</router-link
         >
       </div>
@@ -207,7 +207,7 @@
       </div>
       <button
         @click="handleQuery"
-        class="cursor-pointer px-6 py-3 text-2xl bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap"
+        class="cursor-pointer px-6 py-3 text-2xl bg-primary-500 text-white rounded-lg hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap"
       >
         查询笔顺
       </button>
@@ -219,42 +219,42 @@
           :key="char"
           @click="showCharacter(char)"
           :class="{ 'bg-opacity-90': char === currentChar }"
-          class="px-4 py-2 text-base bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300"
+          class="px-4 py-2 text-base bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300"
         >
           {{ char }}
         </button>
       </div>
-      <div id="character-target" class="w-[300px] h-[300px] border border-[var(--border-color)] dark:border-gray-800 rounded-lg"></div>
+      <div id="character-target" class="w-[300px] h-[300px] border border-gray-300 dark:border-gray-800 rounded-lg"></div>
       <div class="flex gap-2.5 mt-5">
         <button
           @click="togglePlay"
-          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
         <button
           @click="resetAnimation"
-          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-redo"></i>
         </button>
         <button
           @click="openBaiduHanyu"
-          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-search"></i>
         </button>
         <button
           v-if="isSpeechSupported"
           @click="playSound"
-          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-volume-up"></i>
         </button>
         <button
           v-if="writer"
           @click="handleAddToCart"
-          class="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-pencil-alt"></i>
         </button>
