@@ -1,20 +1,36 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { loadResource } from '../utils/resourceLoader'
 import '@fortawesome/fontawesome-free/css/all.css'
 import RightNav from '../components/RightNav.vue'
 
 const books = ref([]);
-const metadata = ref(null)
+const metadata = ref(null);
+const selectedGrade = ref('all');
+const selectedVolume = ref('all');
+const grades = ref([]);
+const volumes = ref([]);
+
+const filteredBooks = computed(() => {
+  return books.value.filter(book => {
+    const gradeMatch = selectedGrade.value === 'all' || book.grade === parseInt(selectedGrade.value);
+    const volumeMatch = selectedVolume.value === 'all' || book.volume === parseInt(selectedVolume.value);
+    return gradeMatch && volumeMatch;
+  });
+});
 
 onMounted(async () => {
   try {
     const data = await loadResource('books/jiujiu.json')
     metadata.value = data.metadata
     const formattedBooks = []
+    const uniqueGrades = new Set()
+    const uniqueVolumes = new Set()
 
     data.grades.forEach(grade => {
+      uniqueGrades.add(grade.grade)
       grade.volumes.forEach(volume => {
+        uniqueVolumes.add(volume.volume)
         formattedBooks.push({
           grade: grade.grade,
           term: volume.term,
@@ -24,6 +40,8 @@ onMounted(async () => {
     })
 
     books.value = formattedBooks
+    grades.value = Array.from(uniqueGrades).sort((a, b) => a - b)
+    volumes.value = Array.from(uniqueVolumes).sort((a, b) => a - b)
   } catch (error) {
     console.error('Error loading jiujiu books:', error)
   }
@@ -39,8 +57,24 @@ onMounted(async () => {
     </div>
   </RightNav>
   <div class="container mx-auto px-4 py-8">
+    <div class="flex gap-4 mb-6 mx-auto px-2 md:px-4 max-w-[1600px]">
+      <div class="flex items-center gap-2">
+        <label class="font-medium">年级：</label>
+        <select v-model="selectedGrade" class="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="all">全部</option>
+          <option v-for="grade in grades" :key="grade" :value="grade">{{ grade }}年级</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="font-medium">册别：</label>
+        <select v-model="selectedVolume" class="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="all">全部</option>
+          <option v-for="volume in volumes" :key="volume" :value="volume">第{{ volume }}册</option>
+        </select>
+      </div>
+    </div>
     <div class="book-grid">
-      <div v-for="volume in books" :key="volume.grade + '-' + volume.term" class="book-card">
+      <div v-for="volume in filteredBooks" :key="volume.grade + '-' + volume.term" class="book-card">
         <router-link :to="`/book/jiujiu/${volume.grade}${volume.volume}`" class="book-link">
           <div class="book">
             <i class="fas fa-book book-icon"></i>
