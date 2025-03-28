@@ -16,5 +16,14 @@ export default [
     path: '/book',
     description: '各种孩子看了有益的开放书籍，部分内容为 AI 生成。',
     type: 'app'
+  },
+  {
+    title: '生字本',
+    image: '',
+    navLabel: '生字本',
+    navIcon: 'fas fa-star',
+    path: '/wordbook',
+    description: '收藏和管理你的生字',
+    type: 'app'
   }
 ]

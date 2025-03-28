@@ -11,6 +11,7 @@ import JiujiuPost from '../views/JiujiuPost.vue'
 import Settings from '../views/Settings.vue'
 import Apps from '../views/Apps.vue'
 import UI from '../views/UI.vue'
+import Wordbook from '../views/Wordbook.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -48,6 +49,11 @@ const router = createRouter({
       path: '/apps',
       name: 'apps',
       component: Apps
+    },
+    {
+      path: '/wordbook',
+      name: 'wordbook',
+      component: Wordbook
     },
     {
       path: '/book/renjiao',

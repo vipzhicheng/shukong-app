@@ -22,13 +22,6 @@
             <i class="fas fa-redo"></i>
           </button>
           <button
-            @click="openBaiduHanyu"
-            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
-            title="查询汉字"
-          >
-            <i class="fas fa-search"></i>
-          </button>
-          <button
             v-if="isSpeechSupported"
             @click="playCharacterSound"
             class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
@@ -44,6 +37,13 @@
           >
             <i class="fas fa-pencil-alt"></i>
           </button>
+          <button
+            @click="toggleWordbook"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
+            title="加入/移出生字本"
+          >
+            <i :class="['far fa-star', { 'fas fa-star': isInWordbook }]"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -56,6 +56,7 @@
   import { isSpeechSupported } from '../store/speech'
   import { addToCart } from '../store/cart'
   import { message } from '../utils/message'
+  import wordbook from '../store/wordbook'
 
   const props = defineProps({
     show: {
@@ -72,6 +73,7 @@
 
   const isPlaying = ref(false)
   const isFallbackMode = ref(false)
+  const isInWordbook = ref(false)
   let writer = null
 
   // 语音设置
@@ -87,6 +89,16 @@
     if (savedSettings) {
       voiceSettings.value = JSON.parse(savedSettings)
     }
+    updateWordbookStatus()
+  }
+
+  const updateWordbookStatus = () => {
+    isInWordbook.value = wordbook.isInWordbook(props.character)
+  }
+
+  const toggleWordbook = () => {
+    wordbook.toggle(props.character)
+    updateWordbookStatus()
   }
 
   const handleClose = () => {
@@ -106,11 +118,6 @@
   const resetAnimation = () => {
     writer?.animateCharacter()
     isPlaying.value = true
-  }
-
-  const openBaiduHanyu = () => {
-    const url = `https://hanyu.baidu.com/s?wd=${props.character}&ptype=zici`
-    window.open(url, '_blank')
   }
 
   const addToCartHandler = () => {
@@ -200,6 +207,7 @@
     () => {
       if (props.show) {
         initWriter()
+        updateWordbookStatus()
       }
     }
   )

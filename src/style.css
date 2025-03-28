@@ -7,7 +7,7 @@
 }
 
 .nav-menu {
-  @apply flex gap-6 text-lg;
+  @apply flex gap-6 text-lg items-center;
 }
 
 .nav-menu a {

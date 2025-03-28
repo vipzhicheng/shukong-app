@@ -22,6 +22,9 @@
     <div class="flex-1 flex items-center justify-start">
       <slot></slot>
     </div>
+    <div v-if="$slots.right" class="flex-1 flex items-center justify-end mr-4 gap-4">
+      <slot name="right"></slot>
+    </div>
   </div>
   <div class="fixed bottom-0 left-0 right-0 p-4 bg-background dark:bg-background-dark border-t border-border dark:border-border-dark flex justify-between items-center z-[1000] md:left-16">
     <div class="text-text-secondary dark:text-text-secondary-dark text-sm"></div>
