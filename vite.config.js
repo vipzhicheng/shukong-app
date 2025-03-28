@@ -54,7 +54,14 @@ export default defineConfig({
       : '/',
   server: {
     host: true, // 允许局域网访问
-    port: 5175 // 默认端口
+    port: 5175, // 默认端口
+    proxy: {
+      '/ollama': {
+        target: 'http://localhost:11434',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/ollama/, '')
+      }
+    }
   },
   build: {
     outDir:
