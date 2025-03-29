@@ -5,7 +5,6 @@
   import { loadResource } from '../utils/resourceLoader'
   const books = ref([])
   const jiujiuBooks = ref([])
-  const isDev = import.meta.env.DEV
 
 
   const loadBooks = async () => {
@@ -78,17 +77,7 @@
           </div>
         </router-link>
       </div>
-      <div v-if="isDev" class="aspect-[2/3] w-full">
-        <router-link to="/book/jiujiu" class="block h-full">
-          <div class="h-full bg-blue-500 rounded-lg p-6 flex flex-col justify-center items-center text-white shadow-md hover:-translate-y-1 transition-transform duration-200">
-            <i class="fas fa-book text-4xl md:text-5xl mb-4"></i>
-            <div class="text-center">
-              <h2 class="text-xl md:text-2xl font-bold mb-2">久久积累 2020</h2>
-              <p class="text-sm md:text-base opacity-90">小学诗词启蒙</p>
-            </div>
-          </div>
-        </router-link>
-      </div>
+
     </div>
   </div>
 </template>

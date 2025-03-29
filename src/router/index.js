@@ -4,10 +4,7 @@ import Query from '../views/Query.vue'
 import Quiz from '../views/Quiz.vue'
 import Book from '../views/Book.vue'
 import RenjiaoBooks from '../views/RenjiaoBooks.vue'
-import JiujiuBooks from '../views/JiujiuBooks.vue'
 import RenjiaoDetail from '../views/RenjiaoDetail.vue'
-import JiujiuDetail from '../views/JiujiuDetail.vue'
-import JiujiuPost from '../views/JiujiuPost.vue'
 import Settings from '../views/Settings.vue'
 import Apps from '../views/Apps.vue'
 import UI from '../views/UI.vue'
@@ -62,11 +59,6 @@ const router = createRouter({
       component: RenjiaoBooks
     },
     {
-      path: '/book/jiujiu',
-      name: 'jiujiuBooks',
-      component: JiujiuBooks
-    },
-    {
       path: '/book/renjiao/:id',
       name: 'renjiaoDetail',
       component: RenjiaoDetail
@@ -75,16 +67,6 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: Settings
-    },
-    {
-      path: '/book/jiujiu/:id',
-      name: 'jiujiuDetail',
-      component: JiujiuDetail
-    },
-    {
-      path: '/book/jiujiu/:id/:type/:cid',
-      name: 'jiujiuPost',
-      component: JiujiuPost
     },
     {
       path: '/ui',
