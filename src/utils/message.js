@@ -84,5 +84,15 @@ export const message = {
   },
   error(message) {
     return createMessage({ type: 'error', message })
+  },
+  confirm({ title, content, onOk, onCancel }) {
+    return createMessage({
+      type: 'confirm',
+      title,
+      message: content,
+      showCancelButton: true,
+      onOk,
+      onCancel
+    })
   }
 }

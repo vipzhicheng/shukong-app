@@ -5,6 +5,7 @@
   import '@fortawesome/fontawesome-free/css/all.css'
   import user from '../store/user'
   import AvatarSelector from './AvatarSelector.vue'
+  import { addQueryHistory } from '../store/queryHistory'
 
   const router = useRouter()
   const version = ref(packageJson.version)
@@ -30,8 +31,10 @@
   }
 
   const handleSearch = () => {
-    if (searchQuery.value.trim()) {
-      router.push(`/query/${encodeURIComponent(searchQuery.value.trim())}`)
+    const query = searchQuery.value.trim()
+    if (query) {
+      addQueryHistory(query)
+      router.push(`/query/${encodeURIComponent(query)}`)
       searchQuery.value = ''
       showSearchInput.value = false
     }
@@ -57,7 +60,7 @@
           </button>
           <teleport to="body">
             <div v-if="showSearchInput" class="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]" @click.self="toggleSearchInput">
-          <div class="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
+          <div class="flex flex-col sm:flex-row gap-4 w-full max-w-lg md:p-0 p-4">
             <div class="flex-1 relative overflow-hidden rounded-lg p-0.5">
               <div class="absolute -top-[450%] -bottom-[450%] -left-1/2 -right-1/2 z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#ff0000)] rounded-lg"></div>
               <input
@@ -81,7 +84,7 @@
           </teleport>
         </div>
         <div class="flex items-center gap-2 cursor-pointer" @click="openAvatarSelector">
-          <span class="text-text dark:text-text-dark">{{ user.getNickname() }}</span>
+          <span class="text-text dark:text-text-dark hidden md:block">{{ user.getNickname() }}</span>
           <img :src="user.getAvatar()" :alt="user.getNickname()" class="w-8 h-8 rounded-full object-cover">
         </div>
       </div>
@@ -90,7 +93,7 @@
   </div>
   <div class="fixed bottom-0 left-0 right-0 p-4 bg-background dark:bg-background-dark border-t border-border dark:border-border-dark flex justify-between items-center z-[1000] md:left-16">
     <div class="text-text-secondary dark:text-text-secondary-dark text-sm"></div>
-    <div class="font-bold text-base italic">学笔顺用书空 @2025</div>
+    <div class="font-bold text-base italic text-gray-800 dark:text-gray-200">书空 @2025</div>
     <div class="flex items-center gap-2">
       <a
         href="https://github.com"

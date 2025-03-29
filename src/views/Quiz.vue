@@ -1,16 +1,15 @@
 <script setup>
-  import { ref, onMounted, nextTick, computed, watch } from 'vue'
-  import { useRouter, useRoute } from 'vue-router'
   import '@fortawesome/fontawesome-free/css/all.css'
-  import { createHanziWriter } from '../utils/hanziWriter'
-  import RightNav from '../components/RightNav.vue'
-  import { loadResource } from '../utils/resourceLoader'
-  import QRCodeModal from '../components/QRCodeModal.vue'
-  import StrokeOrderModal from '../components/StrokeOrderModal.vue'
-  import { addToCart } from '../store/cart'
-  import { useQuizStore } from '../store/quiz'
-  import { message } from '../utils/message'
-  import ZoomControls from '../components/ZoomControls.vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import QRCodeModal from '../components/QRCodeModal.vue'
+import RightNav from '../components/RightNav.vue'
+import StrokeOrderModal from '../components/StrokeOrderModal.vue'
+import ZoomControls from '../components/ZoomControls.vue'
+import { addToCart } from '../store/cart'
+import { useQuizStore } from '../store/quiz'
+import { createHanziWriter } from '../utils/hanziWriter'
+import { message } from '../utils/message'
 
   // 创建统一的汉字书写器配置
   const createHanziWriterWithConfig = (targetId, char, size, onComplete) => {
@@ -67,7 +66,6 @@
     set: value => (quizStore.inputText = value)
   })
   const currentChar = computed(() => quizStore.currentChar)
-  const isPlaying = computed(() => quizStore.isPlaying)
   const isFinished = computed(() => quizStore.isFinished)
   const showQuiz = computed(() => quizStore.showQuiz)
   const errorCount = computed(() => quizStore.errorCount)
@@ -639,11 +637,17 @@
       <div v-show="activeTab === '历史'" class="p-4">
         <div class="flex justify-end mb-4">
           <button
-            @click="quizStore.clearHistory"
+            @click="() => {
+              message.confirm({
+                title: '确认清空',
+                content: '确定要清空所有书空历史记录吗？此操作不可撤销',
+                onOk: () => quizStore.clearHistory()
+              })
+            }"
             class="cursor-pointer px-4 py-2 text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors flex items-center gap-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
             v-if="quizHistory.length > 0"
           >
-            <i class="fas fa-trash"></i> 清空历史
+            <i class="fas fa-trash"></i> 清空书空历史
           </button>
         </div>
         <div v-if="quizHistory.length === 0" class="flex flex-col items-center justify-center p-8 text-gray-500 dark:text-gray-400">

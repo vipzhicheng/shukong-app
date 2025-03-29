@@ -1,5 +1,14 @@
 export default [
   {
+    title: '导图字典',
+    image: '',
+    navLabel: '字典',
+    navIcon: 'fas fa-sitemap',
+    path: '/dictmap',
+    description: '以导图形式展示汉字的关联知识',
+    type: 'app'
+  },
+  {
     title: '笔顺查询',
     image: '',
     navLabel: '查询',

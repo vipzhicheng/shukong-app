@@ -18,6 +18,7 @@
               <i :class="[iconClass, {
                 'text-green-500': type === 'success',
                 'text-yellow-500': type === 'warning',
+                'text-cyan-500': type === 'confirm',
                 'text-blue-500': type === 'alert',
                 'text-red-500': type === 'error'
               }, 'text-2xl']"></i>
@@ -32,10 +33,17 @@
           <div class="mb-5 text-base leading-relaxed text-center">
             {{ message }}
           </div>
-          <div class="flex justify-center">
+          <div class="flex justify-center space-x-3">
+            <button
+              v-if="showCancelButton"
+              class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded text-sm transition-colors"
+              @click="handleCancel"
+            >
+              取消
+            </button>
             <button
               class="cursor-pointer bg-primary-500 hover:bg-primary-500 text-white px-6 py-2 rounded text-sm transition-colors"
-              @click="close"
+              @click="ok"
             >
               确定
             </button>
@@ -53,11 +61,15 @@
     type: {
       type: String,
       default: 'alert',
-      validator: value => ['success', 'warning', 'alert'].includes(value)
+      validator: value => ['success', 'warning', 'alert', 'confirm', 'error'].includes(value)
     },
     message: {
       type: String,
       required: true
+    },
+    title: {
+      type: String,
+      default: ''
     },
     visible: {
       type: Boolean,
@@ -66,17 +78,30 @@
     closeOnClickOverlay: {
       type: Boolean,
       default: true
+    },
+    showCancelButton: {
+      type: Boolean,
+      default: false
+    },
+    onOk: {
+      type: Function,
+      default: null
+    },
+    onCancel: {
+      type: Function,
+      default: null
     }
   })
 
-  const emit = defineEmits(['update:visible', 'close'])
+  const emit = defineEmits(['update:visible', 'close', 'ok', 'cancel'])
 
   const iconClass = computed(() => {
     const icons = {
       success: 'fas fa-check-circle',
       warning: 'fas fa-exclamation-triangle',
       alert: 'fas fa-info-circle',
-      error: 'fas fa-exclamation-triangle'
+      error: 'fas fa-exclamation-triangle',
+      confirm: 'fas fa-question-circle'
     }
     return icons[props.type]
   })
@@ -84,6 +109,25 @@
   const close = () => {
     emit('update:visible', false)
     emit('close')
+
+  }
+
+  const ok = () => {
+    emit('update:visible', false)
+    emit('close')
+    if (props.onOk) {
+      props.onOk()
+    }
+    emit('ok')
+  }
+
+  const handleCancel = () => {
+    emit('update:visible', false)
+    emit('close')
+    if (props.onCancel) {
+      props.onCancel()
+    }
+    emit('cancel')
   }
 
   const handleOverlayClick = () => {

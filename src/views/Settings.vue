@@ -1,14 +1,14 @@
 <script setup>
-  import { ref, onMounted, computed } from 'vue'
-  import { isSpeechSupported, voices } from '../store/speech'
-  import { useThemeStore } from '../store/theme'
-  import RightNav from '../components/RightNav.vue'
-  import Switch from '../components/Switch.vue'
-  import cdnfonts from '../utils/cdnfonts'
-  import { aiVendors, aiTypes } from '../utils/aivendors'
-  import { testVendorAPI } from '../utils/aitest'
-  import { fontFamily, builtinFontSettings, saveBuiltinFontSettings, fontSettings, saveFontSettings, fontError, fontLoaded, fontLoading } from '../store/font'
-  import { message } from '../utils/message'
+  import { computed, onMounted, ref } from 'vue'
+import RightNav from '../components/RightNav.vue'
+import Switch from '../components/Switch.vue'
+import { builtinFontSettings, fontError, fontFamily, fontLoaded, fontLoading, fontSettings, saveBuiltinFontSettings, saveFontSettings } from '../store/font'
+import { isSpeechSupported, voices } from '../store/speech'
+import { useThemeStore } from '../store/theme'
+import { testVendorAPI } from '../utils/aitest'
+import { aiVendors } from '../utils/aivendors'
+import cdnfonts from '../utils/cdnfonts'
+import { message } from '../utils/message'
 
   const menuOpen = ref(false)
   const themeStore = useThemeStore()
@@ -35,6 +35,10 @@
     drawingWidth: 50
   })
 
+  const cozeSettings = ref({
+    personalAccessToken: ''
+  })
+
   const autoPlaySettings = ref({
     autoPlay: false
   })
@@ -48,6 +52,13 @@
   const testText = ref('你好，欢迎使用书空')
 
   const loadSettings = () => {
+    const savedCozeSettings = localStorage.getItem('cozeSettings')
+    if (savedCozeSettings) {
+      cozeSettings.value = Object.assign(
+        cozeSettings.value,
+        JSON.parse(savedCozeSettings)
+      )
+    }
     const savedAutoPlaySettings = localStorage.getItem('autoPlaySettings')
     if (savedAutoPlaySettings) {
       autoPlaySettings.value = Object.assign(
@@ -98,6 +109,10 @@
 
   const saveQuizSettings = () => {
     localStorage.setItem('quizSettings', JSON.stringify(quizSettings.value))
+  }
+
+  const saveCozeSettings = () => {
+    localStorage.setItem('cozeSettings', JSON.stringify(cozeSettings.value))
   }
 
   const saveAiSettings = () => {
@@ -172,6 +187,7 @@
       ]">
         <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">基本设置</li>
         <li @click="scrollToSection('ai-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">AI 设置</li>
+        <li @click="scrollToSection('coze-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">Coze 设置</li>
         <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">字体设置</li>
         <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">朗读设置</li>
         <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">书空设置</li>
@@ -313,6 +329,28 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" id="coze-settings">
+      <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">Coze 设置</h2>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <label class="text-base text-gray-600 dark:text-gray-300">个人令牌：</label>
+          <input
+            type="password"
+            v-model="cozeSettings.personalAccessToken"
+            @change="saveCozeSettings"
+            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-base dark:bg-gray-700 dark:text-gray-300 text-gray-800 bg-gray-100 transition-colors duration-300 hover:border-green-500"
+          />
+          <p class="text-sm text-gray-600">
+            个人令牌申请地址：<a
+              href="https://www.coze.cn/open/oauth/pats"
+              target="_blank"
+              class="text-green-500 hover:text-green-600"
+            >https://www.coze.cn/open/oauth/pats</a>，仅限个人使用，不要外传，需要授权调用工作流，时间可以授权 30 天之内。
+          </p>
         </div>
       </div>
     </div>

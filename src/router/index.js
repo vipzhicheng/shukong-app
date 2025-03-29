@@ -10,6 +10,7 @@ import Apps from '../views/Apps.vue'
 import UI from '../views/UI.vue'
 import Wordbook from '../views/Wordbook.vue'
 import StrokeGame from '../views/StrokeGame.vue'
+import DictMap from '../views/DictMap.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -17,6 +18,16 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/quiz'
+    },
+    {
+      path: '/dictmap',
+      name: 'dictmap',
+      component: DictMap
+    },
+    {
+      path: '/dictmap/:chars',
+      name: 'dictmapChars',
+      component: DictMap
     },
     {
       path: '/zi/:char',

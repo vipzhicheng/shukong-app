@@ -23,7 +23,7 @@
       </button>
       <button
         @click="clearWordbook"
-        class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300"
+        class="px-4 py-2 text-red-500 rounded hover:text-red-600 transition-colors duration-300"
       >
         清空生字本
       </button>
@@ -166,10 +166,15 @@ const clearWordbook = () => {
     message.warning('生字本已经是空的了')
     return
   }
-  if (confirm('确定要清空生字本吗？此操作不可恢复。')) {
-    wordbook.clearWordbook()
-    message.success('生字本已清空')
-  }
+  message.confirm({
+    title: '确认清空',
+    content: '确定要清空生字本吗？此操作不可恢复。',
+    onOk: () => {
+      wordbook.clearWordbook()
+      message.success('生字本已清空')
+    },
+    onCancel: () => {}
+  })
 }
 
 const showAddWordsModal = ref(false)
