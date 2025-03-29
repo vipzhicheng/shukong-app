@@ -25,7 +25,6 @@
   }
 
   const bookData = ref(null)
-  const metadata = ref(null)
   const activeTab = ref(route.query.tab)
   const tabs = ['识字表', '写字表', '词语表']
 
@@ -38,9 +37,8 @@
 
   const loadBookData = async () => {
     try {
-      const data = await loadResource('books/renjiao.json')
-      metadata.value = data.metadata
-      const [gid, vid] = route.params.id.split('')
+      const [gid, vid, variantId] = route.params.id.split('')
+      const data = await loadResource(`books/renjiao/${gid}${vid}${variantId}.json`)
       const grade = data.grades.find(g => g.grade === parseInt(gid))
       if (grade) {
         const volume = grade.volumes.find(v => v.volume === parseInt(vid))
@@ -232,7 +230,7 @@
           to="/book/renjiao"
           class="text-2xl font-bold no-underline text-inherit"
         >
-          {{ metadata?.name || '部编版语文' }}
+        部编版语文
           {{ (bookData && bookData.volume?.term) || '加载中...' }}
         </router-link>
       </div>

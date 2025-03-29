@@ -12,6 +12,7 @@ import Settings from '../views/Settings.vue'
 import Apps from '../views/Apps.vue'
 import UI from '../views/UI.vue'
 import Wordbook from '../views/Wordbook.vue'
+import StrokeGame from '../views/StrokeGame.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -89,6 +90,11 @@ const router = createRouter({
       path: '/ui',
       name: 'ui',
       component: UI
+    },
+    {
+      path: '/play/stroke',
+      name: 'strokeGame',
+      component: StrokeGame
     }
   ]
 })

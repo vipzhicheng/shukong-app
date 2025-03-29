@@ -3,12 +3,19 @@
   import { useRouter } from 'vue-router'
   import packageJson from '../../package.json'
   import '@fortawesome/fontawesome-free/css/all.css'
+  import user from '../store/user'
+  import AvatarSelector from './AvatarSelector.vue'
 
   const router = useRouter()
   const version = ref(packageJson.version)
+  const showAvatarSelector = ref(false)
 
   const navigateToHome = () => {
     router.push('/')
+  }
+
+  const openAvatarSelector = () => {
+    showAvatarSelector.value = true
   }
 </script>
 
@@ -22,9 +29,14 @@
     <div class="flex-1 flex items-center justify-start">
       <slot></slot>
     </div>
-    <div v-if="$slots.right" class="flex-1 flex items-center justify-end mr-4 gap-4">
+    <div class="flex-1 flex items-center justify-end mr-4 gap-4">
       <slot name="right"></slot>
+      <div class="flex items-center gap-2 cursor-pointer" @click="openAvatarSelector">
+        <span class="text-text dark:text-text-dark">{{ user.getNickname() }}</span>
+        <img :src="user.getAvatar()" :alt="user.getNickname()" class="w-8 h-8 rounded-full object-cover">
+      </div>
     </div>
+    <AvatarSelector v-model:show="showAvatarSelector" />
   </div>
   <div class="fixed bottom-0 left-0 right-0 p-4 bg-background dark:bg-background-dark border-t border-border dark:border-border-dark flex justify-between items-center z-[1000] md:left-16">
     <div class="text-text-secondary dark:text-text-secondary-dark text-sm"></div>

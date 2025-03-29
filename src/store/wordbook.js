@@ -30,17 +30,26 @@ function saveWordbook() {
   }
 }
 
+// 过滤出中文字符
+function filterChineseCharacters(text) {
+  return text.replace(/[^\u4e00-\u9fa5]/g, '')
+}
+
 // 添加生字
 function addWord(word) {
+  // 过滤出中文字符
+  const filteredWord = filterChineseCharacters(word)
+  if (!filteredWord) return
+
   // 移除已存在的相同汉字
-  const index = wordbook.value.findIndex(item => item.word === word)
+  const index = wordbook.value.findIndex(item => item.word === filteredWord)
   if (index !== -1) {
     wordbook.value.splice(index, 1)
   }
 
   // 添加新的生字对象
   const newWord = {
-    word,
+    word: filteredWord,
     timestamp: Date.now()
   }
   wordbook.value.push(newWord)
@@ -105,8 +114,9 @@ function getCharacters() {
 // 批量添加生字
 function addWords(words) {
   words.forEach(word => {
-    if (word.trim()) {
-      addWord(word.trim())
+    const trimmedWord = word.trim()
+    if (trimmedWord) {
+      addWord(trimmedWord)
     }
   })
 }

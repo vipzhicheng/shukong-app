@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { md5 } from '../utils/common'
+import { loadResource } from '../utils/resourceLoader'
 
 export const useQuizStore = defineStore('quiz', {
   state: () => ({
@@ -136,6 +137,14 @@ export const useQuizStore = defineStore('quiz', {
     },
     setErrorCount(count) {
       this.errorCount = count
+    },
+    async loadQuizData() {
+      try {
+        const data = await loadResource('quiz.json')
+        this.quizData = data.data
+      } catch (error) {
+        console.error('加载作业数据失败:', error)
+      }
     }
   }
 })

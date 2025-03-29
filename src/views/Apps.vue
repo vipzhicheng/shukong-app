@@ -12,7 +12,7 @@ const appsStore = useAppsStore()
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-300 p-4">应用中心</h1>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-300 p-4">应用中心</h1>
       </div>
     </div>
   </RightNav>

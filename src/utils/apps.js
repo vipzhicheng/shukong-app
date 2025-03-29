@@ -20,10 +20,19 @@ export default [
   {
     title: '生字本',
     image: '',
-    navLabel: '生字本',
+    navLabel: '生字',
     navIcon: 'fas fa-star',
     path: '/wordbook',
     description: '收藏和管理你的生字',
+    type: 'app'
+  },
+  {
+    title: '极限笔顺',
+    image: '',
+    navLabel: '极限',
+    navIcon: 'fas fa-stopwatch',
+    path: '/play/stroke',
+    description: '挑战自己，看看你能多快写出汉字',
     type: 'app'
   }
 ]

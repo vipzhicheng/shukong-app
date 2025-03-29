@@ -83,14 +83,7 @@
   // 检测是否在 Electron 环境中运行
   const isElectron = navigator.userAgent.toLowerCase().indexOf('electron') > -1
 
-  const loadQuizData = async () => {
-    try {
-      const data = await loadResource('quiz.json')
-      quizStore.quizData = data.data
-    } catch (error) {
-      console.error('加载作业数据失败:', error)
-    }
-  }
+
 
   const switchTab = tab => {
     quizStore.setActiveTab(tab)
@@ -135,13 +128,14 @@
     }
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     window.addEventListener('resize', updateContainerSize)
     quizStore.loadQuizSettings()
     updateContainerSize()
-    loadQuizData()
+    await quizStore.loadQuizData()
     quizStore.loadQuizHistory()
     handleRouteChange()
+    handleAutoStart()
   })
 
   const createConfetti = () => {
@@ -315,7 +309,7 @@
     window.addEventListener('resize', updateContainerSize)
     quizStore.loadQuizSettings()
     updateContainerSize()
-    loadQuizData()
+    quizStore.loadQuizData()
     quizStore.loadQuizHistory()
     handleRouteChange()
     handleAutoStart()
@@ -411,7 +405,7 @@
   onMounted(() => {
     window.addEventListener('resize', updateContainerSize)
     updateContainerSize()
-    loadQuizData()
+    quizStore.loadQuizData()
   })
   const handleFileUpload = event => {
     const file = event.target.files[0]

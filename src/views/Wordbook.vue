@@ -2,12 +2,13 @@
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-300 p-4">生字本</h1>
-
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-300 p-4">生字本</h1>
       </div>
     </div>
-    <template v-slot:right>
-      <button
+  </RightNav>
+  <div class="flex flex-row justify-end p-4 gap-4">
+
+    <button
         @click="toggleLayout"
         class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
         :title="isGridLayout ? '切换到列表布局' : '切换到网格布局'"
@@ -16,7 +17,7 @@
       </button>
       <button
         @click="showAddModal"
-        class="px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600 transition-colors duration-300 mr-2"
+        class="px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600 transition-colors duration-300"
       >
         手动添加
       </button>
@@ -54,8 +55,7 @@
       </div>
 
       </Teleport>
-    </template>
-  </RightNav>
+  </div>
 <div class="m-4">
 
     <div v-if="characters.length === 0" class="text-center text-text-secondary dark:text-text-secondary-dark py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">

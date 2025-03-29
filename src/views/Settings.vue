@@ -8,9 +8,9 @@
   import { aiVendors, aiTypes } from '../utils/aivendors'
   import { testVendorAPI } from '../utils/aitest'
   import { fontFamily, builtinFontSettings, saveBuiltinFontSettings, fontSettings, saveFontSettings, fontError, fontLoaded, fontLoading } from '../store/font'
-    import { message } from '../utils/message'
+  import { message } from '../utils/message'
 
-
+  const menuOpen = ref(false)
   const themeStore = useThemeStore()
   const themeSettings = ref({
     mode: themeStore.mode
@@ -161,13 +161,22 @@
     </div>
   </RightNav>
   <div class="max-w-[800px] mx-auto px-5 py-5 mt-[60px]">
-    <ul class="hidden xl:block rounded-md font-bold xl:fixed md:left-[100px] md:top-[150px] md:bg-transparent md:p-4 md:gap-3 md:border md:border-gray-300">
-      <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">基本设置</li>
-      <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">字体设置</li>
-      <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">朗读设置</li>
-      <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">书空设置</li>
-      <li @click="scrollToSection('ai-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">AI 设置</li>
-    </ul>
+    <div class="relative">
+      <button @click="menuOpen = !menuOpen" class="xl:hidden fixed right-4 top-[80px] z-[1001] p-2 rounded-md bg-background dark:bg-background-dark border border-border dark:border-border-dark shadow-md w-10 h-10">
+        <i class="fas fa-bars text-text dark:text-text-dark"></i>
+      </button>
+      <div v-if="menuOpen" class="fixed inset-0 bg-black/50 z-[9999] animate-fade-in md:hidden" @click="menuOpen = false"></div>
+      <ul :class="[
+        'xl:block rounded-md font-bold xl:fixed md:left-[100px] md:top-[150px] md:bg-background dark:md:bg-background-dark md:p-4 md:gap-3 md:border md:border-gray-300',
+        menuOpen ? 'fixed right-4 top-[130px] z-[9999] bg-background dark:bg-background-dark border border-border dark:border-border-dark rounded-md shadow-lg p-2' : 'hidden'
+      ]">
+        <li @click="scrollToSection('general-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">基本设置</li>
+        <li @click="scrollToSection('ai-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">AI 设置</li>
+        <li @click="scrollToSection('font-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">字体设置</li>
+        <li v-if="isSpeechSupported" @click="scrollToSection('voice-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">朗读设置</li>
+        <li @click="scrollToSection('quiz-settings')" class="dark:text-gray-400 text-gray-800 no-underline px-4 py-2 cursor-pointer transition-colors duration-300 hover:text-primary-500">书空设置</li>
+      </ul>
+    </div>
     <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-300" id="general-settings">
       <h2 class="text-xl font-medium dark:text-gray-400 text-gray-800 mb-5 pb-3 border-b border-gray-300">基本设置</h2>
       <div class="flex flex-col gap-6">
