@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted, nextTick, watch } from 'vue'
+  import { ref, onMounted, nextTick, watch, onUnmounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import '@fortawesome/fontawesome-free/css/all.css'
   import { createHanziWriter } from '../utils/hanziWriter'
@@ -7,12 +7,14 @@
   import { addToCart, countTotalCharacters } from '../store/cart'
   import { message } from '../utils/message'
   import RightNav from '../components/RightNav.vue'
+  import wordbook from '../store/wordbook'
 
   const route = useRoute()
   const router = useRouter()
   const inputText = ref('')
   const currentChar = ref('')
   const charList = ref([])
+  const currentIndex = ref(0)
   const writer = ref(null)
   const isPlaying = ref(true)
   const isFinished = ref(false)
@@ -25,14 +27,6 @@
     if (chars.length > 0) {
       router.push(`/query/${encodeURIComponent(chars.join(''))}`)
     }
-  }
-
-  const openBaiduHanyu = () => {
-    window.open(
-      `https://hanyu.baidu.com/hanyu-page/zici/s?wd=${encodeURIComponent(currentChar.value)}&ptype=zici`,
-      '_blank',
-      'noopener,noreferrer'
-    )
   }
 
   // 语音设置
@@ -153,6 +147,15 @@
     }
   }
 
+  const handleToggleWordbook = () => {
+    wordbook.toggle(currentChar.value)
+    if (wordbook.isInWordbook(currentChar.value)) {
+      message.success('已添加到生字本')
+    } else {
+      message.success('已从生字本移除')
+    }
+  }
+
   const updateCharList = async chars => {
     charList.value = Array.from(decodeURIComponent(chars || '')).filter(
       char => {
@@ -161,13 +164,37 @@
     )
 
     if (charList.value.length > 0) {
+      currentIndex.value = 0
       currentChar.value = charList.value[0]
     } else {
       charList.value = ['无']
       currentChar.value = '无'
+      currentIndex.value = 0
     }
     await showCharacter(currentChar.value)
   }
+
+  const handleKeydown = async event => {
+    if (!route.params.chars || charList.value.length <= 1) return
+
+    if (event.key === 'ArrowLeft') {
+      currentIndex.value = (currentIndex.value - 1 + charList.value.length) % charList.value.length
+      currentChar.value = charList.value[currentIndex.value]
+      await showCharacter(currentChar.value)
+    } else if (event.key === 'ArrowRight') {
+      currentIndex.value = (currentIndex.value + 1) % charList.value.length
+      currentChar.value = charList.value[currentIndex.value]
+      await showCharacter(currentChar.value)
+    }
+  }
+
+  onMounted(() => {
+    document.addEventListener('keydown', handleKeydown)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown)
+  })
 
   watch(
     () => route.params.chars,
@@ -194,7 +221,7 @@
       </div>
     </div>
   </RightNav>
-  <div class="max-w-3xl mx-auto px-5 py-5">
+  <div class="max-w-3xl mx-auto px-5 py-5 mt-20">
     <div v-if="!route.params.chars" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg px-5 py-5 flex flex-col sm:flex-row gap-4 z-10">
       <div class="flex-1 relative overflow-hidden rounded-lg p-0.5">
         <div class="absolute -top-[450%] -bottom-[450%] -left-1/2 -right-1/2 z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#ff0000)] rounded-lg"></div>
@@ -238,12 +265,7 @@
         >
           <i class="fas fa-redo"></i>
         </button>
-        <button
-          @click="openBaiduHanyu"
-          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
-        >
-          <i class="fas fa-search"></i>
-        </button>
+
         <button
           v-if="isSpeechSupported"
           @click="playSound"
@@ -257,6 +279,13 @@
           class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button
+          v-if="writer"
+          @click="handleToggleWordbook"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
+          <i :class="wordbook.isInWordbook(currentChar) ? 'fas fa-bookmark' : 'far fa-bookmark'"></i>
         </button>
       </div>
     </div>

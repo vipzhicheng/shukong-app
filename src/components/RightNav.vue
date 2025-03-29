@@ -9,6 +9,8 @@
   const router = useRouter()
   const version = ref(packageJson.version)
   const showAvatarSelector = ref(false)
+  const showSearchInput = ref(false)
+  const searchQuery = ref('')
 
   const navigateToHome = () => {
     router.push('/')
@@ -16,6 +18,23 @@
 
   const openAvatarSelector = () => {
     showAvatarSelector.value = true
+  }
+
+  const toggleSearchInput = () => {
+    showSearchInput.value = !showSearchInput.value
+    if (showSearchInput.value) {
+      setTimeout(() => {
+        document.getElementById('search-input').focus()
+      }, 100)
+    }
+  }
+
+  const handleSearch = () => {
+    if (searchQuery.value.trim()) {
+      router.push(`/query/${encodeURIComponent(searchQuery.value.trim())}`)
+      searchQuery.value = ''
+      showSearchInput.value = false
+    }
   }
 </script>
 
@@ -31,9 +50,40 @@
     </div>
     <div class="flex-1 flex items-center justify-end mr-4 gap-4">
       <slot name="right"></slot>
-      <div class="flex items-center gap-2 cursor-pointer" @click="openAvatarSelector">
-        <span class="text-text dark:text-text-dark">{{ user.getNickname() }}</span>
-        <img :src="user.getAvatar()" :alt="user.getNickname()" class="w-8 h-8 rounded-full object-cover">
+      <div class="relative flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <button @click="toggleSearchInput" class="text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300">
+            <i class="fas fa-search text-xl"></i>
+          </button>
+          <teleport to="body">
+            <div v-if="showSearchInput" class="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]" @click.self="toggleSearchInput">
+          <div class="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
+            <div class="flex-1 relative overflow-hidden rounded-lg p-0.5">
+              <div class="absolute -top-[450%] -bottom-[450%] -left-1/2 -right-1/2 z-0 animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#ff0000)] rounded-lg"></div>
+              <input
+                id="search-input"
+                v-model="searchQuery"
+                @keyup.enter="handleSearch"
+                @keyup.esc="toggleSearchInput"
+                type="text"
+                placeholder="请输入汉字"
+                class="relative z-10 w-full px-4 py-3 text-2xl bg-white dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 outline-none cursor-pointer transition-all duration-300 rounded-lg"
+              >
+            </div>
+            <button
+              @click="handleSearch"
+              class="cursor-pointer px-6 py-3 text-2xl bg-primary-500 text-white rounded-lg hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap"
+            >
+              查询笔顺
+            </button>
+              </div>
+            </div>
+          </teleport>
+        </div>
+        <div class="flex items-center gap-2 cursor-pointer" @click="openAvatarSelector">
+          <span class="text-text dark:text-text-dark">{{ user.getNickname() }}</span>
+          <img :src="user.getAvatar()" :alt="user.getNickname()" class="w-8 h-8 rounded-full object-cover">
+        </div>
       </div>
     </div>
     <AvatarSelector v-model:show="showAvatarSelector" />

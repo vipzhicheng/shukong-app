@@ -4,7 +4,6 @@
   import RightNav from '../components/RightNav.vue'
   import { loadResource } from '../utils/resourceLoader'
   const books = ref([])
-  const jiujiuBooks = ref([])
 
 
   const loadBooks = async () => {
@@ -27,30 +26,9 @@
     }
   }
 
-  const loadJiujiuBooks = async () => {
-    try {
-      const data = await loadResource('books/jiujiu.json')
-      const formattedBooks = []
-
-      data.grades.forEach(grade => {
-        grade.volumes.forEach(volume => {
-          formattedBooks.push({
-            grade: grade.grade,
-            term: volume.term,
-            volume: volume.volume
-          })
-        })
-      })
-
-      jiujiuBooks.value = formattedBooks
-    } catch (error) {
-      console.error('Error loading jiujiu books:', error)
-    }
-  }
 
   onMounted(() => {
     loadBooks()
-    loadJiujiuBooks()
   })
   // 静态展示，不需要动态数据
 </script>
