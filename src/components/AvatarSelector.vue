@@ -14,7 +14,8 @@ const emit = defineEmits(['update:show'])
 const nickname = ref(user.getNickname())
 const selectedAvatar = ref(user.getAvatar())
 
-const avatars = Array.from({ length: 20 }, (_, i) => `/avatars/${String(i + 1).padStart(2, '0')}.png`)
+const baseUrl = import.meta.env.VITE_BASE_URL || '/'
+const avatars = Array.from({ length: 20 }, (_, i) => `${baseUrl}avatars/${String(i + 1).padStart(2, '0')}.png`)
 
 const saveUserInfo = () => {
   user.setNickname(nickname.value)

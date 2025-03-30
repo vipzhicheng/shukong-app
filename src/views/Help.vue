@@ -33,7 +33,8 @@ const markdown = ref('');
 
 onMounted(async () => {
   try {
-    const response = await fetch('/HELP.md');
+    const baseUrl = import.meta.env.VITE_BASE_URL || '/';
+    const response = await fetch(`${baseUrl}HELP.md`);
     markdown.value = await response.text();
 
     const md = new MarkdownIt({

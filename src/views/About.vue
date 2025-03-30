@@ -31,7 +31,8 @@ const route = useRoute();
 
 onMounted(async () => {
   try {
-    const response = await fetch('/README.md');
+    const baseUrl = import.meta.env.VITE_BASE_URL || '';
+    const response = await fetch(`${baseUrl}README.md`);
     markdown.value = await response.text();
 
     const md = new MarkdownIt({

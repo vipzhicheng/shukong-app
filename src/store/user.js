@@ -33,7 +33,10 @@ export default {
   getNickname: () => user.value.nickname,
 
   // 获取用户头像
-  getAvatar: () => user.value.avatar,
+  getAvatar: () => {
+    const baseUrl = import.meta.env.VITE_BASE_URL || '/'
+    return baseUrl + user.value.avatar
+  },
 
   // 设置用户昵称
   setNickname: nickname => {

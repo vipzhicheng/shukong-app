@@ -1,7 +1,8 @@
 export const loadResource = async filePath => {
   // 浏览器环境或开发环境
   if (process.env.NODE_ENV === 'development' || !window.electron) {
-    const response = await fetch(`/${filePath}`)
+    const baseUrl = import.meta.env.VITE_BASE_URL || '/'
+    const response = await fetch(`${baseUrl}${filePath}`)
     if (!response.ok) throw new Error('资源加载失败')
     return response.json()
   }
