@@ -8,11 +8,11 @@
   </RightNav>
 
   <div class="p-4">
-    <div class="flex justify-between items-center mb-8 bg-white dark:bg-gray-800 p-4 rounded-lg ">
-      <div class="text-2xl font-bold text-gray-800 dark:text-gray-200">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-8 bg-white dark:bg-gray-800 p-4 rounded-lg">
+      <div class="text-2xl font-bold text-gray-800 dark:text-gray-200 w-full sm:w-auto text-center sm:text-left">
         倒计时（秒）：{{ timeLeft.toFixed(2) }}
       </div>
-      <div class="text-2xl font-bold text-gray-800 dark:text-gray-200">
+      <div class="text-2xl font-bold text-gray-800 dark:text-gray-200 w-full sm:w-auto text-center sm:text-left">
         完成字数：{{ completedCount }}
       </div>
     </div>
@@ -31,13 +31,13 @@
       </div>
       <div v-else class="w-full">
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
-          <div id="character-target" class="w-[400px] h-[400px] mx-auto"></div>
+          <div id="character-target" class="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] mx-auto"></div>
         </div>
       </div>
 
       <!-- 排行榜区块 -->
       <div class="w-full lg:max-w-md bg-white dark:bg-gray-800 p-4 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-300 mb-4">排行榜</h2>
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-300 mb-4 ">排行榜</h2>
         <div class="space-y-4">
           <div v-for="item in rankedLeaderboard" :key="item.timestamp" class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div class="text-xl font-bold text-gray-800 dark:text-gray-200 w-8">
@@ -48,7 +48,7 @@
               <div class="text-gray-800 dark:text-gray-200 font-medium">{{ item.nickname }}</div>
               <div class="text-sm text-gray-500 dark:text-gray-400">{{ item.date }}</div>
             </div>
-            <div class="text-lg font-semibold text-primary-500">
+            <div class="text-lg font-bold text-primary-500">
               {{ item.score }} 字
             </div>
           </div>
@@ -142,7 +142,13 @@ const endGame = () => {
   currentChar.value = ''
   // 添加成绩到排行榜
   strokeGameStore.addScore(completedCount.value)
-  message.success(`恭喜你在60秒内完成了 ${completedCount.value} 个汉字的笔顺练习！`).then(handleRestart)
+  if (completedCount.value === 0) {
+    message.info(`您在60秒内完成了 ${completedCount.value} 个汉字的笔顺练习，很遗憾没能上榜！`).then(handleRestart)
+    return
+  } else {
+    message.success(`恭喜您在60秒内完成了 ${completedCount.value} 个汉字的笔顺练习！`).then(handleRestart)
+
+  }
 }
 
 // 初始化笔顺渲染
@@ -153,8 +159,8 @@ const initWriter = () => {
   }
 
   writer = createHanziWriter('character-target', currentChar.value, {
-    width: 400,
-    height: 400,
+    width: 300,
+    height: 300,
     showOutline: true,
     strokeAnimationSpeed: 1,
     delayBetweenStrokes: 200,

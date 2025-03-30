@@ -272,7 +272,7 @@
       </div>
       <div class="bg-white dark:bg-gray-700 rounded-lg p-4 space-y-4">
         <div class="flex justify-between items-center">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">查询历史</h3>
+          <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">查询历史</h3>
           <button
             @click="handleClearHistory"
             class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-200 transition-colors duration-300 text-sm"

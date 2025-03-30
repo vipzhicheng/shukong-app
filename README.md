@@ -63,4 +63,4 @@ pnpm build
 
 ## 许可证
 
-[MIT](LICENSE) © 2025 书空团队
+[MIT](LICENSE.txt) © 2025 书空团队

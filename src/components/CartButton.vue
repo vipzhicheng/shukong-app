@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!isHidden"
     class="cart-button fixed right-8 bottom-24 z-50 cursor-pointer"
     @click="toggleCart"
   >
@@ -19,11 +20,28 @@
 
 <script setup>
 import { cartItems, countTotalCharacters, clearCart } from '../store/cart'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useQuizStore } from '../store/quiz'
+import { computed } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 const quizStore = useQuizStore()
+
+// 定义不需要显示按钮的路由路径
+const hiddenRoutes = [
+  '/dictmap',
+  '/play/stroke',
+  '/settings',
+  '/apps',
+  '/help',
+  '/about'
+]
+
+// 判断当前路由是否需要隐藏按钮
+const isHidden = computed(() => {
+  return hiddenRoutes.some(path => route.path.startsWith(path))
+})
 
 const toggleCart = () => {
   // 重置quiz状态

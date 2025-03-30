@@ -5,7 +5,9 @@
   "type": "module",
   "main": "electron/main.js",
   "description": "A App for practicing hanzi strokes",
-  "author": "vipzhicheng",
+  "author": "vipzhicheng <vipzhicheng@gmail.com>",
+  "homepage": "https://github.com/vipzhicheng/shukong-app",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "dev:tauri": "TAURI=true tauri dev",

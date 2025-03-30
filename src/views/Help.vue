@@ -7,7 +7,7 @@
     </div>
   </RightNav>
   <div class="container mx-auto px-4 py-8 relative">
-    <div class="prose lg:prose-xl prose-slate" v-html="renderedContent"></div>
+    <div class="prose lg:prose-xl prose-zinc dark:prose-invert" v-html="renderedContent"></div>
 
   </div>
 </template>

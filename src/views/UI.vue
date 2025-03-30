@@ -203,7 +203,7 @@
   <RightNav>
     <div class="nav-content">
       <div class="nav-menu">
-        <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-300 p-4">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-300 p-4">
           组件库
         </h1>
       </div>
@@ -236,27 +236,27 @@
         :id="category.category"
         class="mb-10"
       >
-        <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-300 mb-5 pb-2.5 border-b-2 border-primary-500">{{ category.category }}</h2>
+        <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-300 mb-5 pb-2.5 border-b-2 border-primary-500">{{ category.category }}</h2>
         <div class="space-y-5">
           <div
             v-for="item in category.items"
             :key="item.name"
             class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <h3 class="text-xl font-semibold text-primary-600 dark:text-primary-500 mb-2.5">{{ item.name }}</h3>
+            <h3 class="text-xl font-bold text-primary-600 dark:text-primary-500 mb-2.5">{{ item.name }}</h3>
             <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{{ item.description }}</p>
 
             <!-- Props表格 -->
             <div v-if="item.props && item.props.length > 0" class="mt-6 mb-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">Props</h4>
+              <h4 class="text-lg font-bold text-gray-800 dark:text-gray-300 p-4 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">Props</h4>
               <div class="overflow-x-auto">
                 <table class="w-full">
                   <thead class="bg-gray-50 dark:bg-gray-900">
                     <tr>
-                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">名称</th>
-                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">类型</th>
-                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">默认值</th>
-                      <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">说明</th>
+                      <th class="px-4 py-3 text-left font-bold text-gray-600 dark:text-gray-300">名称</th>
+                      <th class="px-4 py-3 text-left font-bold text-gray-600 dark:text-gray-300">类型</th>
+                      <th class="px-4 py-3 text-left font-bold text-gray-600 dark:text-gray-300">默认值</th>
+                      <th class="px-4 py-3 text-left font-bold text-gray-600 dark:text-gray-300">说明</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -273,13 +273,13 @@
 
             <!-- 示例代码 -->
             <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 mb-4">示例代码</h4>
+              <h4 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">示例代码</h4>
               <pre class="bg-white dark:bg-gray-800 p-4 rounded-md border border-gray-200 dark:border-gray-700 font-mono text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-all">{{ item.example }}</pre>
             </div>
 
             <!-- Switch组件演示 -->
             <div v-if="item.name === 'Switch'" class="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
-              <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-300 mb-4">组件演示</h4>
+              <h4 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">组件演示</h4>
               <div class="space-y-4">
                 <div class="flex items-center gap-4">
                   <label class="min-w-[100px] text-gray-700 dark:text-gray-300">默认大小：</label>

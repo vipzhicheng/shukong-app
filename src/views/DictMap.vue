@@ -102,8 +102,11 @@ const handleSubmit = async () => {
   const text = inputText.value.trim()
   if (!text) return
 
+  if (loading.value) return
+
   // 更新URL参数
   router.push(`/dictmap/${encodeURIComponent(text)}`)
+
 
   loading.value = true
   try {
@@ -159,65 +162,69 @@ const handleSubmit = async () => {
       </div>
     </div>
   </RightNav>
-  <div class="container mx-auto px-4 py-8 flex flex-col w-full h-[80%]">
-    <div class="mx-auto">
-      <div class="flex gap-2 mb-4">
+  <div class="container mx-auto px-2 sm:px-4 py-4 flex flex-col w-full h-[60%]">
+    <div class="w-full block md:flex">
+      <div class="flex flex-col sm:flex-row gap-2 mb-4 mx-auto">
         <input
           type="text"
           v-model="inputText"
-          class="flex-1 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+          class="w-full md:w-80 px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="请输入要查询的内容"
           @keyup.enter="handleSubmit"
         />
-        <button
-          @click="handleSubmit"
-          :disabled="loading"
-          class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-green-600 dark:hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {{ loading ? '请求中...' : '查字典' }}
-        </button>
-        <button
-          @click="() => router.push(`/query/${encodeURIComponent(inputText.trim())}`)" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700"
-        >
-          查笔顺
-        </button>
-        <button
-          @click="() => {
-            message.confirm({
-              title: '确认清空缓存',
-              content: '确定要清空所有字典缓存数据吗？此操作不可撤销',
-              onOk: async () => {
-                await dictMapStore.clearCache();
-                message.success('缓存已清空');
-              }
-            })
-          }"
-          class="px-6 py-2 text-red-500 rounded-lg hover:text-red-600 focus:outline-none dark:text-red-600 dark:hover:text-red-700"
-        >
-          清空缓存
-        </button>
-        <button
-          @click="async () => {
-console.log(inputText)
-            if (!inputText || !inputText.trim()) return;
-            await dictMapStore.removeFromCache(inputText.trim());
-            message.success('已清除当前查询的缓存');
-            handleSubmit();
-          }"
-          class=" py-2 text-orange-500 rounded-lg hover:text-orange-600 focus:outline-none dark:text-orange-600 dark:hover:text-orange-700"
-        >
-          刷新当前缓存
-        </button>
+        <div class="flex flex-wrap sm:flex-nowrap gap-2">
+          <button
+            @click="handleSubmit"
+            :disabled="loading"
+            class="flex-1 sm:flex-none px-4 sm:px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-green-600 dark:hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed h-12 md:h-full"
+          >
+            {{ loading ? '请求中...' : '查字典' }}
+          </button>
+          <button
+            @click="() => router.push(`/query/${encodeURIComponent(inputText.trim())}`)"
+            class="flex-1 sm:flex-none px-4 sm:px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 h-12 md:h-full"
+          >
+            查笔顺
+          </button>
+          <button
+            @click="() => {
+              message.confirm({
+                title: '确认清空缓存',
+                content: '确定要清空所有字典缓存数据吗？此操作不可撤销',
+                onOk: async () => {
+                  await dictMapStore.clearCache();
+                  message.success('缓存已清空');
+                }
+              })
+            }"
+            class="flex-1 sm:flex-none px-2 py-2 text-red-500 rounded-lg hover:text-red-600 focus:outline-none dark:text-red-600 dark:hover:text-red-700"
+ title="清空所有缓存"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button
+            @click="async () => {
+              if (!inputText || !inputText.trim()) return;
+              await dictMapStore.removeFromCache(inputText.trim());
+              message.success('已清除当前查询的缓存');
+              handleSubmit();
+            }"
+            class="flex-1 sm:flex-none px-2 py-2 text-orange-500 rounded-lg hover:text-orange-600 focus:outline-none dark:text-orange-600 dark:hover:text-orange-700"
+            title="刷新当前缓存"
+          >
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
-    <div id="dict-markmap" class="flex-1 flex relative">
+    <div id="dict-markmap" class="flex-1 flex relative min-h-[300px] sm:min-h-[400px]">
       <svg class="flex-1 w-full bg-green-100" ref="svgRef" />
       <div id="markmap-toolbar" class="cursor-pointer dark:text-gray-50"></div>
     </div>
   </div>
-  <div class="container mx-auto px-4 py-4 max-w-4xl pb-40">
+  <div class="container mx-auto px-2 sm:px-4 py-4 max-w-4xl pb-20 sm:pb-40">
     <div class="flex justify-between items-center mb-2">
-      <h3 class="text-lg font-medium text-gray-800 dark:text-gray-300">最近查询记录</h3>
+      <h3 class="text-lg font-bold text-gray-800 dark:text-gray-300">最近查询记录</h3>
       <button
         @click="() => {
           message.confirm({
@@ -238,12 +245,12 @@ console.log(inputText)
       <div v-if="dictmapHistoryStore.getHistory.length === 0" class="text-gray-500 text-center py-4">
         暂无查询记录
       </div>
-      <div v-else class="grid grid-cols-2 md:grid-cols-5 gap-2">
+      <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
         <div
           v-for="(item, index) in dictmapHistoryStore.getHistory.slice(0, 20)"
           :key="index"
           @click="inputText = item.query; handleSubmit()"
-          class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-center text-gray-800 dark:text-gray-300"
+          class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-center text-gray-800 dark:text-gray-300 truncate"
         >
           {{ item.query }}
         </div>

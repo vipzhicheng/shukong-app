@@ -33,7 +33,7 @@ const appsStore = useAppsStore()
           </router-link>
         </div>
         <div>
-          <router-link :to="app.path" class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500">
+          <router-link :to="app.path" class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500">
             {{ app.title }}
           </router-link>
         </div>

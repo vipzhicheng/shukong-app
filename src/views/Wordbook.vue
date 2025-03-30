@@ -36,7 +36,7 @@
           @click.self="showAddWordsModal = false"
         >
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-lg">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-300">添加到生字本</h2>
+          <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-300">添加到生字本</h2>
           <textarea
             v-model="newWords"
             class="w-full h-40 p-3 border rounded-lg mb-4 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 border-gray-300 dark:border-gray-600"
@@ -88,7 +88,7 @@
       <!-- 列表布局 -->
       <div v-else class="space-y-8">
         <div v-for="group in groupedCharacters" :key="group.date" class="space-y-4">
-          <h2 class="text-xl font-semibold text-text dark:text-text-dark">{{ group.date }}</h2>
+          <h2 class="text-xl font-bold text-text dark:text-text-dark">{{ group.date }}</h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
             <template
               v-for="item in group.items"

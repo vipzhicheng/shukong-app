@@ -6,8 +6,8 @@
       </div>
     </div>
   </RightNav>
-  <div class="container mx-auto px-4 py-8 relative">
-    <div class="prose lg:prose-xl prose-neutral dark:prose-invert prose-code:text-gray-800 dark:prose-code:text-gray-200" v-html="renderedContent"></div>
+  <div class="container mx-auto px-4 py-8 relative w-screen md:w-full">
+    <div class="prose lg:prose-xl prose- prose-neutral dark:prose-invert prose-code:text-gray-800 dark:prose-code:text-gray-200 " v-html="renderedContent"></div>
   </div>
 </template>
 
@@ -89,7 +89,7 @@ onMounted(async () => {
 }
 
 .prose h2 {
-  @apply text-3xl font-semibold mt-8 mb-4 text-gray-800 dark:text-gray-200;
+  @apply text-3xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200;
 }
 
 .prose h3 {

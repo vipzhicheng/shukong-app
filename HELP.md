@@ -173,6 +173,40 @@
 
 - **功能描述**：提供若干小游戏，以帮助孩子趣味性的学习和练习笔顺，认识汉字。
 
+## 截图展示
+
+### 首屏
+
+![首屏](/screenshots/home.png)
+
+### 书空练习界面
+
+![书空练习界面](/screenshots/quiz.png)
+
+### 极限笔顺
+
+![极限笔顺](/screenshots/stroke_game.png)
+
+### 查询功能界面
+
+![查询功能界面](/screenshots/query.png)
+
+### 导图字典界面
+
+![导图字典界面](/screenshots/dict_map.png)
+
+### 小学教材列表
+
+![小学教材列表](/screenshots/book_list.png)
+
+### 字书字表
+
+![字书字表](/screenshots/book.png)
+
+### 扩展应用列表
+
+![扩展应用列表](/screenshots/apps.png)
+
 ## 其他常见问题
 
 1. 网页版的笔顺加载速度较慢怎么办？
