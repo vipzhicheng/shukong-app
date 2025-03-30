@@ -177,35 +177,35 @@
 
 ### 首屏
 
-![首屏](/screenshots/home.png)
+![首屏](./screenshots/home.png)
 
 ### 书空练习界面
 
-![书空练习界面](/screenshots/quiz.png)
+![书空练习界面](./screenshots/quiz.png)
 
 ### 极限笔顺
 
-![极限笔顺](/screenshots/stroke_game.png)
+![极限笔顺](./screenshots/stroke_game.png)
 
 ### 查询功能界面
 
-![查询功能界面](/screenshots/query.png)
+![查询功能界面](./screenshots/query.png)
 
 ### 导图字典界面
 
-![导图字典界面](/screenshots/dict_map.png)
+![导图字典界面](./screenshots/dict_map.png)
 
 ### 小学教材列表
 
-![小学教材列表](/screenshots/book_list.png)
+![小学教材列表](./screenshots/book_list.png)
 
 ### 字书字表
 
-![字书字表](/screenshots/book.png)
+![字书字表](./screenshots/book.png)
 
 ### 扩展应用列表
 
-![扩展应用列表](/screenshots/apps.png)
+![扩展应用列表](./screenshots/apps.png)
 
 ## 其他常见问题
 
