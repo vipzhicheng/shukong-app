@@ -25,6 +25,7 @@ function copyPublicFilesPlugin() {
         await fs.copy('screenshots', 'dist/screenshots')
         await fs.copy('HELP.md', 'dist/HELP.md')
         await fs.copy('LICENSE.txt', 'dist/LICENSE.txt')
+        await fs.copy('donate.png', 'dist/donate.png')
       } else {
         // 手动复制需要的public文件，包含hanzi-writer目录
         await Promise.all(
@@ -43,6 +44,7 @@ function copyPublicFilesPlugin() {
         await fs.copy('screenshots', 'dist_app/screenshots')
         await fs.copy('HELP.md', 'dist_app/HELP.md')
         await fs.copy('LICENSE.txt', 'dist_app/LICENSE.txt')
+        await fs.copy('donate.png', 'dist_app/donate.png')
       }
     }
   }
