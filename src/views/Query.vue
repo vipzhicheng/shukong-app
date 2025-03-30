@@ -150,6 +150,14 @@
     }
   }
 
+  const handleDictMapSearch = (event) => {
+    if (event.altKey) {
+      router.push(`/dictmap/${encodeURIComponent(charList.value.join(''))}`)
+    } else {
+      router.push(`/dictmap/${encodeURIComponent(currentChar.value)}`)
+    }
+  }
+
   const handleToggleWordbook = () => {
     wordbook.toggle(currentChar.value)
     if (wordbook.isInWordbook(currentChar.value)) {
@@ -352,6 +360,13 @@
           class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
         >
           <i :class="wordbook.isInWordbook(currentChar) ? 'fas fa-star' : 'far fa-star'"></i>
+        </button>
+        <button
+          v-if="writer"
+          @click="handleDictMapSearch"
+          class="px-4 py-2 bg-primary-500 cursor-pointer text-white rounded hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center"
+        >
+          <i class="fas fa-search"></i>
         </button>
       </div>
     </div>

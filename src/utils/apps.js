@@ -43,5 +43,14 @@ export default [
     path: '/play/stroke',
     description: '挑战自己，看看你能多快写出汉字',
     type: 'app'
+  },
+  {
+    title: '帮助文档',
+    image: '',
+    navLabel: '帮助',
+    navIcon: 'fas fa-question-circle',
+    path: '/help',
+    description: '查看系统使用帮助和常见问题解答',
+    type: 'app'
   }
 ]

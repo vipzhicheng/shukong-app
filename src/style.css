@@ -21,3 +21,46 @@
 :deep(.nav-menu) a.active {
   @apply text-primary-500 dark:text-primary-500 font-medium;
 }
+
+.toc {
+  position: fixed;
+  right: 2rem;
+  top: 2rem;
+  width: 280px;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc-item {
+  margin: 0.5rem 0;
+}
+
+.toc-item .toc-item {
+  padding-left: 1rem;
+}
+
+.toc-link {
+  color: #4a5568;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc-link:hover {
+  color: #2b6cb0;
+}
+
+@media (max-width: 1280px) {
+  .toc {
+    display: none;
+  }
+}

@@ -176,6 +176,11 @@ const handleSubmit = async () => {
           {{ loading ? '请求中...' : '查字典' }}
         </button>
         <button
+          @click="() => router.push(`/query/${encodeURIComponent(inputText.trim())}`)" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          查笔顺
+        </button>
+        <button
           @click="() => {
             message.confirm({
               title: '确认清空缓存',
@@ -199,7 +204,7 @@ const handleSubmit = async () => {
   </div>
   <div class="container mx-auto px-4 py-4 max-w-4xl">
     <div class="flex justify-between items-center mb-2">
-      <h3 class="text-lg font-medium">最近查询记录</h3>
+      <h3 class="text-lg font-medium text-gray-800 dark:text-gray-300">最近查询记录</h3>
       <button
         @click="() => {
           message.confirm({
