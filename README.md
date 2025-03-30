@@ -10,7 +10,8 @@
 
 ## 项目体验地址
 
-Github Pages：https://www.vipzhicheng.com/shukong-app/
+- Github Pages：https://www.vipzhicheng.com/shukong-app/
+- Vercel: https://shukong-app.vercel.app/
 
 ### 各端说明
 
