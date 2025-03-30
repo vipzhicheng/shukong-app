@@ -26,17 +26,17 @@ const handleZoomOut = () => {
 </script>
 
 <template>
-  <div class="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+  <div class="hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col gap-2">
     <button
       @click="handleZoomIn"
-      class="cursor-pointer p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      class="flex items-center justify-center w-12 h-12 cursor-pointer p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       :disabled="containerSize >= maxSize"
     >
       <i class="fas fa-search-plus text-xl"></i>
     </button>
     <button
       @click="handleZoomOut"
-      class="cursor-pointer p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      class="flex items-center justify-center w-12 h-12 cursor-pointer p-3 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       :disabled="containerSize <= minSize"
     >
       <i class="fas fa-search-minus text-xl"></i>

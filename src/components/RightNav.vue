@@ -17,6 +17,10 @@
     router.push('/')
   }
 
+  const navigateToAbout = () => {
+    router.push('/about')
+  }
+
   const openAvatarSelector = () => {
     showAvatarSelector.value = true
   }
@@ -93,7 +97,7 @@
   </div>
   <div class="fixed bottom-0 left-0 right-0 p-4 bg-background dark:bg-background-dark border-t border-border dark:border-border-dark flex justify-between items-center z-[1000] md:left-16">
     <div class="text-text-secondary dark:text-text-secondary-dark text-sm"></div>
-    <div class="font-bold text-base italic text-gray-800 dark:text-gray-200">书空 @2025</div>
+    <div @click="navigateToAbout" class="font-bold text-base italic text-gray-800 dark:text-gray-200 cursor-pointer hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300">书空 @2025</div>
     <div class="flex items-center gap-2">
       <a
         href="https://github.com"

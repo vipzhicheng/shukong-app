@@ -5,7 +5,7 @@
         <button @click="handleClose" class="absolute right-4 top-2 text-2xl text-text dark:text-text-dark hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300 cursor-pointer">
           &times;
         </button>
-        <div id="character-target-modal" class="my-4"></div>
+        <div id="character-target-modal" class="my-4 flex items-center justify-center"></div>
         <div class="flex justify-center gap-4 mt-4">
           <button
             @click="togglePlay"
@@ -44,6 +44,13 @@
           >
             <i :class="['far fa-star', { 'fas fa-star': isInWordbook }]"></i>
           </button>
+          <button
+            @click="goToDictMap"
+            class="w-10 h-10 flex items-center justify-center border border-border dark:border-border-dark rounded hover:bg-background-secondary dark:hover:bg-background-secondary-dark transition-colors duration-300 cursor-pointer"
+            title="字典查询"
+          >
+            <i class="fas fa-search"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -57,8 +64,11 @@
   import { addToCart } from '../store/cart'
   import { message } from '../utils/message'
   import wordbook from '../store/wordbook'
+  import { useRouter } from 'vue-router'
 
-  const props = defineProps({
+  const router = useRouter()
+
+const props = defineProps({
     show: {
       type: Boolean,
       default: false
@@ -104,6 +114,11 @@
   const handleClose = () => {
     emit('update:show', false)
     emit('close')
+  }
+
+  const goToDictMap = () => {
+    router.push(`/dictmap/${props.character}`)
+    handleClose()
   }
 
   const togglePlay = () => {

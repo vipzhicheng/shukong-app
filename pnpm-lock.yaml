@@ -20,6 +20,21 @@ dependencies:
   idb:
     specifier: ^8.0.2
     version: 8.0.2
+  markdown-it:
+    specifier: ^14.1.0
+    version: 14.1.0
+  markdown-it-ins:
+    specifier: ^4.0.0
+    version: 4.0.0
+  markdown-it-mark:
+    specifier: ^4.0.0
+    version: 4.0.0
+  markdown-it-sub:
+    specifier: ^2.0.0
+    version: 2.0.0
+  markdown-it-sup:
+    specifier: ^2.0.0
+    version: 2.0.0
   markmap-common:
     specifier: ^0.18.9
     version: 0.18.9

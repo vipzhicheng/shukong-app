@@ -158,7 +158,7 @@ const handleSubmit = async () => {
       </div>
     </div>
   </RightNav>
-  <div class="container mx-auto px-4 py-8 flex flex-col w-screen h-[80%]">
+  <div class="container mx-auto px-4 py-8 flex flex-col w-full h-[80%]">
     <div class="max-w-xl mx-auto">
       <div class="flex gap-2 mb-4">
         <input
@@ -225,7 +225,7 @@ const handleSubmit = async () => {
           v-for="(item, index) in dictmapHistoryStore.getHistory.slice(0, 20)"
           :key="index"
           @click="inputText = item.query; handleSubmit()"
-          class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-center"
+          class="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 text-center text-gray-800 dark:text-gray-300"
         >
           {{ item.query }}
         </div>

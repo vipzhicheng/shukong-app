@@ -11,6 +11,7 @@ import UI from '../views/UI.vue'
 import Wordbook from '../views/Wordbook.vue'
 import StrokeGame from '../views/StrokeGame.vue'
 import DictMap from '../views/DictMap.vue'
+import About from '../views/About.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -88,6 +89,11 @@ const router = createRouter({
       path: '/play/stroke',
       name: 'strokeGame',
       component: StrokeGame
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     }
   ]
 })
