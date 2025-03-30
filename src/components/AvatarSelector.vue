@@ -15,7 +15,7 @@ const nickname = ref(user.getNickname())
 const selectedAvatar = ref(user.getAvatar())
 
 const baseUrl = import.meta.env.VITE_BASE_URL || '/'
-const avatars = Array.from({ length: 20 }, (_, i) => `${baseUrl}avatars/${String(i + 1).padStart(2, '0')}.png`)
+const avatars = Array.from({ length: 20 }, (_, i) => `avatars/${String(i + 1).padStart(2, '0')}.png`)
 
 const saveUserInfo = () => {
   user.setNickname(nickname.value)
@@ -73,7 +73,7 @@ onUnmounted(() => {
             class="relative aspect-square cursor-pointer rounded-lg overflow-hidden hover:ring-2 hover:ring-primary-500 transition-all duration-300"
             :class="{ 'ring-2 ring-primary-500': selectedAvatar === avatar }"
           >
-            <img :src="avatar" :alt="avatar" class="w-full h-full object-cover">
+            <img :src="baseUrl + avatar" :alt="avatar" class="w-full h-full object-cover">
           </div>
         </div>
       </div>

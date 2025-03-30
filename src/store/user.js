@@ -5,7 +5,7 @@ const USER_STORAGE_KEY = 'shukong_user'
 // 默认用户信息
 const defaultUser = {
   nickname: '匿名用户',
-  avatar: '/avatars/01.png'
+  avatar: 'avatars/01.png'
 }
 
 // 从 localStorage 获取用户信息
@@ -35,7 +35,7 @@ export default {
   // 获取用户头像
   getAvatar: () => {
     const baseUrl = import.meta.env.VITE_BASE_URL || '/'
-    return baseUrl + user.value.avatar
+    return baseUrl + user.value.avatar.replace(/^\//, '')
   },
 
   // 设置用户昵称
