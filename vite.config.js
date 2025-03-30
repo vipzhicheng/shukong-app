@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron'
 import fs from 'fs-extra'
@@ -49,62 +49,67 @@ function copyPublicFilesPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    process.env.ELECTRON === 'true' &&
-      electron({
-        entry: 'electron/main.js'
-      }),
-    copyPublicFilesPlugin() // 添加自定义插件
-  ].filter(Boolean),
-  base:
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  let base = env.VITE_BASE_URL || '/'
+  base =
     process.env.ELECTRON === 'true' || process.env.TAURI === 'true'
       ? './'
-      : '/',
-  server: {
-    host: true, // 允许局域网访问
-    port: 5175, // 默认端口
-    proxy: {
-      '/ollama': {
-        target: 'http://localhost:11434',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/ollama/, '')
-      }
-    }
-  },
-  build: {
-    outDir:
-      process.env.ELECTRON === 'true' || process.env.TAURI === 'true'
-        ? 'dist_app'
-        : 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          markmap: [
-            'markmap-view',
-            'markmap-lib',
-            'markmap-common',
-            'markmap-toolbar'
-          ],
-          markdown: [
-            'markdown-it',
-            'markdown-it-anchor',
-            'markdown-it-ins',
-            'markdown-it-mark',
-            'markdown-it-sub',
-            'markdown-it-sup',
-            'markdown-it-toc-done-right'
-          ]
+      : base
+  return {
+    plugins: [
+      vue(),
+      process.env.ELECTRON === 'true' &&
+        electron({
+          entry: 'electron/main.js'
+        }),
+      copyPublicFilesPlugin() // 添加自定义插件
+    ].filter(Boolean),
+    base,
+    server: {
+      host: true, // 允许局域网访问
+      port: 5175, // 默认端口
+      proxy: {
+        '/ollama': {
+          target: 'http://localhost:11434',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/ollama/, '')
         }
-      },
-
-      input: {
-        main: 'index.html'
       }
     },
-    assetsInclude: ['**/*.json'],
-    // 在非Electron环境下，禁用public目录复制，手动控制需要复制的文件
-    copyPublicDir: false
+    build: {
+      outDir:
+        process.env.ELECTRON === 'true' || process.env.TAURI === 'true'
+          ? 'dist_app'
+          : 'dist',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            markmap: [
+              'markmap-view',
+              'markmap-lib',
+              'markmap-common',
+              'markmap-toolbar'
+            ],
+            markdown: [
+              'markdown-it',
+              'markdown-it-anchor',
+              'markdown-it-ins',
+              'markdown-it-mark',
+              'markdown-it-sub',
+              'markdown-it-sup',
+              'markdown-it-toc-done-right'
+            ]
+          }
+        },
+
+        input: {
+          main: 'index.html'
+        }
+      },
+      assetsInclude: ['**/*.json'],
+      // 在非Electron环境下，禁用public目录复制，手动控制需要复制的文件
+      copyPublicDir: false
+    }
   }
 })
