@@ -1,4 +1,11 @@
 <template>
+  <RightNav>
+    <div class="nav-content">
+      <div class="nav-menu">
+        <a style="font-size: 1.5rem; font-weight: bold">帮助文档</a>
+      </div>
+    </div>
+  </RightNav>
   <div class="container mx-auto px-4 py-8 relative">
     <div class="prose lg:prose-xl prose-slate" v-html="renderedContent"></div>
 
@@ -17,6 +24,8 @@ import MarkdownItAnchor from 'markdown-it-anchor';
 import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 import slugify from 'slugify'
 import tinyPinyin from 'tiny-pinyin'
+import RightNav from '../components/RightNav.vue'
+
 const route = useRoute();
 const renderedContent = ref('');
 const markdown = ref('');

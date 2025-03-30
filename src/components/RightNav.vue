@@ -5,7 +5,6 @@
   import '@fortawesome/fontawesome-free/css/all.css'
   import user from '../store/user'
   import AvatarSelector from './AvatarSelector.vue'
-  import { addQueryHistory } from '../store/queryHistory'
 
   const router = useRouter()
   const version = ref(packageJson.version)
@@ -37,7 +36,6 @@
   const handleSearch = () => {
     const query = searchQuery.value.trim()
     if (query) {
-      addQueryHistory(query)
       router.push(`/query/${encodeURIComponent(query)}`)
       searchQuery.value = ''
       showSearchInput.value = false

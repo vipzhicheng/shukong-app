@@ -10,6 +10,7 @@ import RightNav from '../components/RightNav.vue'
 import { useDictMapStore } from '../store/dictMap'
 import { useDictmapHistoryStore } from '../store/dictmapHistory'
 
+
 const route = useRoute()
 const router = useRouter()
 const dictMapStore = useDictMapStore()
@@ -159,7 +160,7 @@ const handleSubmit = async () => {
     </div>
   </RightNav>
   <div class="container mx-auto px-4 py-8 flex flex-col w-full h-[80%]">
-    <div class="max-w-xl mx-auto">
+    <div class="mx-auto">
       <div class="flex gap-2 mb-4">
         <input
           type="text"
@@ -195,6 +196,18 @@ const handleSubmit = async () => {
         >
           清空缓存
         </button>
+        <button
+          @click="async () => {
+console.log(inputText)
+            if (!inputText || !inputText.trim()) return;
+            await dictMapStore.removeFromCache(inputText.trim());
+            message.success('已清除当前查询的缓存');
+            handleSubmit();
+          }"
+          class=" py-2 text-orange-500 rounded-lg hover:text-orange-600 focus:outline-none dark:text-orange-600 dark:hover:text-orange-700"
+        >
+          刷新当前缓存
+        </button>
       </div>
     </div>
     <div id="dict-markmap" class="flex-1 flex relative">
@@ -202,7 +215,7 @@ const handleSubmit = async () => {
       <div id="markmap-toolbar" class="cursor-pointer dark:text-gray-50"></div>
     </div>
   </div>
-  <div class="container mx-auto px-4 py-4 max-w-4xl">
+  <div class="container mx-auto px-4 py-4 max-w-4xl pb-40">
     <div class="flex justify-between items-center mb-2">
       <h3 class="text-lg font-medium text-gray-800 dark:text-gray-300">最近查询记录</h3>
       <button

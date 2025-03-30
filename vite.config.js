@@ -12,6 +12,7 @@ function copyPublicFilesPlugin() {
         // 手动复制需要的public文件，排除hanzi-writer目录
         await Promise.all(
           [
+            'avatars',
             'books',
             'icon.icns',
             'icon.ico',
@@ -20,10 +21,14 @@ function copyPublicFilesPlugin() {
             'quiz.json'
           ].map(file => fs.copy(`public/${file}`, `dist/${file}`))
         )
+        await fs.copy('README.md', 'dist/README.md')
+        await fs.copy('screenshots', 'dist/screenshots')
+        await fs.copy('HELP.md', 'dist/HELP.md')
       } else {
         // 手动复制需要的public文件，包含hanzi-writer目录
         await Promise.all(
           [
+            'avatars',
             'books',
             'hanzi-writer',
             'icon.icns',
@@ -33,6 +38,9 @@ function copyPublicFilesPlugin() {
             'quiz.json'
           ].map(file => fs.copy(`public/${file}`, `dist_app/${file}`))
         )
+        await fs.copy('README.md', 'dist_app/README.md')
+        await fs.copy('screenshots', 'dist_app/screenshots')
+        await fs.copy('HELP.md', 'dist_app/HELP.md')
       }
     }
   }
@@ -69,6 +77,26 @@ export default defineConfig({
         ? 'dist_app'
         : 'dist',
     rollupOptions: {
+      output: {
+        manualChunks: {
+          markmap: [
+            'markmap-view',
+            'markmap-lib',
+            'markmap-common',
+            'markmap-toolbar'
+          ],
+          markdown: [
+            'markdown-it',
+            'markdown-it-anchor',
+            'markdown-it-ins',
+            'markdown-it-mark',
+            'markdown-it-sub',
+            'markdown-it-sup',
+            'markdown-it-toc-done-right'
+          ]
+        }
+      },
+
       input: {
         main: 'index.html'
       }

@@ -1,4 +1,11 @@
 <template>
+  <RightNav>
+    <div class="nav-content">
+      <div class="nav-menu">
+        <a style="font-size: 1.5rem; font-weight: bold">关于书空</a>
+      </div>
+    </div>
+  </RightNav>
   <div class="container mx-auto px-4 py-8 relative">
     <div class="prose lg:prose-xl prose-neutral dark:prose-invert prose-code:text-gray-800 dark:prose-code:text-gray-200" v-html="renderedContent"></div>
   </div>
@@ -13,6 +20,8 @@ import MarkdownItIns from 'markdown-it-ins';
 import MarkdownItMark from 'markdown-it-mark';
 import MarkdownItTocDoneRight from 'markdown-it-toc-done-right';
 import MarkdownItAnchor from 'markdown-it-anchor';
+import RightNav from '../components/RightNav.vue'
+
 import{ useRoute } from 'vue-router'
 import slugify from 'slugify'
 import tinyPinyin from 'tiny-pinyin'

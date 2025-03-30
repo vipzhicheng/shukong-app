@@ -27,7 +27,6 @@
 
     if (chars.length > 0) {
       const query = chars.join('')
-      addQueryHistory(query)
       router.push(`/query/${encodeURIComponent(query)}`)
     }
   }
@@ -168,6 +167,9 @@
   }
 
   const updateCharList = async chars => {
+    if (chars) {
+      addQueryHistory(decodeURIComponent(chars))
+    }
     charList.value = Array.from(decodeURIComponent(chars || '')).filter(
       char => {
         return /[\u4e00-\u9fa5]/.test(char)
@@ -228,7 +230,6 @@
   }
 
   const handleHistoryClick = query => {
-    addQueryHistory(query)
     router.push(`/query/${encodeURIComponent(query)}`)
   }
 

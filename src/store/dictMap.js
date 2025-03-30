@@ -66,6 +66,25 @@ export const useDictMapStore = defineStore('dictMap', {
       }
     },
 
+    // 从缓存中移除指定的数据
+    async removeFromCache(key) {
+      // 过滤非中文字符
+      const chineseOnlyKey = key.replace(/[^\u4e00-\u9fa5]/g, '')
+
+      // 从内存缓存中移除
+      this.memoryCache.delete(chineseOnlyKey)
+
+      // 从 IndexDB 中移除
+      const db = await initDB()
+      try {
+        await db.delete(STORE_NAME, chineseOnlyKey)
+      } catch (error) {
+        console.error('Error removing data from IndexDB:', error)
+      } finally {
+        db.close()
+      }
+    },
+
     // 清除缓存
     async clearCache() {
       // 清除内存缓存

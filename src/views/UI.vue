@@ -6,6 +6,9 @@
   import MessageDialog from '../components/MessageDialog.vue'
   import StrokeOrderModal from '../components/StrokeOrderModal.vue'
   import Switch from '../components/Switch.vue'
+  import AvatarSelector from '../components/AvatarSelector.vue'
+  import BackToTop from '../components/BackToTop.vue'
+  import QRCodeModal from '../components/QRCodeModal.vue'
 
   const components = [
     {
@@ -76,7 +79,7 @@
         {
           name: 'CartButton',
           component: CartButton,
-          description: '购物车按钮组件',
+          description: '购物车按钮组件，用于显示练习列表中的汉字数量并跳转到练习页面',
           props: [],
           example: '<CartButton />'
         },
@@ -119,6 +122,47 @@
             }
           ],
           example: '<StrokeOrderModal v-model:show="showModal" character="汉" />'
+        },
+        {
+          name: 'AvatarSelector',
+          component: AvatarSelector,
+          description: '头像选择器组件，用于选择用户头像和修改昵称',
+          props: [
+            {
+              name: 'show',
+              type: 'Boolean',
+              default: 'false',
+              description: '控制对话框的显示状态'
+            }
+          ],
+          example: '<AvatarSelector v-model:show="showDialog" />'
+        },
+        {
+          name: 'BackToTop',
+          component: BackToTop,
+          description: '返回顶部按钮组件，当页面滚动超过一屏高度时显示',
+          props: [],
+          example: '<BackToTop />'
+        },
+        {
+          name: 'QRCodeModal',
+          component: QRCodeModal,
+          description: '二维码展示模态框组件，用于显示手机扫码练习的二维码',
+          props: [
+            {
+              name: 'show',
+              type: 'Boolean',
+              default: 'false',
+              description: '控制模态框的显示状态'
+            },
+            {
+              name: 'url',
+              type: 'String',
+              default: '""',
+              description: '要生成二维码的URL地址'
+            }
+          ],
+          example: '<QRCodeModal v-model:show="showQRCode" :url="qrcodeUrl" />'
         }
       ]
     }

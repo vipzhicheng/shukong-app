@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "书空",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "tauri": {
     "allowlist": {
@@ -75,10 +75,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 900,
         "resizable": true,
         "title": "书空",
-        "width": 800,
+        "width": 1200,
         "visible": true,
         "decorations": true
       }
