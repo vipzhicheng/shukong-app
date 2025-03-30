@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "version": "standard",
+    "publisher": "人民教育出版社",
+    "name": "部编版语文",
+    "type": "六年制",
+    "year": 2022,
+    "description": "部编版小学语文教材课后练习内容"
+  },
+  "grades": [
+    {
+      "grade": 1,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "一年级上册(2016)",
+          "variant": 1
+        },
+        {
+          "volume": 2,
+          "term": "一年级下册(2016)"
+        }
+      ]
+    },
+    {
+      "grade": 2,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "二年级上册(2017)"
+        },
+        {
+          "volume": 2,
+          "term": "二年级下册(2017)"
+        }
+      ]
+    },
+    {
+      "grade": 3,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "三年级上册(2018)"
+        },
+        {
+          "volume": 2,
+          "term": "三年级下册(2018)"
+        }
+      ]
+    },
+    {
+      "grade": 4,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "四年级上册(2019)"
+        },
+        {
+          "volume": 2,
+          "term": "四年级下册(2019)"
+        }
+      ]
+    },
+    {
+      "grade": 5,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "五年级上册(2019)"
+        },
+        {
+          "volume": 2,
+          "term": "五年级下册(2019)"
+        }
+      ]
+    },
+    {
+      "grade": 6,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "六年级上册(2019)"
+        },
+        {
+          "volume": 2,
+          "term": "六年级下册(2019)"
+        }
+      ]
+    }
+  ]
+}

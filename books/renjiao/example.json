@@ -1,0 +1,30 @@
+{
+  "grades": [
+    {
+      "grade": 1,
+      "volumes": [
+        {
+          "volume": 1,
+          "term": "一年级上册(2016)",
+          "lessons": {
+            "识字1": "天地人"
+          },
+          "recognition": [
+            {
+              "lesson": "识字1",
+              "short": "1",
+              "characters": [
+                {
+                  "character": "天",
+                  "pinyin": "tiān"
+                }
+              ]
+            }
+          ],
+          "writing": [],
+          "words": []
+        }
+      ]
+    }
+  ]
+}
