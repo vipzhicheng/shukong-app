@@ -7,7 +7,7 @@
     "distDir": "../dist_app"
   },
   "package": {
-    "productName": "书空",
+    "productName": "ShuKong",
     "version": "0.2.0"
   },
   "tauri": {

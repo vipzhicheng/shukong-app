@@ -27,7 +27,7 @@ import { message } from '../utils/message'
           const target = document.getElementById(targetId)
           target.innerHTML = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-              <div style="font-size: 200px; font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif; margin-bottom: 10px;">${char}</div>
+              <div class="text-gray-800 dark:text-gray-300" style="font-size: 200px; font-family: KaiTi, 楷体, STKaiti, 华文楷体, serif; margin-bottom: 10px;">${char}</div>
               <div style="color: #666; font-size: 14px;">笔顺数据不存在</div>
               <button
                 style="margin-top: 20px; padding: 8px 16px; background-color: #4a5568; color: white; border-radius: 4px; cursor: pointer;"
@@ -49,6 +49,9 @@ import { message } from '../utils/message'
           return
         }
         writer.value.quiz()
+      },
+      onLoadCharDataError: function(reason) {
+        console.log('Oh No! Something went wrong :(', reason);
       },
       onComplete
     })

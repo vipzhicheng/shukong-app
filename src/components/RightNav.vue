@@ -53,7 +53,7 @@
     <div class="flex-1 flex items-center justify-start">
       <slot></slot>
     </div>
-    <div class="flex-1 flex items-center justify-end mr-4 gap-4">
+    <div class="flex items-center justify-end mr-4 gap-4">
       <slot name="right"></slot>
       <div class="relative flex items-center gap-4">
         <div class="flex items-center gap-2">

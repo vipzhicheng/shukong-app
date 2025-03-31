@@ -58,14 +58,7 @@ export function createHanziWriter(targetId, char, options = {}) {
           : []),
         // 官方CDN
         async () => await HanziWriter.loadCharacterData(char),
-        // jsDelivr CDN
-        async () => {
-          const response = await fetch(
-            `https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`
-          )
-          if (!response.ok) throw new Error('jsDelivr加载失败')
-          return await response.json()
-        },
+
         // UNPKG CDN
         async () => {
           const response = await fetch(

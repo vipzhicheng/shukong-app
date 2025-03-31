@@ -298,7 +298,7 @@
               href="javascript:void(0)"
               @click="scrollToSection(item.id)"
               :class="[
-                'block py-2 px-3 rounded transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700',
+                'block py-2 px-3 rounded transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-300',
                 { 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium': activeSection === item.id }
               ]"
             >
