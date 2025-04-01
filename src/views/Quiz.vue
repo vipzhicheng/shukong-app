@@ -10,6 +10,7 @@ import { addToCart } from '../store/cart'
 import { useQuizStore } from '../store/quiz'
 import { createHanziWriter } from '../utils/hanziWriter'
 import { message } from '../utils/message'
+import confetti from 'canvas-confetti'
 
   // 创建统一的汉字书写器配置
   const createHanziWriterWithConfig = (targetId, char, size, onComplete) => {
@@ -140,33 +141,29 @@ import { message } from '../utils/message'
   })
 
   const createConfetti = () => {
-    const confettiContainer = document.createElement('div')
-    confettiContainer.className = 'fixed inset-0 w-full h-full pointer-events-none z-[1000]'
+    const end = Date.now() + (3 * 1000);
+    const colors = ['#FFE400', '#FFBD00', '#E89400', '#FFCA6C', '#FDFFB8'];
 
-    const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-pink-500']
-    const sizes = ['w-2.5 h-2.5', 'w-3.5 h-3.5', 'w-3 h-3', 'w-4 h-4', 'w-3.5 h-3.5']
-    const delays = ['delay-0', 'delay-200', 'delay-400', 'delay-600', 'delay-800']
+    (function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors
+      });
 
-    for (let i = 0; i < 200; i++) {
-      const confetti = document.createElement('div')
-      const colorIndex = i % colors.length
-      const xOffset = (Math.random() - 0.5) * window.innerWidth
-      const yOffset = (Math.random() - 0.5) * window.innerHeight
-      const rotation = Math.random() * 720
-
-      confetti.className = `
-        fixed left-1/2 top-1/2 rounded-full
-        ${colors[colorIndex]} ${sizes[colorIndex]} ${delays[colorIndex]}
-        animate-confetti-explode opacity-0
-        transform -translate-x-1/2 -translate-y-1/2
-      `
-      confetti.style.setProperty('--tw-translate-x', `calc(-50% + ${xOffset}px)`)
-      confetti.style.setProperty('--tw-translate-y', `calc(-50% + ${yOffset}px)`)
-      confetti.style.setProperty('--tw-rotate', `${rotation}deg`)
-      confettiContainer.appendChild(confetti)
-    }
-
-    document.body.appendChild(confettiContainer)
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
   }
 
   const handleStrokeError = () => {

@@ -67,6 +67,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import { useQuizStore } from '../store/quiz'
 import { useStrokeGameStore } from '../store/strokeGame'
 import RightNav from '../components/RightNav.vue'
+import confetti from 'canvas-confetti'
 
 const quizStore = useQuizStore()
 const quizSettings = computed(() => quizStore.quizSettings)
@@ -147,7 +148,28 @@ const endGame = () => {
     return
   } else {
     message.success(`恭喜您在60秒内完成了 ${completedCount.value} 个汉字的笔顺练习！`).then(handleRestart)
-
+    // 触发烟花效果
+    const end = Date.now() + (3 * 1000)
+    const colors = ['#bb0000', '#ffffff']
+    ;(function frame() {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors
+      })
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors
+      })
+      if (Date.now() < end) {
+        requestAnimationFrame(frame)
+      }
+    }())
   }
 }
 

@@ -193,6 +193,7 @@ const props = defineProps({
         }
         writer.animateCharacter()
         isPlaying.value = true
+
       }
     })
   }
