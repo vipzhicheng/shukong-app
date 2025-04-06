@@ -214,6 +214,13 @@ const handleSubmit = async () => {
           >
             <i class="fas fa-sync-alt"></i>
           </button>
+          <button
+            @click="toggleFullscreen"
+            class="flex-1 sm:flex-none px-2 py-2 text-blue-500 rounded-lg hover:text-blue-600 focus:outline-none dark:text-blue-600 dark:hover:text-blue-700"
+            title="全屏显示"
+          >
+            <i class="fas fa-expand"></i>
+          </button>
         </div>
       </div>
     </div>

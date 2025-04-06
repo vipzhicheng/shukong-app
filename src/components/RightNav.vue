@@ -97,14 +97,7 @@
     <div class="text-text-secondary dark:text-text-secondary-dark text-sm"></div>
     <div @click="navigateToAbout" class="font-bold text-base italic text-gray-800 dark:text-gray-200 cursor-pointer hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300">书空 @2025</div>
     <div class="flex items-center gap-2">
-      <a
-        href="https://github.com/vipzhicheng/shukong-app"
-        target="_blank"
-        class="text-text-secondary dark:text-text-secondary-dark text-xl hover:text-primary-500 dark:hover:text-primary-500 transition-colors duration-300"
-        title="访问 Github"
-      >
-        <i class="fab fa-github"></i>
-      </a>
+
       <div class="text-text-secondary dark:text-text-secondary-dark text-sm">v{{ version }}</div>
     </div>
   </div>

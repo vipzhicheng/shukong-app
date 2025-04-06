@@ -8,6 +8,10 @@
 
 书空是一款专注于汉字笔顺学习的现代化桌面应用，采用最新的前端技术栈打造。它不仅为儿童和汉字学习者提供直观的笔顺动画演示，还通过智能识别技术实时纠正书写错误。结合教材同步和游戏化学习等创新功能，让用户在轻松愉悦的氛围中掌握正确的汉字书写技能。
 
+## 项目开源地址
+
+- https://github.com/vipzhicheng/shukong-app
+
 ## 项目体验地址
 
 - Github Pages：https://www.vipzhicheng.com/shukong-app/
