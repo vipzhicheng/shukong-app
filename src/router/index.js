@@ -1,18 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import About from '../views/About.vue'
+import Apps from '../views/Apps.vue'
+import Book from '../views/Book.vue'
 import Character from '../views/Character.vue'
+import DictMap from '../views/DictMap.vue'
+import Help from '../views/Help.vue'
 import Query from '../views/Query.vue'
 import Quiz from '../views/Quiz.vue'
-import Book from '../views/Book.vue'
 import RenjiaoBooks from '../views/RenjiaoBooks.vue'
 import RenjiaoDetail from '../views/RenjiaoDetail.vue'
 import Settings from '../views/Settings.vue'
-import Apps from '../views/Apps.vue'
-import UI from '../views/UI.vue'
-import Wordbook from '../views/Wordbook.vue'
 import StrokeGame from '../views/StrokeGame.vue'
-import DictMap from '../views/DictMap.vue'
-import About from '../views/About.vue'
-import Help from '../views/Help.vue'
+import Wordbook from '../views/Wordbook.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -80,11 +79,6 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: Settings
-    },
-    {
-      path: '/ui',
-      name: 'ui',
-      component: UI
     },
     {
       path: '/play/stroke',

@@ -25,3 +25,5 @@ dist-electron
 *.njsproj
 *.sln
 *.sw?
+
+*storybook.log

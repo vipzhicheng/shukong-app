@@ -12,7 +12,7 @@
       <span
         class="cart-button-count absolute -top-2 -right-0 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full min-w-[18px] text-center"
       >
-        {{ countTotalCharacters() }}
+        {{ totolCount }}
       </span>
     </div>
   </div>
@@ -22,12 +22,13 @@
 import { cartItems, countTotalCharacters, clearCart } from '../store/cart'
 import { useRouter, useRoute } from 'vue-router'
 import { useQuizStore } from '../store/quiz'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
 const quizStore = useQuizStore()
 
+const totolCount = ref(countTotalCharacters())
 // 定义不需要显示按钮的路由路径
 const hiddenRoutes = [
   '/dictmap',
