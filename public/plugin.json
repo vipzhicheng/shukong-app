@@ -1,0 +1,11 @@
+{
+  "logo": "icon.png",
+  "main": "index.html",
+  "features": [
+    {
+      "code": "test",
+      "cmds": ["书空"],
+      "explain": "书空 1"
+    }
+  ]
+}

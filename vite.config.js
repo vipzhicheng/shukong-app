@@ -8,7 +8,11 @@ function copyPublicFilesPlugin() {
   return {
     name: 'copy-public-files',
     closeBundle: async () => {
-      if (process.env.ELECTRON !== 'true' && process.env.TAURI !== 'true') {
+      if (
+        process.env.ELECTRON !== 'true' &&
+        process.env.TAURI !== 'true' &&
+        process.env.UTOOLS !== 'true'
+      ) {
         // 手动复制需要的public文件，排除hanzi-writer目录
         await Promise.all(
           [
@@ -37,7 +41,8 @@ function copyPublicFilesPlugin() {
             'icon.ico',
             'icon.png',
             'icon.svg',
-            'quiz.json'
+            'quiz.json',
+            'plugin.json'
           ].map(file => fs.copy(`public/${file}`, `dist_app/${file}`))
         )
         await fs.copy('README.md', 'dist_app/README.md')
@@ -55,7 +60,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   let base = env.VITE_BASE_URL || '/'
   base =
-    process.env.ELECTRON === 'true' || process.env.TAURI === 'true'
+    process.env.ELECTRON === 'true' ||
+    process.env.TAURI ||
+    process.env.UTOOLS === 'true'
       ? './'
       : base
   return {
@@ -81,7 +88,9 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir:
-        process.env.ELECTRON === 'true' || process.env.TAURI === 'true'
+        process.env.ELECTRON === 'true' ||
+        process.env.TAURI === 'true' ||
+        process.env.UTOOLS === 'true'
           ? 'dist_app'
           : 'dist',
       rollupOptions: {

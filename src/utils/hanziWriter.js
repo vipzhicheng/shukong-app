@@ -40,7 +40,8 @@ export function createHanziWriter(targetId, char, options = {}) {
         (window.Capacitor && window.Capacitor.isNativePlatform) ||
         window.origin.startsWith('capacitor://')
       const isTauri = window.origin.startsWith('tauri://') || window.__TAURI__
-      let isBrowser = !isCapacitor && !isTauri && !window.electron
+      let isBrowser =
+        !isCapacitor && !isTauri && !window.electron && !window.utools
 
       if (process.env.NODE_ENV === 'development') {
         // 开发环境下，使用本地数据，主要是学习机有第三方地址拦截，用于了CDN

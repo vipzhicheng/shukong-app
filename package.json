@@ -22,6 +22,7 @@
     "build:ios": "pnpm run generate-icons && TAURI=true vite build && cap sync ios && cd ios/App && xcodebuild -scheme App -workspace App.xcworkspace -configuration Release archive -archivePath ./build/App.xcarchive && xcodebuild -exportArchive -archivePath ./build/App.xcarchive -exportPath ./build/IPA -exportOptionsPlist exportOptions.plist",
     "build:electron": "ELECTRON=true vite build && electron-builder -mwl",
     "build:app": "pnpm run build:tauri && pnpm run build:electron",
+    "build:utools": "pnpm run generate-icons && UTOOLS=true VITE_BASE_URL=./ vite build",
     "preview": "vite preview",
     "format": "prettier --write 'src/**/*.{js,vue,ts,jsx,tsx}' && eslint --fix 'src/**/*.{js,vue,ts,jsx,tsx}'",
     "storybook": "storybook dev -p 6006 --disable-telemetry",
