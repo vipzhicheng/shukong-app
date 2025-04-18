@@ -28,7 +28,7 @@ const router = useRouter()
 const route = useRoute()
 const quizStore = useQuizStore()
 
-const totolCount = ref(countTotalCharacters())
+const totolCount = computed(() => countTotalCharacters())
 // 定义不需要显示按钮的路由路径
 const hiddenRoutes = [
   '/dictmap',
